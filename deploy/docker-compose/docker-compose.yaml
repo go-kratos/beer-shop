@@ -1,0 +1,7 @@
+version: '3'
+services:
+  user-db:
+    image: mysql:8
+  
+  
+    
