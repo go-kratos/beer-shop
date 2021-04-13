@@ -10,7 +10,7 @@ import (
 	"github.com/go-kratos/beer-shop/apps/user/internal/data"
 	"github.com/go-kratos/beer-shop/apps/user/internal/server"
 	"github.com/go-kratos/beer-shop/apps/user/internal/service"
-	
+
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

@@ -26,9 +26,9 @@ type UserHandler interface {
 
 	CreateUser(context.Context, *CreateUserReq) (*CreateUserReply, error)
 
-	DeleteAddress(context.Context, *DeleteAddressReq) (*DeleteAddressReply, error)
-
 	DeleteCard(context.Context, *DeleteCardReq) (*DeleteCardReply, error)
+
+	GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error)
 
 	GetCard(context.Context, *GetCardReq) (*GetCardReply, error)
 
@@ -168,15 +168,15 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/DeleteAddress", func(w http.ResponseWriter, r *http.Request) {
-		var in DeleteAddressReq
+	r.HandleFunc("/user.v1.User/GetAddress", func(w http.ResponseWriter, r *http.Request) {
+		var in GetAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeleteAddress(ctx, req.(*DeleteAddressReq))
+			return srv.GetAddress(ctx, req.(*GetAddressReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -186,7 +186,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*DeleteAddressReply)
+		reply := out.(*GetAddressReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

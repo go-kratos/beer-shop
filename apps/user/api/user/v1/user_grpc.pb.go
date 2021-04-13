@@ -23,7 +23,7 @@ type UserClient interface {
 	VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...grpc.CallOption) (*VerifyPasswordReply, error)
 	ListAddress(ctx context.Context, in *ListAddressReq, opts ...grpc.CallOption) (*ListAddressReply, error)
 	CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...grpc.CallOption) (*CreateAddressReply, error)
-	DeleteAddress(ctx context.Context, in *DeleteAddressReq, opts ...grpc.CallOption) (*DeleteAddressReply, error)
+	GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error)
 	ListCard(ctx context.Context, in *ListCardReq, opts ...grpc.CallOption) (*ListCardReply, error)
 	CreateCard(ctx context.Context, in *CreateCardReq, opts ...grpc.CallOption) (*CreateCardReply, error)
 	GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.CallOption) (*GetCardReply, error)
@@ -83,9 +83,9 @@ func (c *userClient) CreateAddress(ctx context.Context, in *CreateAddressReq, op
 	return out, nil
 }
 
-func (c *userClient) DeleteAddress(ctx context.Context, in *DeleteAddressReq, opts ...grpc.CallOption) (*DeleteAddressReply, error) {
-	out := new(DeleteAddressReply)
-	err := c.cc.Invoke(ctx, "/user.v1.User/DeleteAddress", in, out, opts...)
+func (c *userClient) GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error) {
+	out := new(GetAddressReply)
+	err := c.cc.Invoke(ctx, "/user.v1.User/GetAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ type UserServer interface {
 	VerifyPassword(context.Context, *VerifyPasswordReq) (*VerifyPasswordReply, error)
 	ListAddress(context.Context, *ListAddressReq) (*ListAddressReply, error)
 	CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error)
-	DeleteAddress(context.Context, *DeleteAddressReq) (*DeleteAddressReply, error)
+	GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error)
 	ListCard(context.Context, *ListCardReq) (*ListCardReply, error)
 	CreateCard(context.Context, *CreateCardReq) (*CreateCardReply, error)
 	GetCard(context.Context, *GetCardReq) (*GetCardReply, error)
@@ -164,8 +164,8 @@ func (UnimplementedUserServer) ListAddress(context.Context, *ListAddressReq) (*L
 func (UnimplementedUserServer) CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAddress not implemented")
 }
-func (UnimplementedUserServer) DeleteAddress(context.Context, *DeleteAddressReq) (*DeleteAddressReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteAddress not implemented")
+func (UnimplementedUserServer) GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAddress not implemented")
 }
 func (UnimplementedUserServer) ListCard(context.Context, *ListCardReq) (*ListCardReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCard not implemented")
@@ -282,20 +282,20 @@ func _User_CreateAddress_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_DeleteAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAddressReq)
+func _User_GetAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAddressReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).DeleteAddress(ctx, in)
+		return srv.(UserServer).GetAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user.v1.User/DeleteAddress",
+		FullMethod: "/user.v1.User/GetAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).DeleteAddress(ctx, req.(*DeleteAddressReq))
+		return srv.(UserServer).GetAddress(ctx, req.(*GetAddressReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -400,8 +400,8 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_CreateAddress_Handler,
 		},
 		{
-			MethodName: "DeleteAddress",
-			Handler:    _User_DeleteAddress_Handler,
+			MethodName: "GetAddress",
+			Handler:    _User_GetAddress_Handler,
 		},
 		{
 			MethodName: "ListCard",
