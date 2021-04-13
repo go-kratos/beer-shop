@@ -3,7 +3,7 @@ FROM golang:1.15 AS builder
 COPY ${PWD} /src
 WORKDIR /src
 
-RUN mkdir -p bin/ && go build -ldflags "-X main.Version=$(shell git describe --tags --always)" -o ./bin/ ./...
+RUN mkdir -p bin/ && GOPROXY=https://goproxy.cn go build -o ./bin/ ./...
 
 FROM debian:stable-slim
 
@@ -19,5 +19,6 @@ WORKDIR /app
 
 EXPOSE 8000
 EXPOSE 9000
+VOLUME /data/conf
 
-CMD ["./user"]
+CMD ["./user", "-conf", "/data/conf"]
