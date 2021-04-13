@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "user/api/user/v1;v1";
+option java_multiple_files = true;
+
+
+service User {
+  rpc GetUser (GetUserReq) returns (GetUserReply)  {}
+
+  rpc CreateUser (CreateUserReq) returns (CreateUserReply)  {}
+
+  rpc VerifyPassword (VerifyPasswordReq) returns (VerifyPasswordReply)  {}
+
+  rpc ListAddress (ListAddressReq) returns (ListAddressReply)  {}
+
+  rpc CreateAddress (CreateAddressReq) returns (CreateAddressReply)  {}
+
+  rpc DeleteAddress (DeleteAddressReq) returns (DeleteAddressReply)  {}
+
+  rpc ListCard (ListCardReq) returns (ListCardReply)  {}
+
+  rpc CreateCard (CreateCardReq) returns (CreateCardReply)  {}
+
+  rpc GetCard (GetCardReq) returns (GetCardReply)  {}
+
+  rpc DeleteCard (DeleteCardReq) returns (DeleteCardReply)  {}
+
+}
+
+message GetUserReq {
+
+}
+
+message GetUserReply {
+
+}
+
+message CreateUserReq {
+
+}
+
+message CreateUserReply {
+
+}
+
+message VerifyPasswordReq {
+
+}
+
+message VerifyPasswordReply {
+
+}
+
+message ListAddressReq {
+
+}
+
+message ListAddressReply {
+
+}
+
+message CreateAddressReq {
+
+}
+
+message CreateAddressReply {
+
+}
+
+message DeleteAddressReq {
+
+}
+
+message DeleteAddressReply {
+
+}
+
+message ListCardReq {
+
+}
+
+message ListCardReply {
+
+}
+
+message CreateCardReq {
+
+}
+
+message CreateCardReply {
+
+}
+
+message GetCardReq {
+
+}
+
+message GetCardReply {
+
+}
+
+message DeleteCardReq {
+
+}
+
+message DeleteCardReply {
+
+}
