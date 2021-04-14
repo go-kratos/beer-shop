@@ -74,13 +74,13 @@ func (cu *CardUpdate) SetNillableUpdatedAt(t *time.Time) *CardUpdate {
 	return cu
 }
 
-// SetUserID sets the "user-service" edge to the User entity by ID.
+// SetUserID sets the "server-service" edge to the User entity by ID.
 func (cu *CardUpdate) SetUserID(id int64) *CardUpdate {
 	cu.mutation.SetUserID(id)
 	return cu
 }
 
-// SetNillableUserID sets the "user-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
 func (cu *CardUpdate) SetNillableUserID(id *int64) *CardUpdate {
 	if id != nil {
 		cu = cu.SetUserID(*id)
@@ -88,7 +88,7 @@ func (cu *CardUpdate) SetNillableUserID(id *int64) *CardUpdate {
 	return cu
 }
 
-// SetUser sets the "user-service" edge to the User entity.
+// SetUser sets the "server-service" edge to the User entity.
 func (cu *CardUpdate) SetUser(u *User) *CardUpdate {
 	return cu.SetUserID(u.ID)
 }
@@ -98,7 +98,7 @@ func (cu *CardUpdate) Mutation() *CardMutation {
 	return cu.mutation
 }
 
-// ClearUser clears the "user-service" edge to the User entity.
+// ClearUser clears the "server-service" edge to the User entity.
 func (cu *CardUpdate) ClearUser() *CardUpdate {
 	cu.mutation.ClearUser()
 	return cu
@@ -307,13 +307,13 @@ func (cuo *CardUpdateOne) SetNillableUpdatedAt(t *time.Time) *CardUpdateOne {
 	return cuo
 }
 
-// SetUserID sets the "user-service" edge to the User entity by ID.
+// SetUserID sets the "server-service" edge to the User entity by ID.
 func (cuo *CardUpdateOne) SetUserID(id int64) *CardUpdateOne {
 	cuo.mutation.SetUserID(id)
 	return cuo
 }
 
-// SetNillableUserID sets the "user-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
 func (cuo *CardUpdateOne) SetNillableUserID(id *int64) *CardUpdateOne {
 	if id != nil {
 		cuo = cuo.SetUserID(*id)
@@ -321,7 +321,7 @@ func (cuo *CardUpdateOne) SetNillableUserID(id *int64) *CardUpdateOne {
 	return cuo
 }
 
-// SetUser sets the "user-service" edge to the User entity.
+// SetUser sets the "server-service" edge to the User entity.
 func (cuo *CardUpdateOne) SetUser(u *User) *CardUpdateOne {
 	return cuo.SetUserID(u.ID)
 }
@@ -331,7 +331,7 @@ func (cuo *CardUpdateOne) Mutation() *CardMutation {
 	return cuo.mutation
 }
 
-// ClearUser clears the "user-service" edge to the User entity.
+// ClearUser clears the "server-service" edge to the User entity.
 func (cuo *CardUpdateOne) ClearUser() *CardUpdateOne {
 	cuo.mutation.ClearUser()
 	return cuo

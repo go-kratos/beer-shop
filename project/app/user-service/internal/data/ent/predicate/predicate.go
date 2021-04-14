@@ -12,5 +12,5 @@ type Address func(*sql.Selector)
 // Card is the predicate function for card builders.
 type Card func(*sql.Selector)
 
-// User is the predicate function for user-service builders.
+// User is the predicate function for server-service builders.
 type User func(*sql.Selector)

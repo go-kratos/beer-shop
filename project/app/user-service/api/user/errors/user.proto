@@ -4,7 +4,7 @@ package kratos.user.errors;
 
 import "kratos/api/annotations.proto";
 
-option go_package = "user-service/errors;errors";
+option go_package = "server-service/errors;errors";
 option java_multiple_files = true;
 
 enum User {

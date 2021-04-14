@@ -161,7 +161,7 @@ func (tx *Tx) init() {
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.
 // The idea is to support transactions without adding any extra code to the builders.
 // When a builder calls to driver.Tx(), it gets the same dialect.Tx instance.
-// Commit and Rollback are nop for the internal builders and the user-service must call one
+// Commit and Rollback are nop for the internal builders and the server-service must call one
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity

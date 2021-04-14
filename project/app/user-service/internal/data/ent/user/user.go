@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	// Label holds the string label denoting the user-service type in the database.
-	Label = "user-service"
+	// Label holds the string label denoting the server-service type in the database.
+	Label = "server-service"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// FieldUsername holds the string denoting the username field in the database.
@@ -23,7 +23,7 @@ const (
 	EdgeAddresses = "addresses"
 	// EdgeCards holds the string denoting the cards edge name in mutations.
 	EdgeCards = "cards"
-	// Table holds the table name of the user-service in the database.
+	// Table holds the table name of the server-service in the database.
 	Table = "users"
 	// AddressesTable is the table the holds the addresses relation/edge.
 	AddressesTable = "addresses"
@@ -41,7 +41,7 @@ const (
 	CardsColumn = "user_cards"
 )
 
-// Columns holds all SQL columns for user-service fields.
+// Columns holds all SQL columns for server-service fields.
 var Columns = []string{
 	FieldID,
 	FieldUsername,

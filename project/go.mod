@@ -1,4 +1,4 @@
-module github.com/go-kratos/beer-shop/project/app/user-service
+module github.com/go-kratos/beer-shop/project
 
 go 1.15
 

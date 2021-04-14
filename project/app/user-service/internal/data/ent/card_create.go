@@ -73,13 +73,13 @@ func (cc *CardCreate) SetID(i int64) *CardCreate {
 	return cc
 }
 
-// SetUserID sets the "user-service" edge to the User entity by ID.
+// SetUserID sets the "server-service" edge to the User entity by ID.
 func (cc *CardCreate) SetUserID(id int64) *CardCreate {
 	cc.mutation.SetUserID(id)
 	return cc
 }
 
-// SetNillableUserID sets the "user-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
 func (cc *CardCreate) SetNillableUserID(id *int64) *CardCreate {
 	if id != nil {
 		cc = cc.SetUserID(*id)
@@ -87,7 +87,7 @@ func (cc *CardCreate) SetNillableUserID(id *int64) *CardCreate {
 	return cc
 }
 
-// SetUser sets the "user-service" edge to the User entity.
+// SetUser sets the "server-service" edge to the User entity.
 func (cc *CardCreate) SetUser(u *User) *CardCreate {
 	return cc.SetUserID(u.ID)
 }
@@ -154,7 +154,7 @@ func (cc *CardCreate) defaults() {
 	}
 }
 
-// check runs all checks and user-service-defined validators on the builder.
+// check runs all checks and server-service-defined validators on the builder.
 func (cc *CardCreate) check() error {
 	if _, ok := cc.mutation.CardNo(); !ok {
 		return &ValidationError{Name: "card_no", err: errors.New("ent: missing required field \"card_no\"")}

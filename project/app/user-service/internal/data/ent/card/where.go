@@ -613,7 +613,7 @@ func UpdatedAtLTE(v time.Time) predicate.Card {
 	})
 }
 
-// HasUser applies the HasEdge predicate on the "user-service" edge.
+// HasUser applies the HasEdge predicate on the "server-service" edge.
 func HasUser() predicate.Card {
 	return predicate.Card(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
@@ -625,7 +625,7 @@ func HasUser() predicate.Card {
 	})
 }
 
-// HasUserWith applies the HasEdge predicate on the "user-service" edge with a given conditions (other predicates).
+// HasUserWith applies the HasEdge predicate on the "server-service" edge with a given conditions (other predicates).
 func HasUserWith(preds ...predicate.User) predicate.Card {
 	return predicate.Card(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(

@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.6.1
-// source: user-service.proto
+// source: server-service.proto
 
 package errors
 
@@ -100,7 +100,7 @@ func file_user_proto_rawDescGZIP() []byte {
 
 var file_user_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_user_proto_goTypes = []interface{}{
-	(User)(0), // 0: kratos.user-service.errors.User
+	(User)(0), // 0: kratos.server-service.errors.User
 }
 var file_user_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

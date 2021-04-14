@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.6.1
-// source: user-service.proto
+// source: server-service.proto
 
 package v1
 
@@ -1536,52 +1536,52 @@ func file_user_proto_rawDescGZIP() []byte {
 
 var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_user_proto_goTypes = []interface{}{
-	(*GetUserReq)(nil),               // 0: user-service.v1.GetUserReq
-	(*GetUserReply)(nil),             // 1: user-service.v1.GetUserReply
-	(*CreateUserReq)(nil),            // 2: user-service.v1.CreateUserReq
-	(*CreateUserReply)(nil),          // 3: user-service.v1.CreateUserReply
-	(*VerifyPasswordReq)(nil),        // 4: user-service.v1.VerifyPasswordReq
-	(*VerifyPasswordReply)(nil),      // 5: user-service.v1.VerifyPasswordReply
-	(*ListAddressReq)(nil),           // 6: user-service.v1.ListAddressReq
-	(*ListAddressReply)(nil),         // 7: user-service.v1.ListAddressReply
-	(*CreateAddressReq)(nil),         // 8: user-service.v1.CreateAddressReq
-	(*CreateAddressReply)(nil),       // 9: user-service.v1.CreateAddressReply
-	(*GetAddressReq)(nil),            // 10: user-service.v1.GetAddressReq
-	(*GetAddressReply)(nil),          // 11: user-service.v1.GetAddressReply
-	(*ListCardReq)(nil),              // 12: user-service.v1.ListCardReq
-	(*ListCardReply)(nil),            // 13: user-service.v1.ListCardReply
-	(*CreateCardReq)(nil),            // 14: user-service.v1.CreateCardReq
-	(*CreateCardReply)(nil),          // 15: user-service.v1.CreateCardReply
-	(*GetCardReq)(nil),               // 16: user-service.v1.GetCardReq
-	(*GetCardReply)(nil),             // 17: user-service.v1.GetCardReply
-	(*DeleteCardReq)(nil),            // 18: user-service.v1.DeleteCardReq
-	(*DeleteCardReply)(nil),          // 19: user-service.v1.DeleteCardReply
-	(*ListAddressReply_Address)(nil), // 20: user-service.v1.ListAddressReply.Address
-	(*ListCardReply_Card)(nil),       // 21: user-service.v1.ListCardReply.Card
+	(*GetUserReq)(nil),               // 0: server-service.v1.GetUserReq
+	(*GetUserReply)(nil),             // 1: server-service.v1.GetUserReply
+	(*CreateUserReq)(nil),            // 2: server-service.v1.CreateUserReq
+	(*CreateUserReply)(nil),          // 3: server-service.v1.CreateUserReply
+	(*VerifyPasswordReq)(nil),        // 4: server-service.v1.VerifyPasswordReq
+	(*VerifyPasswordReply)(nil),      // 5: server-service.v1.VerifyPasswordReply
+	(*ListAddressReq)(nil),           // 6: server-service.v1.ListAddressReq
+	(*ListAddressReply)(nil),         // 7: server-service.v1.ListAddressReply
+	(*CreateAddressReq)(nil),         // 8: server-service.v1.CreateAddressReq
+	(*CreateAddressReply)(nil),       // 9: server-service.v1.CreateAddressReply
+	(*GetAddressReq)(nil),            // 10: server-service.v1.GetAddressReq
+	(*GetAddressReply)(nil),          // 11: server-service.v1.GetAddressReply
+	(*ListCardReq)(nil),              // 12: server-service.v1.ListCardReq
+	(*ListCardReply)(nil),            // 13: server-service.v1.ListCardReply
+	(*CreateCardReq)(nil),            // 14: server-service.v1.CreateCardReq
+	(*CreateCardReply)(nil),          // 15: server-service.v1.CreateCardReply
+	(*GetCardReq)(nil),               // 16: server-service.v1.GetCardReq
+	(*GetCardReply)(nil),             // 17: server-service.v1.GetCardReply
+	(*DeleteCardReq)(nil),            // 18: server-service.v1.DeleteCardReq
+	(*DeleteCardReply)(nil),          // 19: server-service.v1.DeleteCardReply
+	(*ListAddressReply_Address)(nil), // 20: server-service.v1.ListAddressReply.Address
+	(*ListCardReply_Card)(nil),       // 21: server-service.v1.ListCardReply.Card
 }
 var file_user_proto_depIdxs = []int32{
-	20, // 0: user-service.v1.ListAddressReply.results:type_name -> user-service.v1.ListAddressReply.Address
-	21, // 1: user-service.v1.ListCardReply.results:type_name -> user-service.v1.ListCardReply.Card
-	0,  // 2: user-service.v1.User.GetUser:input_type -> user-service.v1.GetUserReq
-	2,  // 3: user-service.v1.User.CreateUser:input_type -> user-service.v1.CreateUserReq
-	4,  // 4: user-service.v1.User.VerifyPassword:input_type -> user-service.v1.VerifyPasswordReq
-	6,  // 5: user-service.v1.User.ListAddress:input_type -> user-service.v1.ListAddressReq
-	8,  // 6: user-service.v1.User.CreateAddress:input_type -> user-service.v1.CreateAddressReq
-	10, // 7: user-service.v1.User.GetAddress:input_type -> user-service.v1.GetAddressReq
-	12, // 8: user-service.v1.User.ListCard:input_type -> user-service.v1.ListCardReq
-	14, // 9: user-service.v1.User.CreateCard:input_type -> user-service.v1.CreateCardReq
-	16, // 10: user-service.v1.User.GetCard:input_type -> user-service.v1.GetCardReq
-	18, // 11: user-service.v1.User.DeleteCard:input_type -> user-service.v1.DeleteCardReq
-	1,  // 12: user-service.v1.User.GetUser:output_type -> user-service.v1.GetUserReply
-	3,  // 13: user-service.v1.User.CreateUser:output_type -> user-service.v1.CreateUserReply
-	5,  // 14: user-service.v1.User.VerifyPassword:output_type -> user-service.v1.VerifyPasswordReply
-	7,  // 15: user-service.v1.User.ListAddress:output_type -> user-service.v1.ListAddressReply
-	9,  // 16: user-service.v1.User.CreateAddress:output_type -> user-service.v1.CreateAddressReply
-	11, // 17: user-service.v1.User.GetAddress:output_type -> user-service.v1.GetAddressReply
-	13, // 18: user-service.v1.User.ListCard:output_type -> user-service.v1.ListCardReply
-	15, // 19: user-service.v1.User.CreateCard:output_type -> user-service.v1.CreateCardReply
-	17, // 20: user-service.v1.User.GetCard:output_type -> user-service.v1.GetCardReply
-	19, // 21: user-service.v1.User.DeleteCard:output_type -> user-service.v1.DeleteCardReply
+	20, // 0: server-service.v1.ListAddressReply.results:type_name -> server-service.v1.ListAddressReply.Address
+	21, // 1: server-service.v1.ListCardReply.results:type_name -> server-service.v1.ListCardReply.Card
+	0,  // 2: server-service.v1.User.GetUser:input_type -> server-service.v1.GetUserReq
+	2,  // 3: server-service.v1.User.CreateUser:input_type -> server-service.v1.CreateUserReq
+	4,  // 4: server-service.v1.User.VerifyPassword:input_type -> server-service.v1.VerifyPasswordReq
+	6,  // 5: server-service.v1.User.ListAddress:input_type -> server-service.v1.ListAddressReq
+	8,  // 6: server-service.v1.User.CreateAddress:input_type -> server-service.v1.CreateAddressReq
+	10, // 7: server-service.v1.User.GetAddress:input_type -> server-service.v1.GetAddressReq
+	12, // 8: server-service.v1.User.ListCard:input_type -> server-service.v1.ListCardReq
+	14, // 9: server-service.v1.User.CreateCard:input_type -> server-service.v1.CreateCardReq
+	16, // 10: server-service.v1.User.GetCard:input_type -> server-service.v1.GetCardReq
+	18, // 11: server-service.v1.User.DeleteCard:input_type -> server-service.v1.DeleteCardReq
+	1,  // 12: server-service.v1.User.GetUser:output_type -> server-service.v1.GetUserReply
+	3,  // 13: server-service.v1.User.CreateUser:output_type -> server-service.v1.CreateUserReply
+	5,  // 14: server-service.v1.User.VerifyPassword:output_type -> server-service.v1.VerifyPasswordReply
+	7,  // 15: server-service.v1.User.ListAddress:output_type -> server-service.v1.ListAddressReply
+	9,  // 16: server-service.v1.User.CreateAddress:output_type -> server-service.v1.CreateAddressReply
+	11, // 17: server-service.v1.User.GetAddress:output_type -> server-service.v1.GetAddressReply
+	13, // 18: server-service.v1.User.ListCard:output_type -> server-service.v1.ListCardReply
+	15, // 19: server-service.v1.User.CreateCard:output_type -> server-service.v1.CreateCardReply
+	17, // 20: server-service.v1.User.GetCard:output_type -> server-service.v1.GetCardReply
+	19, // 21: server-service.v1.User.DeleteCard:output_type -> server-service.v1.DeleteCardReply
 	12, // [12:22] is the sub-list for method output_type
 	2,  // [2:12] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name

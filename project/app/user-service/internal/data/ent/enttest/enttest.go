@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-kratos/beer-shop/project/app/user-service/internal/data/ent"
 	// required by schema hooks.
-	_ "github.com/go-kratos/beer-shop/project/user/internal/data/ent/runtime"
+	_ "github.com/go-kratos/beer-shop/project/server/internal/data/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

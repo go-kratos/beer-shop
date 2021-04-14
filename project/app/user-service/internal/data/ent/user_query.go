@@ -324,7 +324,7 @@ func (uq *UserQuery) WithCards(opts ...func(*CardQuery)) *UserQuery {
 //	}
 //
 //	client.User.Query().
-//		GroupBy(user-service.FieldUsername).
+//		GroupBy(server-service.FieldUsername).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -350,7 +350,7 @@ func (uq *UserQuery) GroupBy(field string, fields ...string) *UserGroupBy {
 //	}
 //
 //	client.User.Query().
-//		Select(user-service.FieldUsername).
+//		Select(server-service.FieldUsername).
 //		Scan(ctx, &v)
 //
 func (uq *UserQuery) Select(field string, fields ...string) *UserSelect {

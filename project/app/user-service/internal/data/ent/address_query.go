@@ -56,7 +56,7 @@ func (aq *AddressQuery) Order(o ...OrderFunc) *AddressQuery {
 	return aq
 }
 
-// QueryUser chains the current query on the "user-service" edge.
+// QueryUser chains the current query on the "server-service" edge.
 func (aq *AddressQuery) QueryUser() *UserQuery {
 	query := &UserQuery{config: aq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
@@ -267,7 +267,7 @@ func (aq *AddressQuery) Clone() *AddressQuery {
 }
 
 // WithUser tells the query-builder to eager-load the nodes that are connected to
-// the "user-service" edge. The optional arguments are used to configure the query builder of the edge.
+// the "server-service" edge. The optional arguments are used to configure the query builder of the edge.
 func (aq *AddressQuery) WithUser(opts ...func(*UserQuery)) *AddressQuery {
 	query := &UserQuery{config: aq.config}
 	for _, opt := range opts {

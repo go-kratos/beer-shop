@@ -92,13 +92,13 @@ func (au *AddressUpdate) SetNillableUpdatedAt(t *time.Time) *AddressUpdate {
 	return au
 }
 
-// SetUserID sets the "user-service" edge to the User entity by ID.
+// SetUserID sets the "server-service" edge to the User entity by ID.
 func (au *AddressUpdate) SetUserID(id int64) *AddressUpdate {
 	au.mutation.SetUserID(id)
 	return au
 }
 
-// SetNillableUserID sets the "user-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
 func (au *AddressUpdate) SetNillableUserID(id *int64) *AddressUpdate {
 	if id != nil {
 		au = au.SetUserID(*id)
@@ -106,7 +106,7 @@ func (au *AddressUpdate) SetNillableUserID(id *int64) *AddressUpdate {
 	return au
 }
 
-// SetUser sets the "user-service" edge to the User entity.
+// SetUser sets the "server-service" edge to the User entity.
 func (au *AddressUpdate) SetUser(u *User) *AddressUpdate {
 	return au.SetUserID(u.ID)
 }
@@ -116,7 +116,7 @@ func (au *AddressUpdate) Mutation() *AddressMutation {
 	return au.mutation
 }
 
-// ClearUser clears the "user-service" edge to the User entity.
+// ClearUser clears the "server-service" edge to the User entity.
 func (au *AddressUpdate) ClearUser() *AddressUpdate {
 	au.mutation.ClearUser()
 	return au
@@ -364,13 +364,13 @@ func (auo *AddressUpdateOne) SetNillableUpdatedAt(t *time.Time) *AddressUpdateOn
 	return auo
 }
 
-// SetUserID sets the "user-service" edge to the User entity by ID.
+// SetUserID sets the "server-service" edge to the User entity by ID.
 func (auo *AddressUpdateOne) SetUserID(id int64) *AddressUpdateOne {
 	auo.mutation.SetUserID(id)
 	return auo
 }
 
-// SetNillableUserID sets the "user-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
 func (auo *AddressUpdateOne) SetNillableUserID(id *int64) *AddressUpdateOne {
 	if id != nil {
 		auo = auo.SetUserID(*id)
@@ -378,7 +378,7 @@ func (auo *AddressUpdateOne) SetNillableUserID(id *int64) *AddressUpdateOne {
 	return auo
 }
 
-// SetUser sets the "user-service" edge to the User entity.
+// SetUser sets the "server-service" edge to the User entity.
 func (auo *AddressUpdateOne) SetUser(u *User) *AddressUpdateOne {
 	return auo.SetUserID(u.ID)
 }
@@ -388,7 +388,7 @@ func (auo *AddressUpdateOne) Mutation() *AddressMutation {
 	return auo.mutation
 }
 
-// ClearUser clears the "user-service" edge to the User entity.
+// ClearUser clears the "server-service" edge to the User entity.
 func (auo *AddressUpdateOne) ClearUser() *AddressUpdateOne {
 	auo.mutation.ClearUser()
 	return auo

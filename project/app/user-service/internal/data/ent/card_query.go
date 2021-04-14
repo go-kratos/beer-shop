@@ -56,7 +56,7 @@ func (cq *CardQuery) Order(o ...OrderFunc) *CardQuery {
 	return cq
 }
 
-// QueryUser chains the current query on the "user-service" edge.
+// QueryUser chains the current query on the "server-service" edge.
 func (cq *CardQuery) QueryUser() *UserQuery {
 	query := &UserQuery{config: cq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
@@ -267,7 +267,7 @@ func (cq *CardQuery) Clone() *CardQuery {
 }
 
 // WithUser tells the query-builder to eager-load the nodes that are connected to
-// the "user-service" edge. The optional arguments are used to configure the query builder of the edge.
+// the "server-service" edge. The optional arguments are used to configure the query builder of the edge.
 func (cq *CardQuery) WithUser(opts ...func(*UserQuery)) *CardQuery {
 	query := &UserQuery{config: cq.config}
 	for _, opt := range opts {

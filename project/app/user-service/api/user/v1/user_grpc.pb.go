@@ -40,7 +40,7 @@ func NewUserClient(cc grpc.ClientConnInterface) UserClient {
 
 func (c *userClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error) {
 	out := new(GetUserReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/GetUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *userClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.C
 
 func (c *userClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserReply, error) {
 	out := new(CreateUserReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *userClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...
 
 func (c *userClient) VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...grpc.CallOption) (*VerifyPasswordReply, error) {
 	out := new(VerifyPasswordReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/VerifyPassword", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/VerifyPassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *userClient) VerifyPassword(ctx context.Context, in *VerifyPasswordReq, 
 
 func (c *userClient) ListAddress(ctx context.Context, in *ListAddressReq, opts ...grpc.CallOption) (*ListAddressReply, error) {
 	out := new(ListAddressReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/ListAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/ListAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *userClient) ListAddress(ctx context.Context, in *ListAddressReq, opts .
 
 func (c *userClient) CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...grpc.CallOption) (*CreateAddressReply, error) {
 	out := new(CreateAddressReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/CreateAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/CreateAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *userClient) CreateAddress(ctx context.Context, in *CreateAddressReq, op
 
 func (c *userClient) GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error) {
 	out := new(GetAddressReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/GetAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/GetAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *userClient) GetAddress(ctx context.Context, in *GetAddressReq, opts ...
 
 func (c *userClient) ListCard(ctx context.Context, in *ListCardReq, opts ...grpc.CallOption) (*ListCardReply, error) {
 	out := new(ListCardReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/ListCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/ListCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *userClient) ListCard(ctx context.Context, in *ListCardReq, opts ...grpc
 
 func (c *userClient) CreateCard(ctx context.Context, in *CreateCardReq, opts ...grpc.CallOption) (*CreateCardReply, error) {
 	out := new(CreateCardReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/CreateCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/CreateCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *userClient) CreateCard(ctx context.Context, in *CreateCardReq, opts ...
 
 func (c *userClient) GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.CallOption) (*GetCardReply, error) {
 	out := new(GetCardReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/GetCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/GetCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *userClient) GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.C
 
 func (c *userClient) DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...grpc.CallOption) (*DeleteCardReply, error) {
 	out := new(DeleteCardReply)
-	err := c.cc.Invoke(ctx, "/user-service.v1.User/DeleteCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/server-service.v1.User/DeleteCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func _User_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/GetUser",
+		FullMethod: "/server-service.v1.User/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).GetUser(ctx, req.(*GetUserReq))
@@ -220,7 +220,7 @@ func _User_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/CreateUser",
+		FullMethod: "/server-service.v1.User/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).CreateUser(ctx, req.(*CreateUserReq))
@@ -238,7 +238,7 @@ func _User_VerifyPassword_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/VerifyPassword",
+		FullMethod: "/server-service.v1.User/VerifyPassword",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).VerifyPassword(ctx, req.(*VerifyPasswordReq))
@@ -256,7 +256,7 @@ func _User_ListAddress_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/ListAddress",
+		FullMethod: "/server-service.v1.User/ListAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).ListAddress(ctx, req.(*ListAddressReq))
@@ -274,7 +274,7 @@ func _User_CreateAddress_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/CreateAddress",
+		FullMethod: "/server-service.v1.User/CreateAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).CreateAddress(ctx, req.(*CreateAddressReq))
@@ -292,7 +292,7 @@ func _User_GetAddress_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/GetAddress",
+		FullMethod: "/server-service.v1.User/GetAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).GetAddress(ctx, req.(*GetAddressReq))
@@ -310,7 +310,7 @@ func _User_ListCard_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/ListCard",
+		FullMethod: "/server-service.v1.User/ListCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).ListCard(ctx, req.(*ListCardReq))
@@ -328,7 +328,7 @@ func _User_CreateCard_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/CreateCard",
+		FullMethod: "/server-service.v1.User/CreateCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).CreateCard(ctx, req.(*CreateCardReq))
@@ -346,7 +346,7 @@ func _User_GetCard_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/GetCard",
+		FullMethod: "/server-service.v1.User/GetCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).GetCard(ctx, req.(*GetCardReq))
@@ -364,7 +364,7 @@ func _User_DeleteCard_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user-service.v1.User/DeleteCard",
+		FullMethod: "/server-service.v1.User/DeleteCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).DeleteCard(ctx, req.(*DeleteCardReq))
@@ -376,7 +376,7 @@ func _User_DeleteCard_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user-service.v1.User",
+	ServiceName: "server-service.v1.User",
 	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -421,5 +421,5 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "user-service.proto",
+	Metadata: "server-service.proto",
 }
