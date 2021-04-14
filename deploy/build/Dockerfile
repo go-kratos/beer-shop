@@ -1,7 +1,9 @@
 FROM golang:1.15 AS builder
 
-COPY ${PWD} /src
-WORKDIR /src
+ARG APP_NAME
+
+COPY . /src
+WORKDIR /src/app/${APP_NAME}
 
 RUN mkdir -p bin/ && GOPROXY=https://goproxy.cn go build -o ./bin/ ./...
 

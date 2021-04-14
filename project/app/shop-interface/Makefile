@@ -3,6 +3,8 @@ VERSION=$(shell git describe --tags --always)
 PROTO_FILES=$(shell find . -name *.proto)
 KRATOS_VERSION=$(shell go mod graph |grep go-kratos/kratos/v2 |head -n 1 |awk -F '@' '{print $$2}')
 KRATOS=$(GOPATH)/pkg/mod/github.com/go-kratos/kratos/v2@$(KRATOS_VERSION)
+APP_NAME=$(shell basename ${PWD})
+DOCKER_IMAGE=$(APP_NAME):latest
 
 .PHONY: init
 # init env
@@ -59,6 +61,10 @@ run:
 .PHONY: ent
 ent:
 	cd internal/data/ && ent generate ./ent/schema
+
+.PHONY: docker
+docker:
+	cd ../.. && docker build -f ../deploy/build/Dockerfile --build-arg APP_NAME=$(APP_NAME) -t $(DOCKER_IMAGE) .
 
 .PHONY: all
 # generate all
