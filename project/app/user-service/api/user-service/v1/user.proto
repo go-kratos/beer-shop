@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package user.v1;
+package user_service.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "shop-interface/api/shop-interface/v1;v1";
+option go_package = "server-service/api/server-service/v1;v1";
 
 
 service User {

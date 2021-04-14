@@ -1,11 +1,11 @@
 package biz
 
 import (
+	usV1 "github.com/go-kratos/beer-shop/project/app/user-service/api/user-service/v1"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
 type User struct {
-
 }
 
 type UserRepo interface {
@@ -13,9 +13,16 @@ type UserRepo interface {
 
 type UserUseCase struct {
 	repo UserRepo
+	us   usV1.UserClient
 	log  *log.Helper
 }
 
-func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
-	return &UserUseCase{repo: repo, log: log.NewHelper("usecase/shop-interface", logger)}
+func NewUserUseCase(repo UserRepo, logger log.Logger, us usV1.UserClient) *UserUseCase {
+	log := log.NewHelper("usecase/shop-interface", logger)
+	return &UserUseCase{
+		repo: repo,
+		us:   us,
+		log:  log,
+	}
 }
+

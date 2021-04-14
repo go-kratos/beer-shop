@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package kratos.user.errors;
+package shop_interface.errors;
 
 import "kratos/api/annotations.proto";
 
-option go_package = "server-service/errors;errors";
+option go_package = "shop-interface/errors;errors";
 option java_multiple_files = true;
 
 enum User {

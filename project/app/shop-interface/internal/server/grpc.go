@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/user/v1"
+	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/shop-interface/v1"
 	"github.com/go-kratos/beer-shop/project/app/shop-interface/internal/conf"
 	"github.com/go-kratos/beer-shop/project/app/shop-interface/internal/service"
 
@@ -14,7 +14,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, s *service.UserService) *grpc.Server {
+func NewGRPCServer(c *conf.Server, s *service.ShopInterface) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			middleware.Chain(
@@ -35,6 +35,6 @@ func NewGRPCServer(c *conf.Server, s *service.UserService) *grpc.Server {
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterUserServer(srv, s)
+	v1.RegisterShopInterfaceServer(srv, s)
 	return srv
 }

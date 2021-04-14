@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/user/v1"
+	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/shop-interface/v1"
 	"github.com/go-kratos/beer-shop/project/app/shop-interface/internal/conf"
 	"github.com/go-kratos/beer-shop/project/app/shop-interface/internal/service"
 
@@ -13,7 +13,7 @@ import (
 )
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, s *service.UserService) *http.Server {
+func NewHTTPServer(c *conf.Server, s *service.ShopInterface) *http.Server {
 	var opts = []http.ServerOption{}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
@@ -32,6 +32,6 @@ func NewHTTPServer(c *conf.Server, s *service.UserService) *http.Server {
 			logging.Server(),
 		),
 	)
-	srv.HandlePrefix("/", v1.NewUserHandler(s, m))
+	srv.HandlePrefix("/", v1.NewShopInterfaceHandler(s, m))
 	return srv
 }

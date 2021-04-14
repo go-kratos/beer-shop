@@ -21,16 +21,16 @@ const (
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
 	FieldUpdatedAt = "updated_at"
-	// EdgeUser holds the string denoting the server-service edge name in mutations.
-	EdgeUser = "server-service"
+	// EdgeUser holds the string denoting the user edge name in mutations.
+	EdgeUser = "user"
 	// Table holds the table name of the card in the database.
 	Table = "cards"
-	// UserTable is the table the holds the server-service relation/edge.
+	// UserTable is the table the holds the user relation/edge.
 	UserTable = "cards"
 	// UserInverseTable is the table name for the User entity.
-	// It exists in this package in order to avoid circular dependency with the "server-service" package.
+	// It exists in this package in order to avoid circular dependency with the "user" package.
 	UserInverseTable = "users"
-	// UserColumn is the table column denoting the server-service relation/edge.
+	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_cards"
 )
 

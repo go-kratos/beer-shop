@@ -37,7 +37,7 @@ func (Address) Fields() []ent.Field {
 // Edges of the Address.
 func (Address) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("server-service", User.Type).
+		edge.From("user", User.Type).
 			Ref("addresses").
 			Unique(),
 	}

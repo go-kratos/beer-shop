@@ -19,7 +19,7 @@ var _ = mux.NewRouter
 
 const _ = http1.SupportPackageIsVersion1
 
-type UserHandler interface {
+type ShopInterfaceHandler interface {
 	CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error)
 
 	CreateCard(context.Context, *CreateCardReq) (*CreateCardReply, error)
@@ -41,14 +41,14 @@ type UserHandler interface {
 	VerifyPassword(context.Context, *VerifyPasswordReq) (*VerifyPasswordReply, error)
 }
 
-func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
+func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOption) http.Handler {
 	h := http1.DefaultHandleOptions()
 	for _, o := range opts {
 		o(&h)
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/user.v1.User/GetUser", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/GetUser", func(w http.ResponseWriter, r *http.Request) {
 		var in GetUserReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -72,7 +72,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/CreateUser", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateUser", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateUserReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -96,7 +96,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/VerifyPassword", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/VerifyPassword", func(w http.ResponseWriter, r *http.Request) {
 		var in VerifyPasswordReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -120,7 +120,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/ListAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/ListAddress", func(w http.ResponseWriter, r *http.Request) {
 		var in ListAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -144,7 +144,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/CreateAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateAddress", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -168,7 +168,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/GetAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/GetAddress", func(w http.ResponseWriter, r *http.Request) {
 		var in GetAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -192,7 +192,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/ListCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/ListCard", func(w http.ResponseWriter, r *http.Request) {
 		var in ListCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -216,7 +216,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/CreateCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateCard", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -240,7 +240,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/GetCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/GetCard", func(w http.ResponseWriter, r *http.Request) {
 		var in GetCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -264,7 +264,7 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/user.v1.User/DeleteCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/shop_interface.v1.ShopInterface/DeleteCard", func(w http.ResponseWriter, r *http.Request) {
 		var in DeleteCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)

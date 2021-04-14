@@ -32,6 +32,7 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	userService := service.NewUserService(userUseCase, cardUseCase, addressUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, userService)
 	grpcServer := server.NewGRPCServer(confServer, userService)
-	app := newApp(logger, httpServer, grpcServer)
+	registrar := server.NewRegistrar()
+	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, nil
 }

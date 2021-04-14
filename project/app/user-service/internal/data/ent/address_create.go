@@ -91,13 +91,13 @@ func (ac *AddressCreate) SetID(i int64) *AddressCreate {
 	return ac
 }
 
-// SetUserID sets the "server-service" edge to the User entity by ID.
+// SetUserID sets the "user" edge to the User entity by ID.
 func (ac *AddressCreate) SetUserID(id int64) *AddressCreate {
 	ac.mutation.SetUserID(id)
 	return ac
 }
 
-// SetNillableUserID sets the "server-service" edge to the User entity by ID if the given value is not nil.
+// SetNillableUserID sets the "user" edge to the User entity by ID if the given value is not nil.
 func (ac *AddressCreate) SetNillableUserID(id *int64) *AddressCreate {
 	if id != nil {
 		ac = ac.SetUserID(*id)
@@ -105,7 +105,7 @@ func (ac *AddressCreate) SetNillableUserID(id *int64) *AddressCreate {
 	return ac
 }
 
-// SetUser sets the "server-service" edge to the User entity.
+// SetUser sets the "user" edge to the User entity.
 func (ac *AddressCreate) SetUser(u *User) *AddressCreate {
 	return ac.SetUserID(u.ID)
 }
@@ -172,7 +172,7 @@ func (ac *AddressCreate) defaults() {
 	}
 }
 
-// check runs all checks and server-service-defined validators on the builder.
+// check runs all checks and user-defined validators on the builder.
 func (ac *AddressCreate) check() error {
 	if _, ok := ac.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}

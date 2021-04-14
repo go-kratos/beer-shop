@@ -35,8 +35,8 @@ type Card struct {
 
 // CardEdges holds the relations/edges for other nodes in the graph.
 type CardEdges struct {
-	// User holds the value of the server-service edge.
-	User *User `json:"server-service,omitempty"`
+	// User holds the value of the user edge.
+	User *User `json:"user,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
@@ -47,13 +47,13 @@ type CardEdges struct {
 func (e CardEdges) UserOrErr() (*User, error) {
 	if e.loadedTypes[0] {
 		if e.User == nil {
-			// The edge server-service was loaded in eager-loading,
+			// The edge user was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
 		return e.User, nil
 	}
-	return nil, &NotLoadedError{edge: "server-service"}
+	return nil, &NotLoadedError{edge: "user"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -132,7 +132,7 @@ func (c *Card) assignValues(columns []string, values []interface{}) error {
 	return nil
 }
 
-// QueryUser queries the "server-service" edge of the Card entity.
+// QueryUser queries the "user" edge of the Card entity.
 func (c *Card) QueryUser() *UserQuery {
 	return (&CardClient{config: c.config}).QueryUser(c)
 }

@@ -24,10 +24,12 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 		return nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
-	userService := service.NewShopService(userUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, userService)
-	grpcServer := server.NewGRPCServer(confServer, userService)
+	discovery := biz.NewDiscovery()
+	userClient := biz.NewUserServiceClient(discovery)
+	userUseCase := biz.NewUserUseCase(userRepo, logger, userClient)
+	shopInterface := service.NewShopInterface(userUseCase, logger)
+	httpServer := server.NewHTTPServer(confServer, shopInterface)
+	grpcServer := server.NewGRPCServer(confServer, shopInterface)
 	app := newApp(logger, httpServer, grpcServer)
 	return app, nil
 }

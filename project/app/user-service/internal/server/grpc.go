@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/go-kratos/beer-shop/project/app/user-service/api/user/v1"
+	"github.com/go-kratos/beer-shop/project/app/user-service/api/user-service/v1"
 	"github.com/go-kratos/beer-shop/project/app/user-service/internal/conf"
 	"github.com/go-kratos/beer-shop/project/app/user-service/internal/service"
 
@@ -38,3 +38,5 @@ func NewGRPCServer(c *conf.Server, s *service.UserService) *grpc.Server {
 	v1.RegisterUserServer(srv, s)
 	return srv
 }
+
+

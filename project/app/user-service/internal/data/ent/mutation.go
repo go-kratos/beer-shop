@@ -425,22 +425,22 @@ func (m *AddressMutation) ResetUpdatedAt() {
 	m.updated_at = nil
 }
 
-// SetUserID sets the "server-service" edge to the User entity by id.
+// SetUserID sets the "user" edge to the User entity by id.
 func (m *AddressMutation) SetUserID(id int64) {
 	m.user = &id
 }
 
-// ClearUser clears the "server-service" edge to the User entity.
+// ClearUser clears the "user" edge to the User entity.
 func (m *AddressMutation) ClearUser() {
 	m.cleareduser = true
 }
 
-// UserCleared returns if the "server-service" edge to the User entity was cleared.
+// UserCleared returns if the "user" edge to the User entity was cleared.
 func (m *AddressMutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserID returns the "server-service" edge ID in the mutation.
+// UserID returns the "user" edge ID in the mutation.
 func (m *AddressMutation) UserID() (id int64, exists bool) {
 	if m.user != nil {
 		return *m.user, true
@@ -448,7 +448,7 @@ func (m *AddressMutation) UserID() (id int64, exists bool) {
 	return
 }
 
-// UserIDs returns the "server-service" edge IDs in the mutation.
+// UserIDs returns the "user" edge IDs in the mutation.
 // Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
 // UserID instead. It exists only for internal usage by the builders.
 func (m *AddressMutation) UserIDs() (ids []int64) {
@@ -458,7 +458,7 @@ func (m *AddressMutation) UserIDs() (ids []int64) {
 	return
 }
 
-// ResetUser resets all changes to the "server-service" edge.
+// ResetUser resets all changes to the "user" edge.
 func (m *AddressMutation) ResetUser() {
 	m.user = nil
 	m.cleareduser = false
@@ -1054,22 +1054,22 @@ func (m *CardMutation) ResetUpdatedAt() {
 	m.updated_at = nil
 }
 
-// SetUserID sets the "server-service" edge to the User entity by id.
+// SetUserID sets the "user" edge to the User entity by id.
 func (m *CardMutation) SetUserID(id int64) {
 	m.user = &id
 }
 
-// ClearUser clears the "server-service" edge to the User entity.
+// ClearUser clears the "user" edge to the User entity.
 func (m *CardMutation) ClearUser() {
 	m.cleareduser = true
 }
 
-// UserCleared returns if the "server-service" edge to the User entity was cleared.
+// UserCleared returns if the "user" edge to the User entity was cleared.
 func (m *CardMutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserID returns the "server-service" edge ID in the mutation.
+// UserID returns the "user" edge ID in the mutation.
 func (m *CardMutation) UserID() (id int64, exists bool) {
 	if m.user != nil {
 		return *m.user, true
@@ -1077,7 +1077,7 @@ func (m *CardMutation) UserID() (id int64, exists bool) {
 	return
 }
 
-// UserIDs returns the "server-service" edge IDs in the mutation.
+// UserIDs returns the "user" edge IDs in the mutation.
 // Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
 // UserID instead. It exists only for internal usage by the builders.
 func (m *CardMutation) UserIDs() (ids []int64) {
@@ -1087,7 +1087,7 @@ func (m *CardMutation) UserIDs() (ids []int64) {
 	return
 }
 
-// ResetUser resets all changes to the "server-service" edge.
+// ResetUser resets all changes to the "user" edge.
 func (m *CardMutation) ResetUser() {
 	m.user = nil
 	m.cleareduser = false

@@ -219,7 +219,7 @@ func (c *AddressClient) GetX(ctx context.Context, id int64) *Address {
 	return obj
 }
 
-// QueryUser queries the server-service edge of a Address.
+// QueryUser queries the user edge of a Address.
 func (c *AddressClient) QueryUser(a *Address) *UserQuery {
 	query := &UserQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
@@ -323,7 +323,7 @@ func (c *CardClient) GetX(ctx context.Context, id int64) *Card {
 	return obj
 }
 
-// QueryUser queries the server-service edge of a Card.
+// QueryUser queries the user edge of a Card.
 func (c *CardClient) QueryUser(ca *Card) *UserQuery {
 	query := &UserQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
@@ -355,7 +355,7 @@ func NewUserClient(c config) *UserClient {
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `server-service.Hooks(f(g(h())))`.
+// A call to `Use(f, g, h)` equals to `user.Hooks(f(g(h())))`.
 func (c *UserClient) Use(hooks ...Hook) {
 	c.hooks.User = append(c.hooks.User, hooks...)
 }

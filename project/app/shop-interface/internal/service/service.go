@@ -1,23 +1,23 @@
 package service
 
 import (
-	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/user/v1"
+	"github.com/go-kratos/beer-shop/project/app/shop-interface/api/shop-interface/v1"
 	"github.com/go-kratos/beer-shop/project/app/shop-interface/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 )
 
 // ProviderSet is service providers.
-var ProviderSet = wire.NewSet(NewShopService)
+var ProviderSet = wire.NewSet(NewShopInterface)
 
-type UserService struct {
-	v1.UnimplementedUserServer
+type ShopInterface struct {
+	v1.UnimplementedShopInterfaceServer
 
 	log *log.Helper
 }
 
-func NewShopService(uc *biz.UserUseCase, logger log.Logger) *UserService {
-	return &UserService{
-		log: log.NewHelper("service/server-service", logger),
+func NewShopInterface(uc *biz.UserUseCase, logger log.Logger) *ShopInterface {
+	return &ShopInterface{
+		log: log.NewHelper("service/shop-interface", logger),
 	}
 }

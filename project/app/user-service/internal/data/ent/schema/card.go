@@ -34,7 +34,7 @@ func (Card) Fields() []ent.Field {
 // Edges of the Card.
 func (Card) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("server-service", User.Type).
+		edge.From("user", User.Type).
 			Ref("cards").
 			Unique(),
 	}
