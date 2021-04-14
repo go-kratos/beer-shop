@@ -5,7 +5,7 @@ ARG APP_NAME
 COPY . /src
 WORKDIR /src/app/${APP_NAME}
 
-RUN mkdir -p bin/ && GOPROXY=https://goproxy.cn go build -o ./bin/ ./...
+RUN mkdir -p /release && GOPROXY=https://goproxy.cn go build -o /release ./...
 
 FROM debian:stable-slim
 
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && rm -rf /var/lib/apt/lists/ \
         && apt-get autoremove -y && apt-get autoclean -y
 
-COPY --from=builder /src/bin /app
+COPY --from=builder /release /app
 
 WORKDIR /app
 
