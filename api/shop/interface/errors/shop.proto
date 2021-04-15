@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package shop.interface.errors;
+
+import "kratos/api/annotations.proto";
+
+option go_package = "shop/interface/errors;errors";
+option java_multiple_files = true;
+
+enum User {
+    option (kratos.api.errors) = true;
+    UNKNOWN_ERROR = 0;
+    USER_NOT_FOUND = 1;
+    PASSWORD_VERIFY_FAILED = 2;
+}
