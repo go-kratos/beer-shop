@@ -1,9 +1,9 @@
 FROM golang:1.15 AS builder
 
-ARG APP_NAME
+ARG APP_RELATIVE_PATH
 
 COPY . /src
-WORKDIR /src/app/${APP_NAME}
+WORKDIR /src/app/${APP_RELATIVE_PATH}
 
 RUN mkdir -p /release && GOPROXY=https://goproxy.cn go build -o /release ./...
 

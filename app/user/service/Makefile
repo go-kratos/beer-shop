@@ -1,10 +1,17 @@
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
-PROTO_FILES=$(shell find . -name *.proto)
+APP_RELATIVE_PATH=$(shell echo $${PWD\#/*/*/*/*/*/})
+INTERNAL_PROTO_FILES=$(shell find . -name *.proto)
+API_PROTO_FILES=$(shell cd ../../../api/$(APP_RELATIVE_PATH) && find . -name *.proto)
 KRATOS_VERSION=$(shell go mod graph |grep go-kratos/kratos/v2 |head -n 1 |awk -F '@' '{print $$2}')
 KRATOS=$(GOPATH)/pkg/mod/github.com/go-kratos/kratos/v2@$(KRATOS_VERSION)
-APP_NAME=$(shell basename ${PWD})
-DOCKER_IMAGE=$(APP_NAME):latest
+APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | sed -En "s/\//-/p")
+DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "hub.docker.com/go-kratos/beer-shop-" $$0 ":0.1.0"}')
+
+.PHONY: aa
+# init env
+aa:
+	echo $(DOCKER_IMAGE)
 
 .PHONY: init
 # init env
@@ -18,18 +25,30 @@ init:
 .PHONY: grpc
 # generate grpc code
 grpc:
-	protoc --proto_path=. \
+	 cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
            --proto_path=$(KRATOS)/api \
            --proto_path=$(KRATOS)/third_party \
            --proto_path=$(GOPATH)/src \
            --go_out=paths=source_relative:. \
            --go-grpc_out=paths=source_relative:. \
            --go-errors_out=paths=source_relative:. \
-           $(PROTO_FILES)
+           $(API_PROTO_FILES)
 
 .PHONY: http
 # generate http code
 http:
+	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+           --proto_path=$(KRATOS)/api \
+           --proto_path=$(KRATOS)/third_party \
+           --proto_path=$(GOPATH)/src \
+           --go_out=paths=source_relative:. \
+           --go-http_out=paths=source_relative:. \
+           --go-errors_out=paths=source_relative:. \
+           $(API_PROTO_FILES)
+
+.PHONY: config
+# generate config struct
+config:
 	protoc --proto_path=. \
            --proto_path=$(KRATOS)/api \
            --proto_path=$(KRATOS)/third_party \
@@ -37,7 +56,8 @@ http:
            --go_out=paths=source_relative:. \
            --go-http_out=paths=source_relative:. \
            --go-errors_out=paths=source_relative:. \
-           $(PROTO_FILES)
+           $(INTERNAL_PROTO_FILES)
+
 
 .PHONY: generate
 # generate client code
@@ -64,13 +84,14 @@ ent:
 
 .PHONY: docker
 docker:
-	cd ../.. && docker build -f ../deploy/build/Dockerfile --build-arg APP_NAME=$(APP_NAME) -t $(DOCKER_IMAGE) .
+	cd ../../.. && docker build -f deploy/build/Dockerfile --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) -t $(DOCKER_IMAGE) .
 
 .PHONY: all
 # generate all
 all:
 	make grpc;
 	make http;
+	make config;
 	make generate;
 	make build;
 	make test;

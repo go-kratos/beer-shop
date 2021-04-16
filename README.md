@@ -4,21 +4,22 @@ An online shop application, the complete microservices demo for kratos.
 ## project structure
 ```
 .
-├── api // all api
-├── app  // all kratos microservices projects
-│   └── user-service
-│   └── cart-service
-│   └── payment-service
-│   └── order-service
-│   └── catalog-service
-│   └── shipping-service
-│   └── shop-interface    // BFF for customer
-│   └── shop-admin   // BFF for management
-├── pkg  // common used packages
-├── deploy  // deployment configuration
+├── api  // API&Error proto&generated code
+│   ├── shop
+│   │   └── interface
+│   └── user
+│       └── service
+├── app  // kratos microservices projects
+│   ├── shop
+│   │   └── interface
+│   └── user
+│       └── service
+├── deploy
+│   ├── build
 │   ├── docker-compose
 │   └── kubernetes
-├── docs  
+├── docs
+├── pkg  // common used packages
 └── web  // web ui projects
     ├── admin  // for management
     └── shop  // for customer

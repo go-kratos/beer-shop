@@ -40,7 +40,7 @@ func NewShopInterfaceClient(cc grpc.ClientConnInterface) ShopInterfaceClient {
 
 func (c *shopInterfaceClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error) {
 	out := new(GetUserReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/GetUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *shopInterfaceClient) GetUser(ctx context.Context, in *GetUserReq, opts 
 
 func (c *shopInterfaceClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserReply, error) {
 	out := new(CreateUserReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *shopInterfaceClient) CreateUser(ctx context.Context, in *CreateUserReq,
 
 func (c *shopInterfaceClient) VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...grpc.CallOption) (*VerifyPasswordReply, error) {
 	out := new(VerifyPasswordReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/VerifyPassword", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/VerifyPassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *shopInterfaceClient) VerifyPassword(ctx context.Context, in *VerifyPass
 
 func (c *shopInterfaceClient) ListAddress(ctx context.Context, in *ListAddressReq, opts ...grpc.CallOption) (*ListAddressReply, error) {
 	out := new(ListAddressReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/ListAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/ListAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *shopInterfaceClient) ListAddress(ctx context.Context, in *ListAddressRe
 
 func (c *shopInterfaceClient) CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...grpc.CallOption) (*CreateAddressReply, error) {
 	out := new(CreateAddressReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/CreateAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/CreateAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *shopInterfaceClient) CreateAddress(ctx context.Context, in *CreateAddre
 
 func (c *shopInterfaceClient) GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error) {
 	out := new(GetAddressReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/GetAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/GetAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *shopInterfaceClient) GetAddress(ctx context.Context, in *GetAddressReq,
 
 func (c *shopInterfaceClient) ListCard(ctx context.Context, in *ListCardReq, opts ...grpc.CallOption) (*ListCardReply, error) {
 	out := new(ListCardReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/ListCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/ListCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *shopInterfaceClient) ListCard(ctx context.Context, in *ListCardReq, opt
 
 func (c *shopInterfaceClient) CreateCard(ctx context.Context, in *CreateCardReq, opts ...grpc.CallOption) (*CreateCardReply, error) {
 	out := new(CreateCardReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/CreateCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/CreateCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *shopInterfaceClient) CreateCard(ctx context.Context, in *CreateCardReq,
 
 func (c *shopInterfaceClient) GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.CallOption) (*GetCardReply, error) {
 	out := new(GetCardReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/GetCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/GetCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *shopInterfaceClient) GetCard(ctx context.Context, in *GetCardReq, opts 
 
 func (c *shopInterfaceClient) DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...grpc.CallOption) (*DeleteCardReply, error) {
 	out := new(DeleteCardReply)
-	err := c.cc.Invoke(ctx, "/shop_interface.v1.ShopInterface/DeleteCard", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/DeleteCard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func _ShopInterface_GetUser_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/GetUser",
+		FullMethod: "/shop.interface.v1.ShopInterface/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).GetUser(ctx, req.(*GetUserReq))
@@ -220,7 +220,7 @@ func _ShopInterface_CreateUser_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/CreateUser",
+		FullMethod: "/shop.interface.v1.ShopInterface/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).CreateUser(ctx, req.(*CreateUserReq))
@@ -238,7 +238,7 @@ func _ShopInterface_VerifyPassword_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/VerifyPassword",
+		FullMethod: "/shop.interface.v1.ShopInterface/VerifyPassword",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).VerifyPassword(ctx, req.(*VerifyPasswordReq))
@@ -256,7 +256,7 @@ func _ShopInterface_ListAddress_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/ListAddress",
+		FullMethod: "/shop.interface.v1.ShopInterface/ListAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).ListAddress(ctx, req.(*ListAddressReq))
@@ -274,7 +274,7 @@ func _ShopInterface_CreateAddress_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/CreateAddress",
+		FullMethod: "/shop.interface.v1.ShopInterface/CreateAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).CreateAddress(ctx, req.(*CreateAddressReq))
@@ -292,7 +292,7 @@ func _ShopInterface_GetAddress_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/GetAddress",
+		FullMethod: "/shop.interface.v1.ShopInterface/GetAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).GetAddress(ctx, req.(*GetAddressReq))
@@ -310,7 +310,7 @@ func _ShopInterface_ListCard_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/ListCard",
+		FullMethod: "/shop.interface.v1.ShopInterface/ListCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).ListCard(ctx, req.(*ListCardReq))
@@ -328,7 +328,7 @@ func _ShopInterface_CreateCard_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/CreateCard",
+		FullMethod: "/shop.interface.v1.ShopInterface/CreateCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).CreateCard(ctx, req.(*CreateCardReq))
@@ -346,7 +346,7 @@ func _ShopInterface_GetCard_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/GetCard",
+		FullMethod: "/shop.interface.v1.ShopInterface/GetCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).GetCard(ctx, req.(*GetCardReq))
@@ -364,7 +364,7 @@ func _ShopInterface_DeleteCard_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop_interface.v1.ShopInterface/DeleteCard",
+		FullMethod: "/shop.interface.v1.ShopInterface/DeleteCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopInterfaceServer).DeleteCard(ctx, req.(*DeleteCardReq))
@@ -376,7 +376,7 @@ func _ShopInterface_DeleteCard_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ShopInterface_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "shop_interface.v1.ShopInterface",
+	ServiceName: "shop.interface.v1.ShopInterface",
 	HandlerType: (*ShopInterfaceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -421,5 +421,5 @@ var ShopInterface_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "shop.proto",
+	Metadata: "v1/shop.proto",
 }
