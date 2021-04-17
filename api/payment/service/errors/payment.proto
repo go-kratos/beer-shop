@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package cart.service.errors;
+
+import "kratos/api/annotations.proto";
+
+option go_package = "cart/service/errors;errors";
+
+enum Payment {
+    option (kratos.api.errors) = true;
+    UNKNOWN_ERROR = 0;
+}
