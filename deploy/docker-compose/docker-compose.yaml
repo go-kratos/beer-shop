@@ -1,7 +1,45 @@
 version: '3'
 services:
+  user-service:
+    image: go-kratos/beer-user-service:0.1.0
+    hostname: user-service
+    depends_on:
+      - user-db
   user-db:
     image: mysql:8
-  
-  
-    
+    hostname: user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: dangerous
+  catalog-service:
+    image: go-kratos/beer-catalog-service:0.1.0
+    hostname: catalog-service
+    depends_on:
+      - catalog-db
+  catalog-db:
+    image: mysql:8
+    hostname: catalog-db
+    environment:
+      MYSQL_ROOT_PASSWORD: dangerous
+  cart-service:
+    image: go-kratos/beer-cart-service:0.1.0
+    hostname: cart-service
+    depends_on:
+      - cart-db
+  cart-db:
+    image: mongo:4
+    hostname: cart-db
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: dangerous
+  order-service:
+    image: go-kratos/beer-cart-service:0.1.0
+    hostname: order-service
+    depends_on:
+      - order-db
+  order-db:
+    image: mysql:8
+    hostname: order-db
+    environment:
+      MYSQL_ROOT_PASSWORD: dangerous
+  payment-service:
+    image: go-kratos/beer-payment-service:0.1.0
+    hostname: cart-service

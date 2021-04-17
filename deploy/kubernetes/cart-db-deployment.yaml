@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml -o ../kubernetes
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cart-db
+  name: cart-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cart-db
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml -o ../kubernetes
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cart-db
+    spec:
+      containers:
+        - env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: dangerous
+          image: mongo:4
+          name: cart-db
+          resources: {}
+      hostname: cart-db
+      restartPolicy: Always
+status: {}

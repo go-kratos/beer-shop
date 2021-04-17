@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml -o ../kubernetes
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cart-service
+  name: cart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cart-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml -o ../kubernetes
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cart-service
+    spec:
+      containers:
+        - image: go-kratos/beer-cart-service:0.1.0
+          name: cart-service
+          resources: {}
+      hostname: cart-service
+      restartPolicy: Always
+status: {}
