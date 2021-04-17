@@ -8,62 +8,40 @@ option go_package = "api/cart/service/v1;v1";
 
 
 service Order {
-    rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
+    rpc ListOrder (ListOrderReq) returns (ListOrderReply) {
     }
 
-    rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
+    rpc CreateOrder (CreateOrderReq) returns (CreateOrderReply) {
     }
 
-    rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
-    }
-
-    rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
+    rpc GetOrder (GetOrderReq) returns (GetOrderReply) {
     }
 }
 
-
-message ListBeerReq {
-    int64 page_num = 1;
-    int64 page_size = 2;
+message ListOrderReq {
+    int64 uid = 1;
 }
 
-message ListBeerReply {
-    message Beer {
+message ListOrderReply {
+    message Order {
         int64 id = 1;
-        string name = 2;
-        string description = 3;
-        int64 count = 4;
     }
-    repeated Beer results = 1;
+    repeated Order orders = 1;
 }
 
-message CreateBeerReq {
-    string name = 1;
-    string description = 2;
-    int64 count = 3;
+message CreateOrderReq {
+    int64 uid = 1;
 }
 
-message CreateBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
+message CreateOrderReply {
+
 }
 
-message GetBeerReq {
-    int64 id = 1;
+message GetOrderReq {
+
 }
 
-message GetBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
+message GetOrderReply {
+
 }
 
-message DeleteBeerReq {
-    int64 id = 1;
-}
-
-message DeleteBeerReply {
-}

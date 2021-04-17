@@ -11,19 +11,9 @@ import (
 const _ = errors.SupportPackageIsVersion1
 
 const (
-	Errors_UNKNOWN_ERROR          = "User_UNKNOWN_ERROR"
-	Errors_USER_NOT_FOUND         = "User_USER_NOT_FOUND"
-	Errors_PASSWORD_VERIFY_FAILED = "User_PASSWORD_VERIFY_FAILED"
+	Errors_UNKNOWN_ERROR = "Shop_UNKNOWN_ERROR"
 )
 
 func IsUNKNOWN_ERROR(err error) bool {
 	return errors.Reason(err) == Errors_UNKNOWN_ERROR
-}
-
-func IsUSER_NOT_FOUND(err error) bool {
-	return errors.Reason(err) == Errors_USER_NOT_FOUND
-}
-
-func IsPASSWORD_VERIFY_FAILED(err error) bool {
-	return errors.Reason(err) == Errors_PASSWORD_VERIFY_FAILED
 }

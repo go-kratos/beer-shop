@@ -18,10 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderClient interface {
-	ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error)
-	CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error)
-	GetBeer(ctx context.Context, in *GetBeerReq, opts ...grpc.CallOption) (*GetBeerReply, error)
-	DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error)
+	ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error)
+	CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CreateOrderReply, error)
+	GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error)
 }
 
 type orderClient struct {
@@ -32,36 +31,27 @@ func NewOrderClient(cc grpc.ClientConnInterface) OrderClient {
 	return &orderClient{cc}
 }
 
-func (c *orderClient) ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error) {
-	out := new(ListBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/ListBeer", in, out, opts...)
+func (c *orderClient) ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error) {
+	out := new(ListOrderReply)
+	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/ListOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *orderClient) CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error) {
-	out := new(CreateBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/CreateBeer", in, out, opts...)
+func (c *orderClient) CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CreateOrderReply, error) {
+	out := new(CreateOrderReply)
+	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/CreateOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *orderClient) GetBeer(ctx context.Context, in *GetBeerReq, opts ...grpc.CallOption) (*GetBeerReply, error) {
-	out := new(GetBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/GetBeer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *orderClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error) {
-	out := new(DeleteBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/DeleteBeer", in, out, opts...)
+func (c *orderClient) GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error) {
+	out := new(GetOrderReply)
+	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/GetOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,10 +62,9 @@ func (c *orderClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ..
 // All implementations must embed UnimplementedOrderServer
 // for forward compatibility
 type OrderServer interface {
-	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
-	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
-	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
-	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
+	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
+	CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error)
+	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
 	mustEmbedUnimplementedOrderServer()
 }
 
@@ -83,17 +72,14 @@ type OrderServer interface {
 type UnimplementedOrderServer struct {
 }
 
-func (UnimplementedOrderServer) ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListBeer not implemented")
+func (UnimplementedOrderServer) ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrder not implemented")
 }
-func (UnimplementedOrderServer) CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBeer not implemented")
+func (UnimplementedOrderServer) CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
 }
-func (UnimplementedOrderServer) GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBeer not implemented")
-}
-func (UnimplementedOrderServer) DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteBeer not implemented")
+func (UnimplementedOrderServer) GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
 func (UnimplementedOrderServer) mustEmbedUnimplementedOrderServer() {}
 
@@ -108,74 +94,56 @@ func RegisterOrderServer(s grpc.ServiceRegistrar, srv OrderServer) {
 	s.RegisterService(&Order_ServiceDesc, srv)
 }
 
-func _Order_ListBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListBeerReq)
+func _Order_ListOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServer).ListBeer(ctx, in)
+		return srv.(OrderServer).ListOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/ListBeer",
+		FullMethod: "/cart.service.v1.Order/ListOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServer).ListBeer(ctx, req.(*ListBeerReq))
+		return srv.(OrderServer).ListOrder(ctx, req.(*ListOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Order_CreateBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateBeerReq)
+func _Order_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServer).CreateBeer(ctx, in)
+		return srv.(OrderServer).CreateOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/CreateBeer",
+		FullMethod: "/cart.service.v1.Order/CreateOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServer).CreateBeer(ctx, req.(*CreateBeerReq))
+		return srv.(OrderServer).CreateOrder(ctx, req.(*CreateOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Order_GetBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBeerReq)
+func _Order_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServer).GetBeer(ctx, in)
+		return srv.(OrderServer).GetOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/GetBeer",
+		FullMethod: "/cart.service.v1.Order/GetOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServer).GetBeer(ctx, req.(*GetBeerReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Order_DeleteBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteBeerReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrderServer).DeleteBeer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/DeleteBeer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServer).DeleteBeer(ctx, req.(*DeleteBeerReq))
+		return srv.(OrderServer).GetOrder(ctx, req.(*GetOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -188,20 +156,16 @@ var Order_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*OrderServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListBeer",
-			Handler:    _Order_ListBeer_Handler,
+			MethodName: "ListOrder",
+			Handler:    _Order_ListOrder_Handler,
 		},
 		{
-			MethodName: "CreateBeer",
-			Handler:    _Order_CreateBeer_Handler,
+			MethodName: "CreateOrder",
+			Handler:    _Order_CreateOrder_Handler,
 		},
 		{
-			MethodName: "GetBeer",
-			Handler:    _Order_GetBeer_Handler,
-		},
-		{
-			MethodName: "DeleteBeer",
-			Handler:    _Order_DeleteBeer_Handler,
+			MethodName: "GetOrder",
+			Handler:    _Order_GetOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -18,10 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PaymentClient interface {
-	ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error)
-	CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error)
-	GetBeer(ctx context.Context, in *GetBeerReq, opts ...grpc.CallOption) (*GetBeerReply, error)
-	DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error)
+	PaymentAuth(ctx context.Context, in *PaymentAuthReq, opts ...grpc.CallOption) (*PaymentAuthReply, error)
 }
 
 type paymentClient struct {
@@ -32,36 +29,9 @@ func NewPaymentClient(cc grpc.ClientConnInterface) PaymentClient {
 	return &paymentClient{cc}
 }
 
-func (c *paymentClient) ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error) {
-	out := new(ListBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/ListBeer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *paymentClient) CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error) {
-	out := new(CreateBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/CreateBeer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *paymentClient) GetBeer(ctx context.Context, in *GetBeerReq, opts ...grpc.CallOption) (*GetBeerReply, error) {
-	out := new(GetBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/GetBeer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *paymentClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error) {
-	out := new(DeleteBeerReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/DeleteBeer", in, out, opts...)
+func (c *paymentClient) PaymentAuth(ctx context.Context, in *PaymentAuthReq, opts ...grpc.CallOption) (*PaymentAuthReply, error) {
+	out := new(PaymentAuthReply)
+	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/PaymentAuth", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,10 +42,7 @@ func (c *paymentClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts 
 // All implementations must embed UnimplementedPaymentServer
 // for forward compatibility
 type PaymentServer interface {
-	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
-	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
-	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
-	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
+	PaymentAuth(context.Context, *PaymentAuthReq) (*PaymentAuthReply, error)
 	mustEmbedUnimplementedPaymentServer()
 }
 
@@ -83,17 +50,8 @@ type PaymentServer interface {
 type UnimplementedPaymentServer struct {
 }
 
-func (UnimplementedPaymentServer) ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListBeer not implemented")
-}
-func (UnimplementedPaymentServer) CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBeer not implemented")
-}
-func (UnimplementedPaymentServer) GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBeer not implemented")
-}
-func (UnimplementedPaymentServer) DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteBeer not implemented")
+func (UnimplementedPaymentServer) PaymentAuth(context.Context, *PaymentAuthReq) (*PaymentAuthReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PaymentAuth not implemented")
 }
 func (UnimplementedPaymentServer) mustEmbedUnimplementedPaymentServer() {}
 
@@ -108,74 +66,20 @@ func RegisterPaymentServer(s grpc.ServiceRegistrar, srv PaymentServer) {
 	s.RegisterService(&Payment_ServiceDesc, srv)
 }
 
-func _Payment_ListBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListBeerReq)
+func _Payment_PaymentAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PaymentAuthReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PaymentServer).ListBeer(ctx, in)
+		return srv.(PaymentServer).PaymentAuth(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Payment/ListBeer",
+		FullMethod: "/cart.service.v1.Payment/PaymentAuth",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).ListBeer(ctx, req.(*ListBeerReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Payment_CreateBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateBeerReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PaymentServer).CreateBeer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cart.service.v1.Payment/CreateBeer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).CreateBeer(ctx, req.(*CreateBeerReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Payment_GetBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBeerReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PaymentServer).GetBeer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cart.service.v1.Payment/GetBeer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).GetBeer(ctx, req.(*GetBeerReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Payment_DeleteBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteBeerReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PaymentServer).DeleteBeer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cart.service.v1.Payment/DeleteBeer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).DeleteBeer(ctx, req.(*DeleteBeerReq))
+		return srv.(PaymentServer).PaymentAuth(ctx, req.(*PaymentAuthReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -188,20 +92,8 @@ var Payment_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PaymentServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListBeer",
-			Handler:    _Payment_ListBeer_Handler,
-		},
-		{
-			MethodName: "CreateBeer",
-			Handler:    _Payment_CreateBeer_Handler,
-		},
-		{
-			MethodName: "GetBeer",
-			Handler:    _Payment_GetBeer_Handler,
-		},
-		{
-			MethodName: "DeleteBeer",
-			Handler:    _Payment_DeleteBeer_Handler,
+			MethodName: "PaymentAuth",
+			Handler:    _Payment_PaymentAuth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

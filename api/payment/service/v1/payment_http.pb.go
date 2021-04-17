@@ -20,13 +20,7 @@ var _ = mux.NewRouter
 const _ = http1.SupportPackageIsVersion1
 
 type PaymentHandler interface {
-	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
-
-	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
-
-	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
-
-	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
+	PaymentAuth(context.Context, *PaymentAuthReq) (*PaymentAuthReply, error)
 }
 
 func NewPaymentHandler(srv PaymentHandler, opts ...http1.HandleOption) http.Handler {
@@ -36,15 +30,15 @@ func NewPaymentHandler(srv PaymentHandler, opts ...http1.HandleOption) http.Hand
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/cart.service.v1.Payment/ListBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in ListBeerReq
+	r.HandleFunc("/cart.service.v1.Payment/PaymentAuth", func(w http.ResponseWriter, r *http.Request) {
+		var in PaymentAuthReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListBeer(ctx, req.(*ListBeerReq))
+			return srv.PaymentAuth(ctx, req.(*PaymentAuthReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -54,79 +48,7 @@ func NewPaymentHandler(srv PaymentHandler, opts ...http1.HandleOption) http.Hand
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*ListBeerReply)
-		if err := h.Encode(w, r, reply); err != nil {
-			h.Error(w, r, err)
-		}
-	}).Methods("POST")
-
-	r.HandleFunc("/cart.service.v1.Payment/CreateBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in CreateBeerReq
-		if err := h.Decode(r, &in); err != nil {
-			h.Error(w, r, err)
-			return
-		}
-
-		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateBeer(ctx, req.(*CreateBeerReq))
-		}
-		if h.Middleware != nil {
-			next = h.Middleware(next)
-		}
-		out, err := next(r.Context(), &in)
-		if err != nil {
-			h.Error(w, r, err)
-			return
-		}
-		reply := out.(*CreateBeerReply)
-		if err := h.Encode(w, r, reply); err != nil {
-			h.Error(w, r, err)
-		}
-	}).Methods("POST")
-
-	r.HandleFunc("/cart.service.v1.Payment/GetBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in GetBeerReq
-		if err := h.Decode(r, &in); err != nil {
-			h.Error(w, r, err)
-			return
-		}
-
-		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetBeer(ctx, req.(*GetBeerReq))
-		}
-		if h.Middleware != nil {
-			next = h.Middleware(next)
-		}
-		out, err := next(r.Context(), &in)
-		if err != nil {
-			h.Error(w, r, err)
-			return
-		}
-		reply := out.(*GetBeerReply)
-		if err := h.Encode(w, r, reply); err != nil {
-			h.Error(w, r, err)
-		}
-	}).Methods("POST")
-
-	r.HandleFunc("/cart.service.v1.Payment/DeleteBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in DeleteBeerReq
-		if err := h.Decode(r, &in); err != nil {
-			h.Error(w, r, err)
-			return
-		}
-
-		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeleteBeer(ctx, req.(*DeleteBeerReq))
-		}
-		if h.Middleware != nil {
-			next = h.Middleware(next)
-		}
-		out, err := next(r.Context(), &in)
-		if err != nil {
-			h.Error(w, r, err)
-			return
-		}
-		reply := out.(*DeleteBeerReply)
+		reply := out.(*PaymentAuthReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

@@ -8,62 +8,14 @@ option go_package = "api/cart/service/v1;v1";
 
 
 service Payment {
-    rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
-    }
-
-    rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
-    }
-
-    rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
-    }
-
-    rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
+    rpc PaymentAuth (PaymentAuthReq) returns (PaymentAuthReply) {
     }
 }
 
+message PaymentAuthReq {
 
-message ListBeerReq {
-    int64 page_num = 1;
-    int64 page_size = 2;
 }
 
-message ListBeerReply {
-    message Beer {
-        int64 id = 1;
-        string name = 2;
-        string description = 3;
-        int64 count = 4;
-    }
-    repeated Beer results = 1;
-}
+message PaymentAuthReply {
 
-message CreateBeerReq {
-    string name = 1;
-    string description = 2;
-    int64 count = 3;
-}
-
-message CreateBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
-}
-
-message GetBeerReq {
-    int64 id = 1;
-}
-
-message GetBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
-}
-
-message DeleteBeerReq {
-    int64 id = 1;
-}
-
-message DeleteBeerReply {
 }

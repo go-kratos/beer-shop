@@ -8,35 +8,121 @@ option go_package = "api/shop/interface/v1;v1";
 
 
 service ShopInterface {
-    rpc GetUser (GetUserReq) returns (GetUserReply) {
+    rpc Login (LoginReq) returns (LoginReply) {
+        option (google.api.http) = {
+            get: "/v1/login/"
+            body: "*"
+        };
     }
 
-    rpc CreateUser (CreateUserReq) returns (CreateUserReply) {
-    }
-
-    rpc VerifyPassword (VerifyPasswordReq) returns (VerifyPasswordReply) {
+    rpc Logout (LogoutReq) returns (LogoutReply) {
+        option (google.api.http) = {
+            get: "/v1/logout/"
+            body: "*"
+        };
     }
 
     rpc ListAddress (ListAddressReq) returns (ListAddressReply) {
+        option (google.api.http) = {
+            get: "/v1/user/addresses/"
+            body: "*"
+        };
     }
 
     rpc CreateAddress (CreateAddressReq) returns (CreateAddressReply) {
+        option (google.api.http) = {
+            post: "/v1/user/addresses/"
+            body: "*"
+        };
     }
 
     rpc GetAddress (GetAddressReq) returns (GetAddressReply) {
+        option (google.api.http) = {
+            get: "/v1/user/addresses/{id}"
+            body: "*"
+        };
     }
 
     rpc ListCard (ListCardReq) returns (ListCardReply) {
+        option (google.api.http) = {
+            get: "/v1/user/cards/"
+            body: "*"
+        };
     }
 
     rpc CreateCard (CreateCardReq) returns (CreateCardReply) {
+        option (google.api.http) = {
+            post: "/v1/user/cards/"
+            body: "*"
+        };
     }
 
     rpc GetCard (GetCardReq) returns (GetCardReply) {
+        option (google.api.http) = {
+            get: "/v1/user/cards/{id}"
+            body: "*"
+        };
     }
 
     rpc DeleteCard (DeleteCardReq) returns (DeleteCardReply) {
+        option (google.api.http) = {
+            delete: "/v1/user/cards/{id}"
+            body: "*"
+        };
     }
+
+    rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
+        option (google.api.http) = {
+            get: "/v1/catalog/beers/"
+            body: "*"
+        };
+    }
+
+    rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
+        option (google.api.http) = {
+            get: "/v1/catalog/beers/{id}"
+            body: "*"
+        };
+    }
+
+    rpc ListCartItem (ListCartItemReq) returns (ListCartItemReply) {
+        option (google.api.http) = {
+            get: "/v1/cart/"
+            body: "*"
+        };
+    }
+
+    rpc AddCartItem (AddCartItemReq) returns (AddCartItemReply) {
+        option (google.api.http) = {
+            post: "/v1/cart/"
+            body: "*"
+        };
+    }
+
+    rpc CreateOrder (CreateOrderReq) returns (CreateOrderReply) {
+        option (google.api.http) = {
+            post: "/v1/orders/"
+            body: "*"
+        };
+    }
+
+}
+
+
+message LoginReq {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginReply {
+
+}
+
+message LogoutReq {
+
+}
+
+message LogoutReply {
 
 }
 
@@ -162,4 +248,45 @@ message DeleteCardReq {
 
 message DeleteCardReply {
     bool ok = 1;
+}
+
+
+message ListBeerReq {
+
+}
+
+message ListBeerReply {
+
+}
+
+message GetBeerReq {
+
+}
+
+message GetBeerReply {
+
+}
+
+message ListCartItemReq {
+
+}
+
+message ListCartItemReply {
+
+}
+
+message AddCartItemReq {
+
+}
+
+message AddCartItemReply {
+
+}
+
+message CreateOrderReq {
+
+}
+
+message CreateOrderReply {
+
 }

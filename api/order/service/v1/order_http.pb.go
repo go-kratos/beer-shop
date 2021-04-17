@@ -20,13 +20,11 @@ var _ = mux.NewRouter
 const _ = http1.SupportPackageIsVersion1
 
 type OrderHandler interface {
-	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
+	CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error)
 
-	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
+	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
 
-	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
-
-	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
+	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
 }
 
 func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler {
@@ -36,15 +34,15 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/cart.service.v1.Order/ListBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in ListBeerReq
+	r.HandleFunc("/cart.service.v1.Order/ListOrder", func(w http.ResponseWriter, r *http.Request) {
+		var in ListOrderReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListBeer(ctx, req.(*ListBeerReq))
+			return srv.ListOrder(ctx, req.(*ListOrderReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -54,21 +52,21 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*ListBeerReply)
+		reply := out.(*ListOrderReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/cart.service.v1.Order/CreateBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in CreateBeerReq
+	r.HandleFunc("/cart.service.v1.Order/CreateOrder", func(w http.ResponseWriter, r *http.Request) {
+		var in CreateOrderReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateBeer(ctx, req.(*CreateBeerReq))
+			return srv.CreateOrder(ctx, req.(*CreateOrderReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -78,21 +76,21 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*CreateBeerReply)
+		reply := out.(*CreateOrderReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/cart.service.v1.Order/GetBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in GetBeerReq
+	r.HandleFunc("/cart.service.v1.Order/GetOrder", func(w http.ResponseWriter, r *http.Request) {
+		var in GetOrderReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetBeer(ctx, req.(*GetBeerReq))
+			return srv.GetOrder(ctx, req.(*GetOrderReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -102,31 +100,7 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*GetBeerReply)
-		if err := h.Encode(w, r, reply); err != nil {
-			h.Error(w, r, err)
-		}
-	}).Methods("POST")
-
-	r.HandleFunc("/cart.service.v1.Order/DeleteBeer", func(w http.ResponseWriter, r *http.Request) {
-		var in DeleteBeerReq
-		if err := h.Decode(r, &in); err != nil {
-			h.Error(w, r, err)
-			return
-		}
-
-		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeleteBeer(ctx, req.(*DeleteBeerReq))
-		}
-		if h.Middleware != nil {
-			next = h.Middleware(next)
-		}
-		out, err := next(r.Context(), &in)
-		if err != nil {
-			h.Error(w, r, err)
-			return
-		}
-		reply := out.(*DeleteBeerReply)
+		reply := out.(*GetOrderReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

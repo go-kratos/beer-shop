@@ -18,16 +18,16 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShopAdminClient interface {
-	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error)
-	CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserReply, error)
-	VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...grpc.CallOption) (*VerifyPasswordReply, error)
-	ListAddress(ctx context.Context, in *ListAddressReq, opts ...grpc.CallOption) (*ListAddressReply, error)
-	CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...grpc.CallOption) (*CreateAddressReply, error)
-	GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error)
-	ListCard(ctx context.Context, in *ListCardReq, opts ...grpc.CallOption) (*ListCardReply, error)
-	CreateCard(ctx context.Context, in *CreateCardReq, opts ...grpc.CallOption) (*CreateCardReply, error)
-	GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.CallOption) (*GetCardReply, error)
-	DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...grpc.CallOption) (*DeleteCardReply, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginReply, error)
+	Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutReply, error)
+	ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error)
+	CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error)
+	UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...grpc.CallOption) (*UpdateBeerReply, error)
+	DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error)
+	ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error)
+	GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error)
+	ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...grpc.CallOption) (*ListCustomerReply, error)
+	GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...grpc.CallOption) (*GetCustomerReply, error)
 }
 
 type shopAdminClient struct {
@@ -38,90 +38,90 @@ func NewShopAdminClient(cc grpc.ClientConnInterface) ShopAdminClient {
 	return &shopAdminClient{cc}
 }
 
-func (c *shopAdminClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error) {
-	out := new(GetUserReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetUser", in, out, opts...)
+func (c *shopAdminClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginReply, error) {
+	out := new(LoginReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserReply, error) {
-	out := new(CreateUserReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateUser", in, out, opts...)
+func (c *shopAdminClient) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutReply, error) {
+	out := new(LogoutReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/Logout", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...grpc.CallOption) (*VerifyPasswordReply, error) {
-	out := new(VerifyPasswordReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/VerifyPassword", in, out, opts...)
+func (c *shopAdminClient) ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error) {
+	out := new(ListBeerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListBeer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) ListAddress(ctx context.Context, in *ListAddressReq, opts ...grpc.CallOption) (*ListAddressReply, error) {
-	out := new(ListAddressReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListAddress", in, out, opts...)
+func (c *shopAdminClient) CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error) {
+	out := new(CreateBeerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateBeer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...grpc.CallOption) (*CreateAddressReply, error) {
-	out := new(CreateAddressReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateAddress", in, out, opts...)
+func (c *shopAdminClient) UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...grpc.CallOption) (*UpdateBeerReply, error) {
+	out := new(UpdateBeerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateBeer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) GetAddress(ctx context.Context, in *GetAddressReq, opts ...grpc.CallOption) (*GetAddressReply, error) {
-	out := new(GetAddressReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetAddress", in, out, opts...)
+func (c *shopAdminClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error) {
+	out := new(DeleteBeerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteBeer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) ListCard(ctx context.Context, in *ListCardReq, opts ...grpc.CallOption) (*ListCardReply, error) {
-	out := new(ListCardReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListCard", in, out, opts...)
+func (c *shopAdminClient) ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error) {
+	out := new(ListOrderReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) CreateCard(ctx context.Context, in *CreateCardReq, opts ...grpc.CallOption) (*CreateCardReply, error) {
-	out := new(CreateCardReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateCard", in, out, opts...)
+func (c *shopAdminClient) GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error) {
+	out := new(GetOrderReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) GetCard(ctx context.Context, in *GetCardReq, opts ...grpc.CallOption) (*GetCardReply, error) {
-	out := new(GetCardReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetCard", in, out, opts...)
+func (c *shopAdminClient) ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...grpc.CallOption) (*ListCustomerReply, error) {
+	out := new(ListCustomerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...grpc.CallOption) (*DeleteCardReply, error) {
-	out := new(DeleteCardReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteCard", in, out, opts...)
+func (c *shopAdminClient) GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...grpc.CallOption) (*GetCustomerReply, error) {
+	out := new(GetCustomerReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,16 +132,16 @@ func (c *shopAdminClient) DeleteCard(ctx context.Context, in *DeleteCardReq, opt
 // All implementations must embed UnimplementedShopAdminServer
 // for forward compatibility
 type ShopAdminServer interface {
-	GetUser(context.Context, *GetUserReq) (*GetUserReply, error)
-	CreateUser(context.Context, *CreateUserReq) (*CreateUserReply, error)
-	VerifyPassword(context.Context, *VerifyPasswordReq) (*VerifyPasswordReply, error)
-	ListAddress(context.Context, *ListAddressReq) (*ListAddressReply, error)
-	CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error)
-	GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error)
-	ListCard(context.Context, *ListCardReq) (*ListCardReply, error)
-	CreateCard(context.Context, *CreateCardReq) (*CreateCardReply, error)
-	GetCard(context.Context, *GetCardReq) (*GetCardReply, error)
-	DeleteCard(context.Context, *DeleteCardReq) (*DeleteCardReply, error)
+	Login(context.Context, *LoginReq) (*LoginReply, error)
+	Logout(context.Context, *LogoutReq) (*LogoutReply, error)
+	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
+	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
+	UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error)
+	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
+	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
+	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
+	ListCustomer(context.Context, *ListCustomerReq) (*ListCustomerReply, error)
+	GetCustomer(context.Context, *GetCustomerReq) (*GetCustomerReply, error)
 	mustEmbedUnimplementedShopAdminServer()
 }
 
@@ -149,35 +149,35 @@ type ShopAdminServer interface {
 type UnimplementedShopAdminServer struct {
 }
 
-func (UnimplementedShopAdminServer) GetUser(context.Context, *GetUserReq) (*GetUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+func (UnimplementedShopAdminServer) Login(context.Context, *LoginReq) (*LoginReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedShopAdminServer) CreateUser(context.Context, *CreateUserReq) (*CreateUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedShopAdminServer) Logout(context.Context, *LogoutReq) (*LogoutReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
-func (UnimplementedShopAdminServer) VerifyPassword(context.Context, *VerifyPasswordReq) (*VerifyPasswordReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VerifyPassword not implemented")
+func (UnimplementedShopAdminServer) ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListBeer not implemented")
 }
-func (UnimplementedShopAdminServer) ListAddress(context.Context, *ListAddressReq) (*ListAddressReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListAddress not implemented")
+func (UnimplementedShopAdminServer) CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBeer not implemented")
 }
-func (UnimplementedShopAdminServer) CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAddress not implemented")
+func (UnimplementedShopAdminServer) UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBeer not implemented")
 }
-func (UnimplementedShopAdminServer) GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAddress not implemented")
+func (UnimplementedShopAdminServer) DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBeer not implemented")
 }
-func (UnimplementedShopAdminServer) ListCard(context.Context, *ListCardReq) (*ListCardReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListCard not implemented")
+func (UnimplementedShopAdminServer) ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrder not implemented")
 }
-func (UnimplementedShopAdminServer) CreateCard(context.Context, *CreateCardReq) (*CreateCardReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCard not implemented")
+func (UnimplementedShopAdminServer) GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
-func (UnimplementedShopAdminServer) GetCard(context.Context, *GetCardReq) (*GetCardReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCard not implemented")
+func (UnimplementedShopAdminServer) ListCustomer(context.Context, *ListCustomerReq) (*ListCustomerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCustomer not implemented")
 }
-func (UnimplementedShopAdminServer) DeleteCard(context.Context, *DeleteCardReq) (*DeleteCardReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteCard not implemented")
+func (UnimplementedShopAdminServer) GetCustomer(context.Context, *GetCustomerReq) (*GetCustomerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomer not implemented")
 }
 func (UnimplementedShopAdminServer) mustEmbedUnimplementedShopAdminServer() {}
 
@@ -192,182 +192,182 @@ func RegisterShopAdminServer(s grpc.ServiceRegistrar, srv ShopAdminServer) {
 	s.RegisterService(&ShopAdmin_ServiceDesc, srv)
 }
 
-func _ShopAdmin_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserReq)
+func _ShopAdmin_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).GetUser(ctx, in)
+		return srv.(ShopAdminServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/GetUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).GetUser(ctx, req.(*GetUserReq))
+		return srv.(ShopAdminServer).Login(ctx, req.(*LoginReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateUserReq)
+func _ShopAdmin_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).CreateUser(ctx, in)
+		return srv.(ShopAdminServer).Logout(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/CreateUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/Logout",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).CreateUser(ctx, req.(*CreateUserReq))
+		return srv.(ShopAdminServer).Logout(ctx, req.(*LogoutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_VerifyPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VerifyPasswordReq)
+func _ShopAdmin_ListBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListBeerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).VerifyPassword(ctx, in)
+		return srv.(ShopAdminServer).ListBeer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/VerifyPassword",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListBeer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).VerifyPassword(ctx, req.(*VerifyPasswordReq))
+		return srv.(ShopAdminServer).ListBeer(ctx, req.(*ListBeerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_ListAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListAddressReq)
+func _ShopAdmin_CreateBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBeerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).ListAddress(ctx, in)
+		return srv.(ShopAdminServer).CreateBeer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/ListAddress",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateBeer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).ListAddress(ctx, req.(*ListAddressReq))
+		return srv.(ShopAdminServer).CreateBeer(ctx, req.(*CreateBeerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_CreateAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAddressReq)
+func _ShopAdmin_UpdateBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBeerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).CreateAddress(ctx, in)
+		return srv.(ShopAdminServer).UpdateBeer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/CreateAddress",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateBeer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).CreateAddress(ctx, req.(*CreateAddressReq))
+		return srv.(ShopAdminServer).UpdateBeer(ctx, req.(*UpdateBeerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_GetAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAddressReq)
+func _ShopAdmin_DeleteBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBeerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).GetAddress(ctx, in)
+		return srv.(ShopAdminServer).DeleteBeer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/GetAddress",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteBeer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).GetAddress(ctx, req.(*GetAddressReq))
+		return srv.(ShopAdminServer).DeleteBeer(ctx, req.(*DeleteBeerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_ListCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListCardReq)
+func _ShopAdmin_ListOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).ListCard(ctx, in)
+		return srv.(ShopAdminServer).ListOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/ListCard",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).ListCard(ctx, req.(*ListCardReq))
+		return srv.(ShopAdminServer).ListOrder(ctx, req.(*ListOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_CreateCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCardReq)
+func _ShopAdmin_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).CreateCard(ctx, in)
+		return srv.(ShopAdminServer).GetOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/CreateCard",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).CreateCard(ctx, req.(*CreateCardReq))
+		return srv.(ShopAdminServer).GetOrder(ctx, req.(*GetOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_GetCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCardReq)
+func _ShopAdmin_ListCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCustomerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).GetCard(ctx, in)
+		return srv.(ShopAdminServer).ListCustomer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/GetCard",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).GetCard(ctx, req.(*GetCardReq))
+		return srv.(ShopAdminServer).ListCustomer(ctx, req.(*ListCustomerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_DeleteCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteCardReq)
+func _ShopAdmin_GetCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomerReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).DeleteCard(ctx, in)
+		return srv.(ShopAdminServer).GetCustomer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteCard",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).DeleteCard(ctx, req.(*DeleteCardReq))
+		return srv.(ShopAdminServer).GetCustomer(ctx, req.(*GetCustomerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -380,44 +380,44 @@ var ShopAdmin_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ShopAdminServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetUser",
-			Handler:    _ShopAdmin_GetUser_Handler,
+			MethodName: "Login",
+			Handler:    _ShopAdmin_Login_Handler,
 		},
 		{
-			MethodName: "CreateUser",
-			Handler:    _ShopAdmin_CreateUser_Handler,
+			MethodName: "Logout",
+			Handler:    _ShopAdmin_Logout_Handler,
 		},
 		{
-			MethodName: "VerifyPassword",
-			Handler:    _ShopAdmin_VerifyPassword_Handler,
+			MethodName: "ListBeer",
+			Handler:    _ShopAdmin_ListBeer_Handler,
 		},
 		{
-			MethodName: "ListAddress",
-			Handler:    _ShopAdmin_ListAddress_Handler,
+			MethodName: "CreateBeer",
+			Handler:    _ShopAdmin_CreateBeer_Handler,
 		},
 		{
-			MethodName: "CreateAddress",
-			Handler:    _ShopAdmin_CreateAddress_Handler,
+			MethodName: "UpdateBeer",
+			Handler:    _ShopAdmin_UpdateBeer_Handler,
 		},
 		{
-			MethodName: "GetAddress",
-			Handler:    _ShopAdmin_GetAddress_Handler,
+			MethodName: "DeleteBeer",
+			Handler:    _ShopAdmin_DeleteBeer_Handler,
 		},
 		{
-			MethodName: "ListCard",
-			Handler:    _ShopAdmin_ListCard_Handler,
+			MethodName: "ListOrder",
+			Handler:    _ShopAdmin_ListOrder_Handler,
 		},
 		{
-			MethodName: "CreateCard",
-			Handler:    _ShopAdmin_CreateCard_Handler,
+			MethodName: "GetOrder",
+			Handler:    _ShopAdmin_GetOrder_Handler,
 		},
 		{
-			MethodName: "GetCard",
-			Handler:    _ShopAdmin_GetCard_Handler,
+			MethodName: "ListCustomer",
+			Handler:    _ShopAdmin_ListCustomer_Handler,
 		},
 		{
-			MethodName: "DeleteCard",
-			Handler:    _ShopAdmin_DeleteCard_Handler,
+			MethodName: "GetCustomer",
+			Handler:    _ShopAdmin_GetCustomer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

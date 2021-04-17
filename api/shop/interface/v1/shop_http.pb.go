@@ -20,25 +20,33 @@ var _ = mux.NewRouter
 const _ = http1.SupportPackageIsVersion1
 
 type ShopInterfaceHandler interface {
+	AddCartItem(context.Context, *AddCartItemReq) (*AddCartItemReply, error)
+
 	CreateAddress(context.Context, *CreateAddressReq) (*CreateAddressReply, error)
 
 	CreateCard(context.Context, *CreateCardReq) (*CreateCardReply, error)
 
-	CreateUser(context.Context, *CreateUserReq) (*CreateUserReply, error)
+	CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error)
 
 	DeleteCard(context.Context, *DeleteCardReq) (*DeleteCardReply, error)
 
 	GetAddress(context.Context, *GetAddressReq) (*GetAddressReply, error)
 
-	GetCard(context.Context, *GetCardReq) (*GetCardReply, error)
+	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
 
-	GetUser(context.Context, *GetUserReq) (*GetUserReply, error)
+	GetCard(context.Context, *GetCardReq) (*GetCardReply, error)
 
 	ListAddress(context.Context, *ListAddressReq) (*ListAddressReply, error)
 
+	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
+
 	ListCard(context.Context, *ListCardReq) (*ListCardReply, error)
 
-	VerifyPassword(context.Context, *VerifyPasswordReq) (*VerifyPasswordReply, error)
+	ListCartItem(context.Context, *ListCartItemReq) (*ListCartItemReply, error)
+
+	Login(context.Context, *LoginReq) (*LoginReply, error)
+
+	Logout(context.Context, *LogoutReq) (*LogoutReply, error)
 }
 
 func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOption) http.Handler {
@@ -48,15 +56,15 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/GetUser", func(w http.ResponseWriter, r *http.Request) {
-		var in GetUserReq
+	r.HandleFunc("/v1/login/", func(w http.ResponseWriter, r *http.Request) {
+		var in LoginReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetUser(ctx, req.(*GetUserReq))
+			return srv.Login(ctx, req.(*LoginReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -66,21 +74,21 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*GetUserReply)
+		reply := out.(*LoginReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateUser", func(w http.ResponseWriter, r *http.Request) {
-		var in CreateUserReq
+	r.HandleFunc("/v1/logout/", func(w http.ResponseWriter, r *http.Request) {
+		var in LogoutReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
 
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateUser(ctx, req.(*CreateUserReq))
+			return srv.Logout(ctx, req.(*LogoutReq))
 		}
 		if h.Middleware != nil {
 			next = h.Middleware(next)
@@ -90,37 +98,13 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			h.Error(w, r, err)
 			return
 		}
-		reply := out.(*CreateUserReply)
+		reply := out.(*LogoutReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/VerifyPassword", func(w http.ResponseWriter, r *http.Request) {
-		var in VerifyPasswordReq
-		if err := h.Decode(r, &in); err != nil {
-			h.Error(w, r, err)
-			return
-		}
-
-		next := func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.VerifyPassword(ctx, req.(*VerifyPasswordReq))
-		}
-		if h.Middleware != nil {
-			next = h.Middleware(next)
-		}
-		out, err := next(r.Context(), &in)
-		if err != nil {
-			h.Error(w, r, err)
-			return
-		}
-		reply := out.(*VerifyPasswordReply)
-		if err := h.Encode(w, r, reply); err != nil {
-			h.Error(w, r, err)
-		}
-	}).Methods("POST")
-
-	r.HandleFunc("/shop_interface.v1.ShopInterface/ListAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/addresses/", func(w http.ResponseWriter, r *http.Request) {
 		var in ListAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -142,9 +126,9 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/addresses/", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateAddressReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -168,9 +152,14 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/GetAddress", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/addresses/{id}", func(w http.ResponseWriter, r *http.Request) {
 		var in GetAddressReq
 		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -190,9 +179,9 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/ListCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/cards/", func(w http.ResponseWriter, r *http.Request) {
 		var in ListCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -214,9 +203,9 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/CreateCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/cards/", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateCardReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -240,9 +229,14 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		}
 	}).Methods("POST")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/GetCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/cards/{id}", func(w http.ResponseWriter, r *http.Request) {
 		var in GetCardReq
 		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -262,11 +256,16 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/shop_interface.v1.ShopInterface/DeleteCard", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/user/cards/{id}", func(w http.ResponseWriter, r *http.Request) {
 		var in DeleteCardReq
 		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -283,6 +282,131 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			return
 		}
 		reply := out.(*DeleteCardReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("DELETE")
+
+	r.HandleFunc("/v1/catalog/beers/", func(w http.ResponseWriter, r *http.Request) {
+		var in ListBeerReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListBeer(ctx, req.(*ListBeerReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*ListBeerReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("GET")
+
+	r.HandleFunc("/v1/catalog/beers/{id}", func(w http.ResponseWriter, r *http.Request) {
+		var in GetBeerReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetBeer(ctx, req.(*GetBeerReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*GetBeerReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("GET")
+
+	r.HandleFunc("/v1/cart/", func(w http.ResponseWriter, r *http.Request) {
+		var in ListCartItemReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListCartItem(ctx, req.(*ListCartItemReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*ListCartItemReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("GET")
+
+	r.HandleFunc("/v1/cart/", func(w http.ResponseWriter, r *http.Request) {
+		var in AddCartItemReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.AddCartItem(ctx, req.(*AddCartItemReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*AddCartItemReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("POST")
+
+	r.HandleFunc("/v1/orders/", func(w http.ResponseWriter, r *http.Request) {
+		var in CreateOrderReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateOrder(ctx, req.(*CreateOrderReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*CreateOrderReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

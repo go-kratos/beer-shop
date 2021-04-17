@@ -11,8 +11,8 @@ import (
 const _ = errors.SupportPackageIsVersion1
 
 const (
-	Errors_UNKNOWN_ERROR  = "User_UNKNOWN_ERROR"
-	Errors_ITEM_NOT_FOUND = "User_ITEM_NOT_FOUND"
+	Errors_UNKNOWN_ERROR  = "Catalog_UNKNOWN_ERROR"
+	Errors_ITEM_NOT_FOUND = "Catalog_ITEM_NOT_FOUND"
 )
 
 func IsUNKNOWN_ERROR(err error) bool {
