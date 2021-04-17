@@ -13,13 +13,12 @@ var ProviderSet = wire.NewSet(NewCartService)
 type CartService struct {
 	v1.UnimplementedCartServer
 
-	bc  *biz.BeerUseCase
+	cc  *biz.CartUseCase
 	log *log.Helper
 }
 
-func NewCartService(bc *biz.BeerUseCase, logger log.Logger) *CartService {
+func NewCartService(cc *biz.CartUseCase, logger log.Logger) *CartService {
 	return &CartService{
-
-		bc:  bc,
+		cc:  cc,
 		log: log.NewHelper("service/cart", logger)}
 }

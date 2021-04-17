@@ -5,38 +5,32 @@ import (
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/data/ent"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"time"
 
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/conf"
 
-	// init mysql driver
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewBeerRepo)
+var ProviderSet = wire.NewSet(NewData, NewCartRepo)
 
 // Data .
 type Data struct {
-	db *ent.Client
+	db *mongo.Client
 }
 
 // NewData .
 func NewData(conf *conf.Data, logger log.Logger) (*Data, error) {
-	log := log.NewHelper("server-service/data", logger)
+	log := log.NewHelper("cart-service/data", logger)
 
-	client, err := ent.Open(
-		conf.Database.Driver,
-		conf.Database.Source,
-	)
-	if err != nil {
-		log.Errorf("failed opening connection to sqlite: %v", err)
-		return nil, err
-	}
-	// Run the auto migration tool.
-	if err := client.Schema.Create(context.Background()); err != nil {
-		log.Errorf("failed creating schema resources: %v", err)
-		return nil, err
-	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	err = client.Ping(ctx, readpref.Primary())
+
+
 	return &Data{
 		db: client,
 	}, nil

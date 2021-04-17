@@ -20,7 +20,7 @@ type Data struct {
 
 // NewData .
 func NewData(conf *conf.Data, logger log.Logger) (*Data, error) {
-	l := log.NewHelper("server-service/data", logger)
+	l := log.NewHelper("data", logger)
 	return &Data{log: l}, nil
 }
 

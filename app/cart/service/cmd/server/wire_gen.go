@@ -23,9 +23,9 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, err
 	}
-	beerRepo := data.NewBeerRepo(dataData, logger)
-	beerUseCase := biz.NewBeerUseCase(beerRepo, logger)
-	cartService := service.NewCartService(beerUseCase, logger)
+	cartRepo := data.NewCartRepo(dataData, logger)
+	cartUseCase := biz.NewCartUseCase(cartRepo, logger)
+	cartService := service.NewCartService(cartUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, cartService)
 	grpcServer := server.NewGRPCServer(confServer, cartService)
 	registrar := server.NewRegistrar()

@@ -9,21 +9,21 @@ import (
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/biz"
 )
 
-var _ biz.BeerRepo = (*beerRepo)(nil)
+var _ biz.CartRepo = (*cartRepo)(nil)
 
-type beerRepo struct {
+type cartRepo struct {
 	data *Data
 	log  *log.Helper
 }
 
-func NewBeerRepo(data *Data, logger log.Logger) biz.BeerRepo {
-	return &beerRepo{
+func NewCartRepo(data *Data, logger log.Logger) biz.CartRepo {
+	return &cartRepo{
 		data: data,
 		log:  log.NewHelper("data/beer", logger),
 	}
 }
 
-func (r *beerRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
+func (r *cartRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
 	po, err := r.data.db.Beer.
 		Create().
 		SetName(b.Name).
@@ -39,7 +39,7 @@ func (r *beerRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, erro
 	}, err
 }
 
-func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
+func (r *cartRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 	po, err := r.data.db.Beer.Get(ctx, id)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 	}, err
 }
 
-func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
+func (r *cartRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
 	pos, err := r.data.db.Beer.Query().
 		Offset(int(pagination.GetPageOffset(pageNum, pageSize))).
 		Limit(int(pageSize)).

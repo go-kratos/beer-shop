@@ -1,5 +1,13 @@
 version: '3'
 services:
+  web-shop:
+    image: go-kratos/beer-web-shop:0.1.0
+    ports:
+      - 80:80
+  web-admin:
+    image: go-kratos/beer-web-admin:0.1.0
+    ports:
+      - 80:80
   user-service:
     image: go-kratos/beer-user-service:0.1.0
     hostname: user-service

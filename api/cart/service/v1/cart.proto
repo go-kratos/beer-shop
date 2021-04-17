@@ -8,62 +8,61 @@ option go_package = "api/cart/service/v1;v1";
 
 
 service Cart {
-    rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
+    rpc GetCart (GetCartReq) returns (GetCartReply) {}
+    rpc DeleteCart (DeleteCartReq) returns (DeleteCartReply) {}
+
+    rpc AddItem (AddItemReq) returns (AddItemReply) {}
+    rpc UpdateItem (UpdateItemReq) returns (UpdateItemReply) {}
+    rpc DeleteItem (DeleteItemReq) returns (DeleteItemReply) {}
+}
+
+message GetCartReq {
+    int64 user_id = 1;
+}
+
+message GetCartReply {
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
     }
-
-    rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
-    }
-
-    rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
-    }
-
-    rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
-    }
+    repeated Item items = 1;
 }
 
-
-message ListBeerReq {
-    int64 page_num = 1;
-    int64 page_size = 2;
+message DeleteCartReq {
+    int64 user_id = 1;
 }
 
-message ListBeerReply {
-    message Beer {
-        int64 id = 1;
-        string name = 2;
-        string description = 3;
-        int64 count = 4;
-    }
-    repeated Beer results = 1;
+message DeleteCartReply {
+
 }
 
-message CreateBeerReq {
-    string name = 1;
-    string description = 2;
-    int64 count = 3;
+message AddItemReq {
+    int64 user_id = 1;
+    int64 item_id = 2;
+    int64 quantity = 3;
 }
 
-message CreateBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
+message AddItemReply {
+    int64 item_id = 1;
+    int64 quantity = 2;
 }
 
-message GetBeerReq {
-    int64 id = 1;
+message UpdateItemReq {
+    int64 user_id = 1;
+    int64 item_id = 2;
+    int64 quantity = 3;
 }
 
-message GetBeerReply {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
+message UpdateItemReply {
+    int64 item_id = 1;
+    int64 quantity = 2;
 }
 
-message DeleteBeerReq {
-    int64 id = 1;
+message DeleteItemReq {
+    int64 user_id = 1;
 }
 
-message DeleteBeerReply {
+message DeleteItemReply {
+
 }
+
