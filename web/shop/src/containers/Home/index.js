@@ -52,5 +52,39 @@ export default function Home(props) {
 
             </div>
         </section>
+
+        <section className="bg-white py-8">
+            <div className="container py-8 px-6 mx-auto">
+                <a className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mb-8"
+                   href="#">
+                    About
+                </a>
+
+                <p className="mt-8 mb-8">BeerShop is a simple but complete microservices demo for kratos. created by <a
+                        className="text-gray-800 underline hover:text-gray-900"
+                        href="https://go-kratos.dev">go-kratos.dev</a></p>
+                <p className="mb-8">This project describes the microservices project layout in mono-repo,
+                    how the services communicate with each other and the deployment of the services.</p>
+                <p className="mb-8">All the backend microservices are built with kratos framework. You could get the project's source code from <a
+                    className="text-gray-800 underline hover:text-gray-900"
+                    href="https://github.com/go-kratos/beer-shop">https://github.com/go-kratos/beer-shop</a></p>
+            </div>
+
+        </section>
+
+        <footer className="container mx-auto bg-white py-8 border-t border-gray-400">
+            <div className="container flex px-3 py-8 ">
+                <div className="w-full mx-auto flex flex-wrap">
+                    <div className="flex w-full lg:w-1/2 ">
+                        <div className="px-3 md:px-0">
+                            <h3 className="font-bold text-gray-900">Footer</h3>
+                            <p className="py-4">
+                                beer shop
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>;
 }
