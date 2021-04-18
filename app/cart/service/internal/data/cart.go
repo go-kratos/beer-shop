@@ -2,8 +2,6 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/pkg/utils/pagination"
-
 	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/biz"
@@ -23,51 +21,19 @@ func NewCartRepo(data *Data, logger log.Logger) biz.CartRepo {
 	}
 }
 
-func (r *cartRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
-	po, err := r.data.db.Beer.
-		Create().
-		SetName(b.Name).
-		SetDescription(b.Description).
-		SetCount(b.Count).
-		SetImages(b.Images).
-		Save(ctx)
-	return &biz.Beer{
-		Id:          po.ID,
-		Description: po.Description,
-		Count:       po.Count,
-		Images:      po.Images,
-	}, err
+func (r *cartRepo)	GetCart(ctx context.Context, uid int64) (*biz.Cart, error) {
+	return nil, nil
+}
+func (r *cartRepo)	DeleteCart(ctx context.Context, uid int64) (*biz.Cart, error) {
+	return nil, nil
+}
+func (r *cartRepo)	AddItem(ctx context.Context, uid int64, item *biz.Item) (*biz.Cart, error) {
+	return nil, nil
+}
+func (r *cartRepo)	UpdateItem(ctx context.Context, uid int64, item *biz.Item) (*biz.Cart, error) {
+	return nil, nil
+}
+func (r *cartRepo)	DeleteItem(ctx context.Context, uid int64, item *biz.Item) (*biz.Cart, error) {
+	return nil, nil
 }
 
-func (r *cartRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
-	po, err := r.data.db.Beer.Get(ctx, id)
-	if err != nil {
-		return nil, err
-	}
-	return &biz.Beer{
-		Id:          po.ID,
-		Description: po.Description,
-		Count:       po.Count,
-		Images:      po.Images,
-	}, err
-}
-
-func (r *cartRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
-	pos, err := r.data.db.Beer.Query().
-		Offset(int(pagination.GetPageOffset(pageNum, pageSize))).
-		Limit(int(pageSize)).
-		All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	rv := make([]*biz.Beer, 0)
-	for _, po := range pos {
-		rv = append(rv, &biz.Beer{
-			Id:          po.ID,
-			Description: po.Description,
-			Count:       po.Count,
-			Images:      po.Images,
-		})
-	}
-	return rv, err
-}

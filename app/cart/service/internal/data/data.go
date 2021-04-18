@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/app/cart/service/internal/data/ent"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,7 +10,6 @@ import (
 	"time"
 
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/conf"
-
 )
 
 // ProviderSet is data providers.
@@ -23,15 +21,25 @@ type Data struct {
 }
 
 // NewData .
-func NewData(conf *conf.Data, logger log.Logger) (*Data, error) {
+func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
 	log := log.NewHelper("cart-service/data", logger)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(conf.Mongodb.Uri))
+	if err != nil {
+		panic(err)
+	}
 	err = client.Ping(ctx, readpref.Primary())
-
-
-	return &Data{
+	if err != nil {
+		panic(err)
+	}
+	d := &Data{
 		db: client,
+	}
+	return d, func() {
+		if err := d.db.Disconnect(ctx); err != nil {
+			log.Error(err)
+		}
 	}, nil
 }

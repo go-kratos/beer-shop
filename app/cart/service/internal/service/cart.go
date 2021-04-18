@@ -5,7 +5,7 @@ import (
 	"github.com/go-kratos/beer-shop/api/cart/service/v1"
 )
 
-func (s *CartService) GetCart(ctx context.Context, req *v1.GetCartReq) (reply *v1.GetCartReq, err error) {
+func (s *CartService) GetCart(ctx context.Context, req *v1.GetCartReq) (reply *v1.GetCartReply, err error) {
 	return
 }
 func (s *CartService) DeleteCart(ctx context.Context, req *v1.DeleteCartReq) (reply *v1.DeleteCartReply, err error) {

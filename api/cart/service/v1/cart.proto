@@ -6,7 +6,6 @@ import "google/api/annotations.proto";
 
 option go_package = "api/cart/service/v1;v1";
 
-
 service Cart {
     rpc GetCart (GetCartReq) returns (GetCartReply) {}
     rpc DeleteCart (DeleteCartReq) returns (DeleteCartReply) {}
