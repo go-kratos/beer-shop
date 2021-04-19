@@ -7,4 +7,5 @@ server:
     timeout: 1s
 data:
   mongodb:
-    uri: "mongodb://localhost:27017"
+    uri: "mongodb://localhost:27017/"
+    database: "cart-db"

@@ -42,8 +42,11 @@ message AddItemReq {
 }
 
 message AddItemReply {
-    int64 item_id = 1;
-    int64 quantity = 2;
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
+    }
+    repeated Item items = 1;
 }
 
 message UpdateItemReq {
@@ -53,15 +56,23 @@ message UpdateItemReq {
 }
 
 message UpdateItemReply {
-    int64 item_id = 1;
-    int64 quantity = 2;
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
+    }
+    repeated Item items = 1;
 }
 
 message DeleteItemReq {
     int64 user_id = 1;
+    int64 item_id = 2;
 }
 
 message DeleteItemReply {
-
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
+    }
+    repeated Item items = 1;
 }
 

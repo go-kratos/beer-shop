@@ -17,7 +17,7 @@ var ProviderSet = wire.NewSet(NewData, NewCartRepo)
 
 // Data .
 type Data struct {
-	db *mongo.Client
+	db *mongo.Database
 }
 
 // NewData .
@@ -35,10 +35,10 @@ func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
 		panic(err)
 	}
 	d := &Data{
-		db: client,
+		db: client.Database(conf.Mongodb.Database),
 	}
 	return d, func() {
-		if err := d.db.Disconnect(ctx); err != nil {
+		if err := d.db.Client().Disconnect(ctx); err != nil {
 			log.Error(err)
 		}
 	}, nil

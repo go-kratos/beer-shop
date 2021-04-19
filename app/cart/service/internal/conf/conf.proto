@@ -28,6 +28,7 @@ message Server {
 message Data {
   message MongoDB {
     string uri = 1;
+    string database = 2;
   }
   MongoDB mongodb = 1;
 }

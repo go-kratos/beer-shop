@@ -38,5 +38,3 @@ func NewGRPCServer(c *conf.Server, s *service.CartService) *grpc.Server {
 	v1.RegisterCartServer(srv, s)
 	return srv
 }
-
-
