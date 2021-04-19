@@ -5,40 +5,22 @@ An online shop application, the complete microservices demo for kratos.
 ```
 .
 ├── api  // API&Error proto&generated code
-│   ├── cart
+│   ├── foo
 │   │   └── service
-│   ├── catalog
-│   │   └── service
-│   ├── order
-│   │   └── service
-│   ├── payment
-│   │   └── service
-│   ├── shop
-│   │   ├── admin
+│   ├── bar
 │   │   └── interface
-│   └── user
-│       └── service
 ├── app  // kratos microservices projects
-│   ├── cart
+│   ├── foo
 │   │   └── service
-│   ├── catalog
-│   │   └── service
-│   ├── order
-│   │   └── service
-│   ├── payment
-│   │   └── service
-│   ├── shop
-│   │   ├── admin
+│   ├── bar
 │   │   └── interface
-│   └── user
-│       └── service
-├── deploy
-│   ├── build
-│   ├── docker-compose
-│   └── kubernetes
-├── docs
 ├── pkg  // common used packages
-└── web  // web ui projects
+├── web  // web ui projects
     ├── admin  // for management
-    └── shop  // for customer
+    └── shop   // for customer
+├── docs
+└── deploy
+    ├── build
+    ├── docker-compose
+    └── kubernetes
 ```
