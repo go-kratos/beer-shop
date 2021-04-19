@@ -15,9 +15,6 @@ An online shop application, the complete microservices demo for kratos.
 │   ├── bar
 │   │   └── interface
 ├── pkg  // common used packages
-├── web  // web ui projects
-│   ├── foo  // for management
-│   └── bar  // for customer
 ├── docs
 └── deploy
     ├── build
