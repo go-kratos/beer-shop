@@ -1,7 +1,8 @@
-# beer-shop
+# [WIP] beer-shop
 An online shop application, the complete microservices demo for kratos.
+ATTENTION: This project is a Work-in-Progress.
 
-## project structure
+## Kratos Mono-Repo structure
 ```
 .
 ├── api  // API&Error proto&generated code
@@ -15,9 +16,6 @@ An online shop application, the complete microservices demo for kratos.
 │   ├── bar
 │   │   └── interface
 ├── pkg  // common used packages
-├── docs
-└── deploy
-    ├── build
-    ├── docker-compose
-    └── kubernetes
+└── docs
+
 ```
