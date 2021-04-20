@@ -9,15 +9,15 @@ import (
 	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent"
 )
 
-// The BeerFunc type is an adapter to allow the use of ordinary
-// function as Beer mutator.
-type BeerFunc func(context.Context, *ent.BeerMutation) (ent.Value, error)
+// The OrderFunc type is an adapter to allow the use of ordinary
+// function as Order mutator.
+type OrderFunc func(context.Context, *ent.OrderMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f BeerFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	mv, ok := m.(*ent.BeerMutation)
+func (f OrderFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.OrderMutation)
 	if !ok {
-		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.BeerMutation", m)
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OrderMutation", m)
 	}
 	return f(ctx, mv)
 }

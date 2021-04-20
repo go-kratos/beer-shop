@@ -6,5 +6,5 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// Beer is the predicate function for beer builders.
-type Beer func(*sql.Selector)
+// Order is the predicate function for order builders.
+type Order func(*sql.Selector)

@@ -5,7 +5,7 @@ package ent
 import (
 	"time"
 
-	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/beer"
+	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/order"
 	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/schema"
 )
 
@@ -13,14 +13,14 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
-	beerFields := schema.Beer{}.Fields()
-	_ = beerFields
-	// beerDescCreatedAt is the schema descriptor for created_at field.
-	beerDescCreatedAt := beerFields[6].Descriptor()
-	// beer.DefaultCreatedAt holds the default value on creation for the created_at field.
-	beer.DefaultCreatedAt = beerDescCreatedAt.Default.(func() time.Time)
-	// beerDescUpdatedAt is the schema descriptor for updated_at field.
-	beerDescUpdatedAt := beerFields[7].Descriptor()
-	// beer.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	beer.DefaultUpdatedAt = beerDescUpdatedAt.Default.(func() time.Time)
+	orderFields := schema.Order{}.Fields()
+	_ = orderFields
+	// orderDescCreatedAt is the schema descriptor for created_at field.
+	orderDescCreatedAt := orderFields[2].Descriptor()
+	// order.DefaultCreatedAt holds the default value on creation for the created_at field.
+	order.DefaultCreatedAt = orderDescCreatedAt.Default.(func() time.Time)
+	// orderDescUpdatedAt is the schema descriptor for updated_at field.
+	orderDescUpdatedAt := orderFields[3].Descriptor()
+	// order.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	order.DefaultUpdatedAt = orderDescUpdatedAt.Default.(func() time.Time)
 }

@@ -25,6 +25,8 @@ type OrderHandler interface {
 	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
 
 	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
+
+	UpdateOrder(context.Context, *UpdateOrderReq) (*UpdateOrderReply, error)
 }
 
 func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler {
@@ -101,6 +103,30 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 			return
 		}
 		reply := out.(*GetOrderReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("POST")
+
+	r.HandleFunc("/cart.service.v1.Order/UpdateOrder", func(w http.ResponseWriter, r *http.Request) {
+		var in UpdateOrderReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateOrder(ctx, req.(*UpdateOrderReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*UpdateOrderReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

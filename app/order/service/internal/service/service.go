@@ -13,13 +13,13 @@ var ProviderSet = wire.NewSet(NewOrderService)
 type OrderService struct {
 	v1.UnimplementedOrderServer
 
-	bc  *biz.BeerUseCase
+	oc  *biz.OrderUseCase
 	log *log.Helper
 }
 
-func NewOrderService(bc *biz.BeerUseCase, logger log.Logger) *OrderService {
+func NewOrderService(oc *biz.OrderUseCase, logger log.Logger) *OrderService {
 	return &OrderService{
 
-		bc:  bc,
+		oc:  oc,
 		log: log.NewHelper("service/order", logger)}
 }

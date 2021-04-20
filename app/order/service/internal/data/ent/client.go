@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/migrate"
 
-	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/beer"
+	"github.com/go-kratos/beer-shop/app/order/service/internal/data/ent/order"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
@@ -20,8 +20,8 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// Beer is the client for interacting with the Beer builders.
-	Beer *BeerClient
+	// Order is the client for interacting with the Order builders.
+	Order *OrderClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -35,7 +35,7 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.Beer = NewBeerClient(c.config)
+	c.Order = NewOrderClient(c.config)
 }
 
 // Open opens a database/sql.DB specified by the driver name and
@@ -69,7 +69,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:    ctx,
 		config: cfg,
-		Beer:   NewBeerClient(cfg),
+		Order:  NewOrderClient(cfg),
 	}, nil
 }
 
@@ -88,14 +88,14 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
 		config: cfg,
-		Beer:   NewBeerClient(cfg),
+		Order:  NewOrderClient(cfg),
 	}, nil
 }
 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		Beer.
+//		Order.
 //		Query().
 //		Count(ctx)
 //
@@ -118,85 +118,85 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.Beer.Use(hooks...)
+	c.Order.Use(hooks...)
 }
 
-// BeerClient is a client for the Beer schema.
-type BeerClient struct {
+// OrderClient is a client for the Order schema.
+type OrderClient struct {
 	config
 }
 
-// NewBeerClient returns a client for the Beer from the given config.
-func NewBeerClient(c config) *BeerClient {
-	return &BeerClient{config: c}
+// NewOrderClient returns a client for the Order from the given config.
+func NewOrderClient(c config) *OrderClient {
+	return &OrderClient{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `beer.Hooks(f(g(h())))`.
-func (c *BeerClient) Use(hooks ...Hook) {
-	c.hooks.Beer = append(c.hooks.Beer, hooks...)
+// A call to `Use(f, g, h)` equals to `order.Hooks(f(g(h())))`.
+func (c *OrderClient) Use(hooks ...Hook) {
+	c.hooks.Order = append(c.hooks.Order, hooks...)
 }
 
-// Create returns a create builder for Beer.
-func (c *BeerClient) Create() *BeerCreate {
-	mutation := newBeerMutation(c.config, OpCreate)
-	return &BeerCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Create returns a create builder for Order.
+func (c *OrderClient) Create() *OrderCreate {
+	mutation := newOrderMutation(c.config, OpCreate)
+	return &OrderCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of Beer entities.
-func (c *BeerClient) CreateBulk(builders ...*BeerCreate) *BeerCreateBulk {
-	return &BeerCreateBulk{config: c.config, builders: builders}
+// CreateBulk returns a builder for creating a bulk of Order entities.
+func (c *OrderClient) CreateBulk(builders ...*OrderCreate) *OrderCreateBulk {
+	return &OrderCreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for Beer.
-func (c *BeerClient) Update() *BeerUpdate {
-	mutation := newBeerMutation(c.config, OpUpdate)
-	return &BeerUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Update returns an update builder for Order.
+func (c *OrderClient) Update() *OrderUpdate {
+	mutation := newOrderMutation(c.config, OpUpdate)
+	return &OrderUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *BeerClient) UpdateOne(b *Beer) *BeerUpdateOne {
-	mutation := newBeerMutation(c.config, OpUpdateOne, withBeer(b))
-	return &BeerUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *OrderClient) UpdateOne(o *Order) *OrderUpdateOne {
+	mutation := newOrderMutation(c.config, OpUpdateOne, withOrder(o))
+	return &OrderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *BeerClient) UpdateOneID(id int64) *BeerUpdateOne {
-	mutation := newBeerMutation(c.config, OpUpdateOne, withBeerID(id))
-	return &BeerUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *OrderClient) UpdateOneID(id int64) *OrderUpdateOne {
+	mutation := newOrderMutation(c.config, OpUpdateOne, withOrderID(id))
+	return &OrderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for Beer.
-func (c *BeerClient) Delete() *BeerDelete {
-	mutation := newBeerMutation(c.config, OpDelete)
-	return &BeerDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Delete returns a delete builder for Order.
+func (c *OrderClient) Delete() *OrderDelete {
+	mutation := newOrderMutation(c.config, OpDelete)
+	return &OrderDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a delete builder for the given entity.
-func (c *BeerClient) DeleteOne(b *Beer) *BeerDeleteOne {
-	return c.DeleteOneID(b.ID)
+func (c *OrderClient) DeleteOne(o *Order) *OrderDeleteOne {
+	return c.DeleteOneID(o.ID)
 }
 
 // DeleteOneID returns a delete builder for the given id.
-func (c *BeerClient) DeleteOneID(id int64) *BeerDeleteOne {
-	builder := c.Delete().Where(beer.ID(id))
+func (c *OrderClient) DeleteOneID(id int64) *OrderDeleteOne {
+	builder := c.Delete().Where(order.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
-	return &BeerDeleteOne{builder}
+	return &OrderDeleteOne{builder}
 }
 
-// Query returns a query builder for Beer.
-func (c *BeerClient) Query() *BeerQuery {
-	return &BeerQuery{config: c.config}
+// Query returns a query builder for Order.
+func (c *OrderClient) Query() *OrderQuery {
+	return &OrderQuery{config: c.config}
 }
 
-// Get returns a Beer entity by its id.
-func (c *BeerClient) Get(ctx context.Context, id int64) (*Beer, error) {
-	return c.Query().Where(beer.ID(id)).Only(ctx)
+// Get returns a Order entity by its id.
+func (c *OrderClient) Get(ctx context.Context, id int64) (*Order, error) {
+	return c.Query().Where(order.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *BeerClient) GetX(ctx context.Context, id int64) *Beer {
+func (c *OrderClient) GetX(ctx context.Context, id int64) *Order {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -205,6 +205,6 @@ func (c *BeerClient) GetX(ctx context.Context, id int64) *Beer {
 }
 
 // Hooks returns the client hooks.
-func (c *BeerClient) Hooks() []Hook {
-	return c.hooks.Beer
+func (c *OrderClient) Hooks() []Hook {
+	return c.hooks.Order
 }

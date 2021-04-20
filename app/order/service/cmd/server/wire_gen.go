@@ -23,9 +23,9 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
-	beerRepo := data.NewBeerRepo(dataData, logger)
-	beerUseCase := biz.NewBeerUseCase(beerRepo, logger)
-	orderService := service.NewOrderService(beerUseCase, logger)
+	orderRepo := data.NewOrderRepo(dataData, logger)
+	orderUseCase := biz.NewOrderUseCase(orderRepo, logger)
+	orderService := service.NewOrderService(orderUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, orderService)
 	grpcServer := server.NewGRPCServer(confServer, orderService)
 	registrar := server.NewRegistrar()

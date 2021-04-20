@@ -38,5 +38,3 @@ func NewGRPCServer(c *conf.Server, s *service.OrderService) *grpc.Server {
 	v1.RegisterOrderServer(srv, s)
 	return srv
 }
-
-

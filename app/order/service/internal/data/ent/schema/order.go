@@ -4,24 +4,19 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
-	"github.com/go-kratos/beer-shop/app/order/service/internal/biz"
 	"time"
 )
 
-// Beer holds the schema definition for the Beer entity.
-type Beer struct {
+// Order holds the schema definition for the Order entity.
+type Order struct {
 	ent.Schema
 }
 
 // Fields of the Beer.
-func (Beer) Fields() []ent.Field {
+func (Order) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id"),
-		field.String("name"),
-		field.String("description"),
-		field.Int64("count"),
-		field.Int64("price"),
-		field.JSON("images", []biz.Image{}),
+		field.Int64("user_id"),
 		field.Time("created_at").
 			Default(time.Now).SchemaType(map[string]string{
 			dialect.MySQL: "datetime",
@@ -33,9 +28,7 @@ func (Beer) Fields() []ent.Field {
 	}
 }
 
-// Edges of the Beer.
-func (Beer) Edges() []ent.Edge {
-	return []ent.Edge{
-
-	}
+// Edges of the Order.
+func (Order) Edges() []ent.Edge {
+	return []ent.Edge{}
 }
