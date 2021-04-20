@@ -5,16 +5,18 @@ ATTENTION: This project is a Work-in-Progress.
 ## Kratos Mono-Repo structure
 ```
 .
-├── api  // API&Error proto&generated code
+├── api  // API&Error Proto files & Generated codes
 │   ├── foo
+│   │   ├── job
 │   │   └── service
-│   ├── bar
-│   │   └── interface
+│   └── bar
+│       └── interface
 ├── app  // kratos microservices projects
 │   ├── foo
+│   │   ├── job
 │   │   └── service
-│   ├── bar
-│   │   └── interface
+│   └── bar
+│       └── interface
 ├── pkg  // common used packages
 └── docs
 
