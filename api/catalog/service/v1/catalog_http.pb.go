@@ -27,6 +27,8 @@ type CatalogHandler interface {
 	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
 
 	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
+
+	UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error)
 }
 
 func NewCatalogHandler(srv CatalogHandler, opts ...http1.HandleOption) http.Handler {
@@ -103,6 +105,30 @@ func NewCatalogHandler(srv CatalogHandler, opts ...http1.HandleOption) http.Hand
 			return
 		}
 		reply := out.(*GetBeerReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("POST")
+
+	r.HandleFunc("/catalog.service.v1.Catalog/UpdateBeer", func(w http.ResponseWriter, r *http.Request) {
+		var in UpdateBeerReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateBeer(ctx, req.(*UpdateBeerReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*UpdateBeerReply)
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}

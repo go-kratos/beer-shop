@@ -38,5 +38,3 @@ func NewGRPCServer(c *conf.Server, s *service.CatalogService) *grpc.Server {
 	v1.RegisterCatalogServer(srv, s)
 	return srv
 }
-
-

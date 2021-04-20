@@ -17,6 +17,9 @@ service Catalog {
     rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
     }
 
+    rpc UpdateBeer (UpdateBeerReq) returns (UpdateBeerReply) {
+    }
+
     rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
     }
 }
@@ -29,25 +32,37 @@ message ListBeerReq {
 
 message ListBeerReply {
     message Beer {
+        message Image {
+            string url = 1;
+        }
         int64 id = 1;
         string name = 2;
         string description = 3;
         int64 count = 4;
+        repeated Image image = 5;
     }
     repeated Beer results = 1;
 }
 
 message CreateBeerReq {
+    message Image {
+        string url = 1;
+    }
     string name = 1;
     string description = 2;
     int64 count = 3;
+    repeated Image image = 4;
 }
 
 message CreateBeerReply {
+    message Image {
+        string url = 1;
+    }
     int64 id = 1;
     string name = 2;
     string description = 3;
     int64 count = 4;
+    repeated Image image = 5;
 }
 
 message GetBeerReq {
@@ -55,10 +70,36 @@ message GetBeerReq {
 }
 
 message GetBeerReply {
+    message Image {
+        string url = 1;
+    }
     int64 id = 1;
     string name = 2;
     string description = 3;
     int64 count = 4;
+    repeated Image image = 5;
+}
+
+message UpdateBeerReq {
+    message Image {
+        string url = 1;
+    }
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    int64 count = 4;
+    repeated Image image = 5;
+}
+
+message UpdateBeerReply {
+    message Image {
+        string url = 1;
+    }
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    int64 count = 4;
+    repeated Image image = 5;
 }
 
 message DeleteBeerReq {

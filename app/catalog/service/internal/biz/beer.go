@@ -19,6 +19,7 @@ type Beer struct {
 
 type BeerRepo interface {
 	CreateBeer(ctx context.Context, c *Beer) (*Beer, error)
+	UpdateBeer(ctx context.Context, c *Beer) (*Beer, error)
 	GetBeer(ctx context.Context, id int64) (*Beer, error)
 	ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error)
 }
@@ -38,6 +39,10 @@ func (uc *BeerUseCase) Create(ctx context.Context, u *Beer) (*Beer, error) {
 
 func (uc *BeerUseCase) Get(ctx context.Context, id int64) (*Beer, error) {
 	return uc.repo.GetBeer(ctx, id)
+}
+
+func (uc *BeerUseCase) Update(ctx context.Context, u *Beer) (*Beer, error) {
+	return uc.repo.UpdateBeer(ctx, u)
 }
 
 func (uc *BeerUseCase) List(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error) {

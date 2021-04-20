@@ -52,6 +52,22 @@ func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 	}, err
 }
 
+func (r *beerRepo) UpdateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
+	po, err := r.data.db.Beer.
+		Create().
+		SetName(b.Name).
+		SetDescription(b.Description).
+		SetCount(b.Count).
+		SetImages(b.Images).
+		Save(ctx)
+	return &biz.Beer{
+		Id:          po.ID,
+		Description: po.Description,
+		Count:       po.Count,
+		Images:      po.Images,
+	}, err
+}
+
 func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
 	pos, err := r.data.db.Beer.Query().
 		Offset(int(pagination.GetPageOffset(pageNum, pageSize))).

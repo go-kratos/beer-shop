@@ -21,6 +21,7 @@ type CatalogClient interface {
 	ListBeer(ctx context.Context, in *ListBeerReq, opts ...grpc.CallOption) (*ListBeerReply, error)
 	CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...grpc.CallOption) (*CreateBeerReply, error)
 	GetBeer(ctx context.Context, in *GetBeerReq, opts ...grpc.CallOption) (*GetBeerReply, error)
+	UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...grpc.CallOption) (*UpdateBeerReply, error)
 	DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error)
 }
 
@@ -59,6 +60,15 @@ func (c *catalogClient) GetBeer(ctx context.Context, in *GetBeerReq, opts ...grp
 	return out, nil
 }
 
+func (c *catalogClient) UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...grpc.CallOption) (*UpdateBeerReply, error) {
+	out := new(UpdateBeerReply)
+	err := c.cc.Invoke(ctx, "/catalog.service.v1.Catalog/UpdateBeer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *catalogClient) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error) {
 	out := new(DeleteBeerReply)
 	err := c.cc.Invoke(ctx, "/catalog.service.v1.Catalog/DeleteBeer", in, out, opts...)
@@ -75,6 +85,7 @@ type CatalogServer interface {
 	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
 	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
 	GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error)
+	UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error)
 	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
 	mustEmbedUnimplementedCatalogServer()
 }
@@ -91,6 +102,9 @@ func (UnimplementedCatalogServer) CreateBeer(context.Context, *CreateBeerReq) (*
 }
 func (UnimplementedCatalogServer) GetBeer(context.Context, *GetBeerReq) (*GetBeerReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBeer not implemented")
+}
+func (UnimplementedCatalogServer) UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBeer not implemented")
 }
 func (UnimplementedCatalogServer) DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBeer not implemented")
@@ -162,6 +176,24 @@ func _Catalog_GetBeer_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Catalog_UpdateBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBeerReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).UpdateBeer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/catalog.service.v1.Catalog/UpdateBeer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).UpdateBeer(ctx, req.(*UpdateBeerReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Catalog_DeleteBeer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteBeerReq)
 	if err := dec(in); err != nil {
@@ -198,6 +230,10 @@ var Catalog_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBeer",
 			Handler:    _Catalog_GetBeer_Handler,
+		},
+		{
+			MethodName: "UpdateBeer",
+			Handler:    _Catalog_UpdateBeer_Handler,
 		},
 		{
 			MethodName: "DeleteBeer",
