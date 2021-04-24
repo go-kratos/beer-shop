@@ -28,6 +28,5 @@ func (s *ShopInterface) Login(ctx context.Context, req *v1.LoginReq) (*v1.LoginR
 
 func (s *ShopInterface) Logout(ctx context.Context, req *v1.LogoutReq) (*v1.LogoutReply, error) {
 	err := s.uc.Logout(ctx, &biz.User{})
-	return &v1.LogoutReply{
-	}, err
+	return &v1.LogoutReply{}, err
 }

@@ -21,6 +21,6 @@ type ShopInterface struct {
 func NewShopInterface(uc *biz.UserUseCase, logger log.Logger) *ShopInterface {
 	return &ShopInterface{
 		log: log.NewHelper("service/interface", logger),
-		uc: uc,
+		uc:  uc,
 	}
 }
