@@ -47,6 +47,8 @@ type ShopInterfaceHandler interface {
 	Login(context.Context, *LoginReq) (*LoginReply, error)
 
 	Logout(context.Context, *LogoutReq) (*LogoutReply, error)
+
+	Register(context.Context, *RegisterReq) (*RegisterReply, error)
 }
 
 func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOption) http.Handler {
@@ -55,6 +57,30 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		o(&h)
 	}
 	r := mux.NewRouter()
+
+	r.HandleFunc("/v1/register/", func(w http.ResponseWriter, r *http.Request) {
+		var in RegisterReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Register(ctx, req.(*RegisterReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*RegisterReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("GET")
 
 	r.HandleFunc("/v1/login/", func(w http.ResponseWriter, r *http.Request) {
 		var in LoginReq

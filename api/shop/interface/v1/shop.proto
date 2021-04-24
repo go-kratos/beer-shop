@@ -8,6 +8,13 @@ option go_package = "api/shop/interface/v1;v1";
 
 
 service ShopInterface {
+    rpc Register (RegisterReq) returns (RegisterReply) {
+        option (google.api.http) = {
+            get: "/v1/register/"
+            body: "*"
+        };
+    }
+
     rpc Login (LoginReq) returns (LoginReply) {
         option (google.api.http) = {
             get: "/v1/login/"
@@ -108,6 +115,15 @@ service ShopInterface {
 
 }
 
+message RegisterReq {
+    string username = 1;
+    string password = 2;
+}
+
+message RegisterReply {
+    int64 id = 1;
+}
+
 
 message LoginReq {
     string username = 1;
@@ -115,7 +131,7 @@ message LoginReq {
 }
 
 message LoginReply {
-
+    string token = 1;
 }
 
 message LogoutReq {

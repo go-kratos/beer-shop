@@ -13,11 +13,14 @@ var ProviderSet = wire.NewSet(NewShopInterface)
 type ShopInterface struct {
 	v1.UnimplementedShopInterfaceServer
 
+	uc *biz.UserUseCase
+
 	log *log.Helper
 }
 
 func NewShopInterface(uc *biz.UserUseCase, logger log.Logger) *ShopInterface {
 	return &ShopInterface{
 		log: log.NewHelper("service/interface", logger),
+		uc: uc,
 	}
 }
