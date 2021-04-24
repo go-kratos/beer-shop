@@ -10,6 +10,8 @@ import Home from "./containers/Home"
 import Nav from "./components/Nav"
 
 import './App.css';
+import Login from "./containers/Login";
+import Register from "./containers/Register";
 
 function App() {
     return (
@@ -20,6 +22,12 @@ function App() {
                     {/*<Route path="/beer/:id">*/}
                         {/*/!*<BeerDetail/>*!/*/}
                     {/*</Route>*/}
+                    <Route path="/login">
+                        <Login/>
+                    </Route>
+                    <Route path="/register">
+                        <Register/>
+                    </Route>
                     <Route path="/">
                         <Home/>
                     </Route>
