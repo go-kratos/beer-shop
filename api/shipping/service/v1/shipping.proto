@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package shipping.service.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "api/shipping/service/v1;v1";
+
+
+service Shipping {
+    rpc ShipOrder (ShipOrderReq) returns (ShipOrderReply) {
+    }
+}
+
+message ShipOrderReq {
+    int64 id = 1;
+}
+
+
+message ShipOrderReply {
+    int64 id = 1;
+}
+

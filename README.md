@@ -1,7 +1,14 @@
 # [WIP] beer-shop
-An online shop application, the complete microservices demo for kratos.
+An online shop application, mono-repo microservices demo for kratos.
 
-本项目为一个使用kratos框架创建的，简单却功能尽量完整的微服务电商项目。旨在演示kratos在mono-repo（单体仓库，即多个服务代码维护在同一git仓库中）中的项目结构实践（与layout创建出来的略有不同），以及提供多个微服务之间互相依赖调用的样例。
+本项目为一个使用kratos框架创建的，简单的微服务电商项目。
+
+由于example较碎片化，未能体现出完整的项目的样子，因此我们创建了本项目，以完成如下目标：
+
+* 演示kratos在mono-repo中的项目结构实践（与layout创建出来的略有不同）
+* 提供多个微服务之间互相依赖调用和样例
+* 提供与各种基础设施集成和部署的样例
+* 主要为kratos框架使用演示，很多组件的设计做了简化或模拟处理，与实际的电商项目有一定出入，仅供参考
 
 **ATTENTION: This project is a Work-in-Progress.**
 

@@ -22,7 +22,8 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	discovery := data.NewDiscovery()
 	userClient := data.NewUserServiceClient(discovery)
 	cartClient := data.NewCartServiceClient(discovery)
-	dataData, err := data.NewData(confData, logger, userClient, cartClient)
+	catalogClient := data.NewCatalogServiceClient(discovery)
+	dataData, err := data.NewData(confData, logger, userClient, cartClient, catalogClient)
 	if err != nil {
 		return nil, nil, err
 	}

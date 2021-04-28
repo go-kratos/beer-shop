@@ -35,7 +35,6 @@ func (uc *UserUseCase) Register(ctx context.Context, u *User) (*User, error) {
 
 func (uc *UserUseCase) Login(ctx context.Context, u *User) (string, error) {
 	return uc.repo.Login(ctx, u)
-
 }
 
 func (uc *UserUseCase) Logout(ctx context.Context, u *User) error {

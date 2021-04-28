@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package courier.job.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "api/shipping/service/v1;v1";
+
+
+service Courier {
+}

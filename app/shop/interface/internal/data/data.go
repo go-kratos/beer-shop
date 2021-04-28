@@ -37,12 +37,19 @@ type Data struct {
 	log *log.Helper
 	uc  usV1.UserClient
 	cc  csV1.CartClient
+	bc  ctV1.CatalogClient
 }
 
 // NewData .
-func NewData(conf *conf.Data, logger log.Logger, uc usV1.UserClient, cc csV1.CartClient) (*Data, error) {
+func NewData(
+	conf *conf.Data,
+	logger log.Logger,
+	uc usV1.UserClient,
+	cc csV1.CartClient,
+	bc ctV1.CatalogClient,
+) (*Data, error) {
 	l := log.NewHelper("data", logger)
-	return &Data{log: l, uc: uc, cc: cc}, nil
+	return &Data{log: l, uc: uc, cc: cc, bc: bc}, nil
 }
 
 func NewDiscovery() registry.Discovery {
