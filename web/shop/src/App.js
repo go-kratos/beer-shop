@@ -9,9 +9,11 @@ import {
 import Home from "./containers/Home"
 import Nav from "./components/Nav"
 
+
 import './App.css';
 import Login from "./containers/Login";
 import Register from "./containers/Register";
+import BeerDetail from "./containers/BeerDetail";
 
 function App() {
     return (
@@ -19,9 +21,9 @@ function App() {
             <Nav/>
             <Router>
                 <Switch>
-                    {/*<Route path="/beer/:id">*/}
-                        {/*/!*<BeerDetail/>*!/*/}
-                    {/*</Route>*/}
+                    <Route path="/beer/:id">
+                        <BeerDetail/>
+                    </Route>
                     <Route path="/login">
                         <Login/>
                     </Route>
