@@ -4,6 +4,7 @@ import (
 	"github.com/go-kratos/beer-shop/api/shop/admin/v1"
 	"github.com/go-kratos/beer-shop/app/shop/admin/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shop/admin/internal/service"
+	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
@@ -29,7 +30,7 @@ func NewHTTPServer(c *conf.Server, s *service.ShopAdmin) *http.Server {
 		middleware.Chain(
 			recovery.Recovery(),
 			tracing.Server(),
-			logging.Server(),
+			logging.Server(log.DefaultLogger),
 		),
 	)
 	srv.HandlePrefix("/", v1.NewShopAdminHandler(s, m))

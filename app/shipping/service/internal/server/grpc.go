@@ -4,11 +4,11 @@ import (
 	"github.com/go-kratos/beer-shop/api/shipping/service/v1"
 	"github.com/go-kratos/beer-shop/app/shipping/service/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shipping/service/internal/service"
+	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
-	"github.com/go-kratos/kratos/v2/middleware/status"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 )
@@ -19,9 +19,8 @@ func NewGRPCServer(c *conf.Server, s *service.ShippingService) *grpc.Server {
 		grpc.Middleware(
 			middleware.Chain(
 				recovery.Recovery(),
-				status.Server(),
 				tracing.Server(),
-				logging.Server(),
+				logging.Server(log.DefaultLogger),
 			),
 		),
 	}

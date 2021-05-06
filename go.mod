@@ -5,7 +5,7 @@ go 1.15
 require (
 	entgo.io/ent v0.7.0
 	github.com/go-kratos/consul v0.0.0-20210311161349-cfb0345e820d
-	github.com/go-kratos/kratos/v2 v2.0.0-beta3
+	github.com/go-kratos/kratos/v2 v2.0.0-beta4
 	github.com/go-sql-driver/mysql v1.5.1-0.20200311113236-681ffa848bae
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
