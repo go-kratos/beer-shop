@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.7.0
 	github.com/go-kratos/consul v0.0.0-20210311161349-cfb0345e820d
 	github.com/go-kratos/kratos/v2 v2.0.0-beta4
-	github.com/go-sql-driver/mysql v1.5.1-0.20200311113236-681ffa848bae
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
@@ -22,4 +22,6 @@ require (
 	google.golang.org/protobuf v1.26.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0
+	gorm.io/driver/mysql v1.0.6
+	gorm.io/gorm v1.21.9
 )

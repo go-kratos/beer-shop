@@ -3,6 +3,8 @@ package data
 import (
 	"context"
 	"github.com/go-kratos/beer-shop/pkg/utils/pagination"
+	"gorm.io/gorm"
+	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
 
@@ -16,6 +18,14 @@ type orderRepo struct {
 	log  *log.Helper
 }
 
+type Order struct {
+	gorm.Model
+	Id        int64
+	UserId    int64
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
 func NewOrderRepo(data *Data, logger log.Logger) biz.OrderRepo {
 	return &orderRepo{
 		data: data,
@@ -24,48 +34,51 @@ func NewOrderRepo(data *Data, logger log.Logger) biz.OrderRepo {
 }
 
 func (r *orderRepo) CreateOrder(ctx context.Context, b *biz.Order) (*biz.Order, error) {
-	po, err := r.data.db.Order.
-		Create().
-		SetUserID(b.UserId).
-		Save(ctx)
+	o := Order{Id: b.Id, UserId: b.UserId}
+	result := r.data.db.WithContext(ctx).Create(o)
 	return &biz.Order{
-		Id: po.ID,
-	}, err
+		Id: o.Id,
+	}, result.Error
 }
 
 func (r *orderRepo) GetOrder(ctx context.Context, id int64) (*biz.Order, error) {
-	po, err := r.data.db.Order.Get(ctx, id)
-	if err != nil {
-		return nil, err
-	}
+	o := Order{}
+	result := r.data.db.WithContext(ctx).First(&o, id)
 	return &biz.Order{
-		Id: po.ID,
-	}, err
+		Id: o.Id,
+	}, result.Error
 }
 
 func (r *orderRepo) UpdateOrder(ctx context.Context, b *biz.Order) (*biz.Order, error) {
-	po, err := r.data.db.Order.
-		Create().
-		SetUserID(b.UserId).
-		Save(ctx)
+	o := Order{}
+	result := r.data.db.WithContext(ctx).First(&o, b.Id)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	o.UserId = b.UserId
+	result = r.data.db.WithContext(ctx).Save(&o)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &biz.Order{
-		Id: po.ID,
-	}, err
+		Id: o.Id,
+	}, nil
 }
 
 func (r *orderRepo) ListOrder(ctx context.Context, pageNum, pageSize int64) ([]*biz.Order, error) {
-	pos, err := r.data.db.Order.Query().
-		Offset(int(pagination.GetPageOffset(pageNum, pageSize))).
+	var os []Order
+	result := r.data.db.WithContext(ctx).
 		Limit(int(pageSize)).
-		All(ctx)
-	if err != nil {
-		return nil, err
+		Offset(int(pagination.GetPageOffset(pageNum, pageSize))).
+		Find(&os)
+	if result.Error != nil {
+		return nil, result.Error
 	}
 	rv := make([]*biz.Order, 0)
-	for _, po := range pos {
+	for _, o := range os {
 		rv = append(rv, &biz.Order{
-			Id: po.ID,
+			Id: o.Id,
 		})
 	}
-	return rv, err
+	return rv, nil
 }
