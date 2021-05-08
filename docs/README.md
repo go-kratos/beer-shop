@@ -18,61 +18,61 @@ The directory structure is same as `/app/`.
 ### `/app/`
 All the actual services source codes are located in there.
 
-#### `/app/catalog/service`
+#### Service: `/app/catalog/service`
 ##### Functions
 This service maintained all the beers which are selling in this shop.
 ##### Features
 * Integration for Ent
 * Service Registration
 
-#### `/app/cart/service`
+#### Service: `/app/cart/service`
 ##### Functions
 The cart service, which can store the beers that users want to buy.
 ##### Features
 * Integration for MongoDB
 * Service Registration
 
-#### `/app/user/service`
+#### Service: `/app/user/service`
 ##### Functions
 The user service, which holds the users' information.
 ##### Features
 * Integration for Ent
 * Service Registration
 
-#### `/app/shipping/service`
+#### Service: `/app/shipping/service`
 ##### Functions
 This service stimulates a MQ producer. It will put the shipping package messages to the message queue.
 ##### Features
 * Integration for MQ
 * Service Registration
 
-#### `/app/courier/job`
+#### Job: `/app/courier/job`
 ##### Functions
 This service stimulates a MQ consumer. It will receive(consume) the messages from the message queue.
 ##### Features
 * Integration for MQ
 
-#### `/app/order/service`
+#### Service: `/app/order/service`
 ##### Functions
 The order service, which holds the users' order.
 ##### Features
 * Integration for GORM
 * Service Registration
 
-#### `/app/payment/service`
+#### Service: `/app/payment/service`
 ##### Functions
 Just a stimulation of payment authentication.
 ##### Features
 * Service Registration
 
-#### `/app/shop/admin`
+#### Admin: `/app/shop/admin`
 ##### Functions
 The backend for frontend(BFF) service for Administrator Web UI, to manage the shop.
 ##### Features
 * Service Discovery 
 * Communication with other services
 
-#### `/app/shop/interface`
+#### Interface: `/app/shop/interface`
 ##### Functions
 The backend for frontend(BFF) service for Administrator Web UI, to manage the shop.
 ##### Features
