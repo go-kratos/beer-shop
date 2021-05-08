@@ -13,7 +13,7 @@ this section describes the components in this repository.
 
 ### `/api/`
 All the API `.proto` files and generated `.go` files are in this directory.
-The directory structure is the same as `/app/`
+The directory structure is same as `/app/`.
 
 ### `/app/`
 All the actual services source codes are located in there.
