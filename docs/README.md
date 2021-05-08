@@ -44,6 +44,7 @@ The user service, which holds the users' information.
 This service stimulates a MQ producer. It will put the shipping package messages to the message queue.
 ##### Features
 * Integration for MQ
+* Service Registration
 
 #### `/app/courier/job`
 ##### Functions
