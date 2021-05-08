@@ -77,6 +77,7 @@ The backend for frontend(BFF) service for Administrator Web UI, to manage the sh
 ##### Features
 * Service Discovery 
 * Communication with other services
+* Integration for Cache
 
 ### `/pkg/`
 The common packages which used by many services. 
