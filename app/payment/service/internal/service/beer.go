@@ -7,8 +7,7 @@ import (
 )
 
 func (s *PaymentService) CreateBeer(ctx context.Context, req *v1.CreateBeerReq) (*v1.CreateBeerReply, error) {
-	x, err := s.bc.Create(ctx, &biz.Beer{
-	})
+	x, err := s.bc.Create(ctx, &biz.Beer{})
 	return &v1.CreateBeerReply{
 		Id:          x.Id,
 		Name:        x.Name,

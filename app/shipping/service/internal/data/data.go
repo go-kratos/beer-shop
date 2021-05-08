@@ -19,8 +19,7 @@ type Data struct {
 
 // NewData .
 func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
-	d := &Data{
-	}
+	d := &Data{}
 	return d, func() {
 
 	}, nil

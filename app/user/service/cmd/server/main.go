@@ -32,7 +32,7 @@ func init() {
 
 func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Registrar) *kratos.App {
 	return kratos.New(
-		kratos.Name(Name),
+		kratos.Name("beer.user.service"),
 		kratos.Version(Version),
 		kratos.Metadata(map[string]string{}),
 		kratos.Logger(logger),
@@ -65,7 +65,11 @@ func main() {
 		panic(err)
 	}
 
-	app, cleanup, err := initApp(bc.Server, bc.Data, logger)
+	var rc conf.Registry
+	if err := c.Scan(&rc); err != nil {
+		panic(err)
+	}
+	app, cleanup, err := initApp(bc.Server, &rc, bc.Data, logger)
 	if err != nil {
 		panic(err)
 	}

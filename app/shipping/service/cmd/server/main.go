@@ -65,7 +65,11 @@ func main() {
 		panic(err)
 	}
 
-	app, cleanup, err := initApp(bc.Server, bc.Data, logger)
+	var rc conf.Registry
+	if err := c.Scan(&rc); err != nil {
+		panic(err)
+	}
+	app, cleanup, err := initApp(bc.Server, &rc, bc.Data, logger)
 	if err != nil {
 		panic(err)
 	}

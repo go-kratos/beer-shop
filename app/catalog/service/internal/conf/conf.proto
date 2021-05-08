@@ -38,3 +38,11 @@ message Data {
   }
   Database database = 1;
 }
+
+message Registry {
+  message Consul {
+    string address = 1;
+    string scheme = 2;
+  }
+  Consul consul = 1;
+}

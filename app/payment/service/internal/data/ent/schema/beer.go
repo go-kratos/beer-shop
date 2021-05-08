@@ -35,7 +35,5 @@ func (Beer) Fields() []ent.Field {
 
 // Edges of the Beer.
 func (Beer) Edges() []ent.Edge {
-	return []ent.Edge{
-
-	}
+	return []ent.Edge{}
 }

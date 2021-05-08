@@ -36,5 +36,3 @@ func NewGRPCServer(c *conf.Server, s *service.PaymentService) *grpc.Server {
 	v1.RegisterPaymentServer(srv, s)
 	return srv
 }
-
-

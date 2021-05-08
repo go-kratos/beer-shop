@@ -25,4 +25,3 @@ func NewUserUseCase(repo UserRepo, logger log.Logger, us usV1.UserClient) *UserU
 		log:  log,
 	}
 }
-

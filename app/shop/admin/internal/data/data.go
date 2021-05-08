@@ -23,4 +23,3 @@ func NewData(conf *conf.Data, logger log.Logger) (*Data, error) {
 	l := log.NewHelper("server-service/data", logger)
 	return &Data{log: l}, nil
 }
-

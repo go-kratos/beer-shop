@@ -6,29 +6,37 @@ option go_package = "app/cart/service/internal/conf;conf";
 import "google/protobuf/duration.proto";
 
 message Bootstrap {
-  Server server = 1;
-  Data data = 2;
+    Server server = 1;
+    Data data = 2;
 }
 
 message Server {
-  message HTTP {
-    string network = 1;
-    string addr = 2;
-    google.protobuf.Duration timeout = 3;
-  }
-  message GRPC {
-    string network = 1;
-    string addr = 2;
-    google.protobuf.Duration timeout = 3;
-  }
-  HTTP http = 1;
-  GRPC grpc = 2;
+    message HTTP {
+        string network = 1;
+        string addr = 2;
+        google.protobuf.Duration timeout = 3;
+    }
+    message GRPC {
+        string network = 1;
+        string addr = 2;
+        google.protobuf.Duration timeout = 3;
+    }
+    HTTP http = 1;
+    GRPC grpc = 2;
 }
 
 message Data {
-  message MongoDB {
-    string uri = 1;
-    string database = 2;
-  }
-  MongoDB mongodb = 1;
+    message MongoDB {
+        string uri = 1;
+        string database = 2;
+    }
+    MongoDB mongodb = 1;
+}
+
+message Registry {
+    message Consul {
+        string address = 1;
+        string scheme = 2;
+    }
+    Consul consul = 1;
 }
