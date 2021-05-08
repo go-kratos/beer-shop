@@ -41,13 +41,13 @@ The user service, which holds the users' information.
 
 #### `/app/shipping/service`
 ##### Functions
-This service stimulates a MQ producer. It will put the shipping package message to the message queue.
+This service stimulates a MQ producer. It will put the shipping package messages to the message queue.
 ##### Features
 * Integration for MQ
 
 #### `/app/courier/job`
 ##### Functions
-This service stimulates a MQ consumer. It will receive(consume) the message from the message queue.
+This service stimulates a MQ consumer. It will receive(consume) the messages from the message queue.
 ##### Features
 * Integration for MQ
 
