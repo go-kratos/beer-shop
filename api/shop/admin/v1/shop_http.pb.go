@@ -48,7 +48,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/admin/v1/login/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/login", func(w http.ResponseWriter, r *http.Request) {
 		var in LoginReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -70,9 +70,9 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("GET")
+	}).Methods("POST")
 
-	r.HandleFunc("/admin/v1/logout/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/logout", func(w http.ResponseWriter, r *http.Request) {
 		var in LogoutReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -94,9 +94,9 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("GET")
+	}).Methods("POST")
 
-	r.HandleFunc("/admin/v1/catalog/beers/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/catalog/beers", func(w http.ResponseWriter, r *http.Request) {
 		var in ListBeerReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -120,7 +120,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		}
 	}).Methods("GET")
 
-	r.HandleFunc("/admin/v1/catalog/beers/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/catalog/beers", func(w http.ResponseWriter, r *http.Request) {
 		var in CreateBeerReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -202,7 +202,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		}
 	}).Methods("DELETE")
 
-	r.HandleFunc("/admin/v1/orders/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/orders", func(w http.ResponseWriter, r *http.Request) {
 		var in ListOrderReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -226,7 +226,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		}
 	}).Methods("GET")
 
-	r.HandleFunc("/admin/v1/orders/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/orders", func(w http.ResponseWriter, r *http.Request) {
 		var in GetOrderReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)
@@ -248,9 +248,9 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("POST")
+	}).Methods("GET")
 
-	r.HandleFunc("/admin/v1/customers/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/admin/v1/customers", func(w http.ResponseWriter, r *http.Request) {
 		var in ListCustomerReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)

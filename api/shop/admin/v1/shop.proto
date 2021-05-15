@@ -10,28 +10,27 @@ option go_package = "api/shop/admin/v1;v1";
 service ShopAdmin {
     rpc Login (LoginReq) returns (LoginReply) {
         option (google.api.http) = {
-            get: "/admin/v1/login/"
+            post: "/admin/v1/login"
             body: "*"
         };
     }
 
     rpc Logout (LogoutReq) returns (LogoutReply) {
         option (google.api.http) = {
-            get: "/admin/v1/logout/"
+            post: "/admin/v1/logout"
             body: "*"
         };
     }
 
     rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
         option (google.api.http) = {
-            get: "/admin/v1/catalog/beers/"
-            body: "*"
+            get: "/admin/v1/catalog/beers"
         };
     }
 
     rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
         option (google.api.http) = {
-            post: "/admin/v1/catalog/beers/"
+            post: "/admin/v1/catalog/beers"
             body: "*"
         };
     }
@@ -46,28 +45,24 @@ service ShopAdmin {
     rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
         option (google.api.http) = {
             delete: "/admin/v1/catalog/beers/{id}"
-            body: "*"
         };
     }
 
     rpc ListOrder (ListOrderReq) returns (ListOrderReply) {
         option (google.api.http) = {
-            get: "/admin/v1/orders/"
-            body: "*"
+            get: "/admin/v1/orders"
         };
     }
 
     rpc GetOrder (GetOrderReq) returns (GetOrderReply) {
         option (google.api.http) = {
-            post: "/admin/v1/orders/"
-            body: "*"
+            get: "/admin/v1/orders"
         };
     }
 
     rpc ListCustomer (ListCustomerReq) returns (ListCustomerReply) {
         option (google.api.http) = {
-            get: "/admin/v1/customers/"
-            body: "*"
+            get: "/admin/v1/customers"
         };
     }
 
@@ -113,7 +108,7 @@ message CreateBeerReply {
 }
 
 message UpdateBeerReq {
-
+    int64 id = 1;
 }
 
 message UpdateBeerReply {
@@ -121,7 +116,7 @@ message UpdateBeerReply {
 }
 
 message DeleteBeerReq {
-
+    int64 id = 1;
 }
 
 message DeleteBeerReply {
@@ -153,7 +148,7 @@ message ListCustomerReply {
 }
 
 message GetCustomerReq {
-
+    int64 id = 1;
 }
 
 message GetCustomerReply {

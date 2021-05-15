@@ -17,6 +17,19 @@
   ],
   "paths": {},
   "definitions": {
+    "ListOrderReplyOrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -79,21 +92,8 @@
         "orders": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ListOrderReplyOrder"
+            "$ref": "#/definitions/ListOrderReplyOrder"
           }
-        }
-      }
-    },
-    "v1ListOrderReplyOrder": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "userId": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
