@@ -13,8 +13,6 @@ var (
 		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "mobile", Type: field.TypeString},
-		{Name: "country", Type: field.TypeString},
-		{Name: "city", Type: field.TypeString},
 		{Name: "address", Type: field.TypeString},
 		{Name: "post_code", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
@@ -29,7 +27,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "addresses_users_addresses",
-				Columns:    []*schema.Column{AddressesColumns[9]},
+				Columns:    []*schema.Column{AddressesColumns[7]},
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -38,6 +36,7 @@ var (
 	// CardsColumns holds the columns for the "cards" table.
 	CardsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "name", Type: field.TypeString},
 		{Name: "card_no", Type: field.TypeString},
 		{Name: "ccv", Type: field.TypeString},
 		{Name: "expires", Type: field.TypeString},
@@ -53,7 +52,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "cards_users_cards",
-				Columns:    []*schema.Column{CardsColumns[6]},
+				Columns:    []*schema.Column{CardsColumns[7]},
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},

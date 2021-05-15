@@ -40,18 +40,6 @@ func (au *AddressUpdate) SetMobile(s string) *AddressUpdate {
 	return au
 }
 
-// SetCountry sets the "country" field.
-func (au *AddressUpdate) SetCountry(s string) *AddressUpdate {
-	au.mutation.SetCountry(s)
-	return au
-}
-
-// SetCity sets the "city" field.
-func (au *AddressUpdate) SetCity(s string) *AddressUpdate {
-	au.mutation.SetCity(s)
-	return au
-}
-
 // SetAddress sets the "address" field.
 func (au *AddressUpdate) SetAddress(s string) *AddressUpdate {
 	au.mutation.SetAddress(s)
@@ -205,20 +193,6 @@ func (au *AddressUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: address.FieldMobile,
 		})
 	}
-	if value, ok := au.mutation.Country(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCountry,
-		})
-	}
-	if value, ok := au.mutation.City(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCity,
-		})
-	}
 	if value, ok := au.mutation.Address(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -309,18 +283,6 @@ func (auo *AddressUpdateOne) SetName(s string) *AddressUpdateOne {
 // SetMobile sets the "mobile" field.
 func (auo *AddressUpdateOne) SetMobile(s string) *AddressUpdateOne {
 	auo.mutation.SetMobile(s)
-	return auo
-}
-
-// SetCountry sets the "country" field.
-func (auo *AddressUpdateOne) SetCountry(s string) *AddressUpdateOne {
-	auo.mutation.SetCountry(s)
-	return auo
-}
-
-// SetCity sets the "city" field.
-func (auo *AddressUpdateOne) SetCity(s string) *AddressUpdateOne {
-	auo.mutation.SetCity(s)
 	return auo
 }
 
@@ -480,20 +442,6 @@ func (auo *AddressUpdateOne) sqlSave(ctx context.Context) (_node *Address, err e
 			Type:   field.TypeString,
 			Value:  value,
 			Column: address.FieldMobile,
-		})
-	}
-	if value, ok := auo.mutation.Country(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCountry,
-		})
-	}
-	if value, ok := auo.mutation.City(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCity,
 		})
 	}
 	if value, ok := auo.mutation.Address(); ok {

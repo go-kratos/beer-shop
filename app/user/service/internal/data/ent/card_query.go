@@ -283,12 +283,12 @@ func (cq *CardQuery) WithUser(opts ...func(*UserQuery)) *CardQuery {
 // Example:
 //
 //	var v []struct {
-//		CardNo string `json:"card_no,omitempty"`
+//		Name string `json:"name,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Card.Query().
-//		GroupBy(card.FieldCardNo).
+//		GroupBy(card.FieldName).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -310,11 +310,11 @@ func (cq *CardQuery) GroupBy(field string, fields ...string) *CardGroupBy {
 // Example:
 //
 //	var v []struct {
-//		CardNo string `json:"card_no,omitempty"`
+//		Name string `json:"name,omitempty"`
 //	}
 //
 //	client.Card.Query().
-//		Select(card.FieldCardNo).
+//		Select(card.FieldName).
 //		Scan(ctx, &v)
 //
 func (cq *CardQuery) Select(field string, fields ...string) *CardSelect {

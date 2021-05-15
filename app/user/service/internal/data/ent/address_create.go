@@ -33,18 +33,6 @@ func (ac *AddressCreate) SetMobile(s string) *AddressCreate {
 	return ac
 }
 
-// SetCountry sets the "country" field.
-func (ac *AddressCreate) SetCountry(s string) *AddressCreate {
-	ac.mutation.SetCountry(s)
-	return ac
-}
-
-// SetCity sets the "city" field.
-func (ac *AddressCreate) SetCity(s string) *AddressCreate {
-	ac.mutation.SetCity(s)
-	return ac
-}
-
 // SetAddress sets the "address" field.
 func (ac *AddressCreate) SetAddress(s string) *AddressCreate {
 	ac.mutation.SetAddress(s)
@@ -180,12 +168,6 @@ func (ac *AddressCreate) check() error {
 	if _, ok := ac.mutation.Mobile(); !ok {
 		return &ValidationError{Name: "mobile", err: errors.New("ent: missing required field \"mobile\"")}
 	}
-	if _, ok := ac.mutation.Country(); !ok {
-		return &ValidationError{Name: "country", err: errors.New("ent: missing required field \"country\"")}
-	}
-	if _, ok := ac.mutation.City(); !ok {
-		return &ValidationError{Name: "city", err: errors.New("ent: missing required field \"city\"")}
-	}
 	if _, ok := ac.mutation.Address(); !ok {
 		return &ValidationError{Name: "address", err: errors.New("ent: missing required field \"address\"")}
 	}
@@ -246,22 +228,6 @@ func (ac *AddressCreate) createSpec() (*Address, *sqlgraph.CreateSpec) {
 			Column: address.FieldMobile,
 		})
 		_node.Mobile = value
-	}
-	if value, ok := ac.mutation.Country(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCountry,
-		})
-		_node.Country = value
-	}
-	if value, ok := ac.mutation.City(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: address.FieldCity,
-		})
-		_node.City = value
 	}
 	if value, ok := ac.mutation.Address(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

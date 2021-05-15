@@ -28,6 +28,12 @@ func (cu *CardUpdate) Where(ps ...predicate.Card) *CardUpdate {
 	return cu
 }
 
+// SetName sets the "name" field.
+func (cu *CardUpdate) SetName(s string) *CardUpdate {
+	cu.mutation.SetName(s)
+	return cu
+}
+
 // SetCardNo sets the "card_no" field.
 func (cu *CardUpdate) SetCardNo(s string) *CardUpdate {
 	cu.mutation.SetCardNo(s)
@@ -173,6 +179,13 @@ func (cu *CardUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := cu.mutation.Name(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: card.FieldName,
+		})
+	}
 	if value, ok := cu.mutation.CardNo(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -259,6 +272,12 @@ type CardUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *CardMutation
+}
+
+// SetName sets the "name" field.
+func (cuo *CardUpdateOne) SetName(s string) *CardUpdateOne {
+	cuo.mutation.SetName(s)
+	return cuo
 }
 
 // SetCardNo sets the "card_no" field.
@@ -410,6 +429,13 @@ func (cuo *CardUpdateOne) sqlSave(ctx context.Context) (_node *Card, err error) 
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := cuo.mutation.Name(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: card.FieldName,
+		})
 	}
 	if value, ok := cuo.mutation.CardNo(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{

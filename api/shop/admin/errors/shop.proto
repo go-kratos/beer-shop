@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package shop.admin.errors;
 
-import "kratos/api/annotations.proto";
+
 
 option go_package = "shop/admin/errors;errors";
 option java_multiple_files = true;
 
 enum Admin {
-    option (kratos.api.errors) = true;
+
     UNKNOWN_ERROR = 0;
 }

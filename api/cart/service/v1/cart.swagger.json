@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v1/cart.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Cart"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AddItemReply": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AddItemReplyItem"
+          }
+        }
+      }
+    },
+    "v1AddItemReplyItem": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1DeleteCartReply": {
+      "type": "object"
+    },
+    "v1DeleteItemReply": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1DeleteItemReplyItem"
+          }
+        }
+      }
+    },
+    "v1DeleteItemReplyItem": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetCartReply": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1GetCartReplyItem"
+          }
+        }
+      }
+    },
+    "v1GetCartReplyItem": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1UpdateItemReply": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UpdateItemReplyItem"
+          }
+        }
+      }
+    },
+    "v1UpdateItemReplyItem": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

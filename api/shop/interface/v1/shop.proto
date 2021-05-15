@@ -10,35 +10,33 @@ option go_package = "api/shop/interface/v1;v1";
 service ShopInterface {
     rpc Register (RegisterReq) returns (RegisterReply) {
         option (google.api.http) = {
-            get: "/v1/register/"
+            post: "/v1/register"
             body: "*"
         };
     }
 
     rpc Login (LoginReq) returns (LoginReply) {
         option (google.api.http) = {
-            get: "/v1/login/"
+            post: "/v1/login"
             body: "*"
         };
     }
 
     rpc Logout (LogoutReq) returns (LogoutReply) {
         option (google.api.http) = {
-            get: "/v1/logout/"
-            body: "*"
+            get: "/v1/logout"
         };
     }
 
     rpc ListAddress (ListAddressReq) returns (ListAddressReply) {
         option (google.api.http) = {
-            get: "/v1/user/addresses/"
-            body: "*"
+            get: "/v1/user/addresses"
         };
     }
 
     rpc CreateAddress (CreateAddressReq) returns (CreateAddressReply) {
         option (google.api.http) = {
-            post: "/v1/user/addresses/"
+            post: "/v1/user/addresses"
             body: "*"
         };
     }
@@ -46,20 +44,18 @@ service ShopInterface {
     rpc GetAddress (GetAddressReq) returns (GetAddressReply) {
         option (google.api.http) = {
             get: "/v1/user/addresses/{id}"
-            body: "*"
         };
     }
 
     rpc ListCard (ListCardReq) returns (ListCardReply) {
         option (google.api.http) = {
-            get: "/v1/user/cards/"
-            body: "*"
+            get: "/v1/user/cards"
         };
     }
 
     rpc CreateCard (CreateCardReq) returns (CreateCardReply) {
         option (google.api.http) = {
-            post: "/v1/user/cards/"
+            post: "/v1/user/cards"
             body: "*"
         };
     }
@@ -67,48 +63,43 @@ service ShopInterface {
     rpc GetCard (GetCardReq) returns (GetCardReply) {
         option (google.api.http) = {
             get: "/v1/user/cards/{id}"
-            body: "*"
         };
     }
 
     rpc DeleteCard (DeleteCardReq) returns (DeleteCardReply) {
         option (google.api.http) = {
             delete: "/v1/user/cards/{id}"
-            body: "*"
         };
     }
 
     rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
         option (google.api.http) = {
-            get: "/v1/catalog/beers/"
-            body: "*"
+            get: "/v1/catalog/beers"
         };
     }
 
     rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
         option (google.api.http) = {
             get: "/v1/catalog/beers/{id}"
-            body: "*"
         };
     }
 
     rpc ListCartItem (ListCartItemReq) returns (ListCartItemReply) {
         option (google.api.http) = {
-            get: "/v1/cart/"
-            body: "*"
+            get: "/v1/cart"
         };
     }
 
     rpc AddCartItem (AddCartItemReq) returns (AddCartItemReply) {
         option (google.api.http) = {
-            post: "/v1/cart/"
+            post: "/v1/cart"
             body: "*"
         };
     }
 
     rpc CreateOrder (CreateOrderReq) returns (CreateOrderReply) {
         option (google.api.http) = {
-            post: "/v1/orders/"
+            post: "/v1/orders"
             body: "*"
         };
     }
@@ -259,7 +250,7 @@ message GetCardReply {
 }
 
 message DeleteCardReq {
-    int64 uid = 1;
+    int64 id = 1;
 }
 
 message DeleteCardReply {
@@ -276,7 +267,7 @@ message ListBeerReply {
 }
 
 message GetBeerReq {
-
+    int64 id = 1;
 }
 
 message GetBeerReply {

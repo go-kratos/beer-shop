@@ -38,8 +38,6 @@ type AddressMutation struct {
 	id            *int64
 	name          *string
 	mobile        *string
-	country       *string
-	city          *string
 	address       *string
 	post_code     *string
 	created_at    *time.Time
@@ -207,78 +205,6 @@ func (m *AddressMutation) OldMobile(ctx context.Context) (v string, err error) {
 // ResetMobile resets all changes to the "mobile" field.
 func (m *AddressMutation) ResetMobile() {
 	m.mobile = nil
-}
-
-// SetCountry sets the "country" field.
-func (m *AddressMutation) SetCountry(s string) {
-	m.country = &s
-}
-
-// Country returns the value of the "country" field in the mutation.
-func (m *AddressMutation) Country() (r string, exists bool) {
-	v := m.country
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCountry returns the old "country" field's value of the Address entity.
-// If the Address object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AddressMutation) OldCountry(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldCountry is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldCountry requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCountry: %w", err)
-	}
-	return oldValue.Country, nil
-}
-
-// ResetCountry resets all changes to the "country" field.
-func (m *AddressMutation) ResetCountry() {
-	m.country = nil
-}
-
-// SetCity sets the "city" field.
-func (m *AddressMutation) SetCity(s string) {
-	m.city = &s
-}
-
-// City returns the value of the "city" field in the mutation.
-func (m *AddressMutation) City() (r string, exists bool) {
-	v := m.city
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCity returns the old "city" field's value of the Address entity.
-// If the Address object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AddressMutation) OldCity(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldCity is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldCity requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCity: %w", err)
-	}
-	return oldValue.City, nil
-}
-
-// ResetCity resets all changes to the "city" field.
-func (m *AddressMutation) ResetCity() {
-	m.city = nil
 }
 
 // SetAddress sets the "address" field.
@@ -478,18 +404,12 @@ func (m *AddressMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AddressMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 6)
 	if m.name != nil {
 		fields = append(fields, address.FieldName)
 	}
 	if m.mobile != nil {
 		fields = append(fields, address.FieldMobile)
-	}
-	if m.country != nil {
-		fields = append(fields, address.FieldCountry)
-	}
-	if m.city != nil {
-		fields = append(fields, address.FieldCity)
 	}
 	if m.address != nil {
 		fields = append(fields, address.FieldAddress)
@@ -515,10 +435,6 @@ func (m *AddressMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case address.FieldMobile:
 		return m.Mobile()
-	case address.FieldCountry:
-		return m.Country()
-	case address.FieldCity:
-		return m.City()
 	case address.FieldAddress:
 		return m.Address()
 	case address.FieldPostCode:
@@ -540,10 +456,6 @@ func (m *AddressMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldName(ctx)
 	case address.FieldMobile:
 		return m.OldMobile(ctx)
-	case address.FieldCountry:
-		return m.OldCountry(ctx)
-	case address.FieldCity:
-		return m.OldCity(ctx)
 	case address.FieldAddress:
 		return m.OldAddress(ctx)
 	case address.FieldPostCode:
@@ -574,20 +486,6 @@ func (m *AddressMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetMobile(v)
-		return nil
-	case address.FieldCountry:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCountry(v)
-		return nil
-	case address.FieldCity:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCity(v)
 		return nil
 	case address.FieldAddress:
 		v, ok := value.(string)
@@ -671,12 +569,6 @@ func (m *AddressMutation) ResetField(name string) error {
 		return nil
 	case address.FieldMobile:
 		m.ResetMobile()
-		return nil
-	case address.FieldCountry:
-		m.ResetCountry()
-		return nil
-	case address.FieldCity:
-		m.ResetCity()
 		return nil
 	case address.FieldAddress:
 		m.ResetAddress()
@@ -776,6 +668,7 @@ type CardMutation struct {
 	op            Op
 	typ           string
 	id            *int64
+	name          *string
 	card_no       *string
 	ccv           *string
 	expires       *string
@@ -872,6 +765,42 @@ func (m *CardMutation) ID() (id int64, exists bool) {
 		return
 	}
 	return *m.id, true
+}
+
+// SetName sets the "name" field.
+func (m *CardMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *CardMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the Card entity.
+// If the Card object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CardMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *CardMutation) ResetName() {
+	m.name = nil
 }
 
 // SetCardNo sets the "card_no" field.
@@ -1107,7 +1036,10 @@ func (m *CardMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CardMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 6)
+	if m.name != nil {
+		fields = append(fields, card.FieldName)
+	}
 	if m.card_no != nil {
 		fields = append(fields, card.FieldCardNo)
 	}
@@ -1131,6 +1063,8 @@ func (m *CardMutation) Fields() []string {
 // schema.
 func (m *CardMutation) Field(name string) (ent.Value, bool) {
 	switch name {
+	case card.FieldName:
+		return m.Name()
 	case card.FieldCardNo:
 		return m.CardNo()
 	case card.FieldCcv:
@@ -1150,6 +1084,8 @@ func (m *CardMutation) Field(name string) (ent.Value, bool) {
 // database failed.
 func (m *CardMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
+	case card.FieldName:
+		return m.OldName(ctx)
 	case card.FieldCardNo:
 		return m.OldCardNo(ctx)
 	case card.FieldCcv:
@@ -1169,6 +1105,13 @@ func (m *CardMutation) OldField(ctx context.Context, name string) (ent.Value, er
 // type.
 func (m *CardMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case card.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
 	case card.FieldCardNo:
 		v, ok := value.(string)
 		if !ok {
@@ -1253,6 +1196,9 @@ func (m *CardMutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *CardMutation) ResetField(name string) error {
 	switch name {
+	case card.FieldName:
+		m.ResetName()
+		return nil
 	case card.FieldCardNo:
 		m.ResetCardNo()
 		return nil

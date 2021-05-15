@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package courier.job.errors;
 
-import "kratos/api/annotations.proto";
+
 
 option go_package = "courier/job/errors;errors";
 
 enum Courier {
-    option (kratos.api.errors) = true;
+
     UNKNOWN_ERROR = 0;
 }

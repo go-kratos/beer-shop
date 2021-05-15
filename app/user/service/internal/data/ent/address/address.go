@@ -15,10 +15,6 @@ const (
 	FieldName = "name"
 	// FieldMobile holds the string denoting the mobile field in the database.
 	FieldMobile = "mobile"
-	// FieldCountry holds the string denoting the country field in the database.
-	FieldCountry = "country"
-	// FieldCity holds the string denoting the city field in the database.
-	FieldCity = "city"
 	// FieldAddress holds the string denoting the address field in the database.
 	FieldAddress = "address"
 	// FieldPostCode holds the string denoting the post_code field in the database.
@@ -45,8 +41,6 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldMobile,
-	FieldCountry,
-	FieldCity,
 	FieldAddress,
 	FieldPostCode,
 	FieldCreatedAt,

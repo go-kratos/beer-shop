@@ -6,14 +6,14 @@ import {
     Link
 } from "react-router-dom"
 
-import Home from "./containers/Home"
 import Nav from "./components/Nav"
 
-
-import './App.css';
-import Login from "./containers/Login";
-import Register from "./containers/Register";
-import BeerDetail from "./containers/BeerDetail";
+import Home from "./pages/Home"
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import BeerDetail from "./pages/BeerDetail";
+import OrderList from "./pages/OrderList";
+import Checkout from "./pages/Checkout";
 
 function App() {
     return (
@@ -29,6 +29,12 @@ function App() {
                     </Route>
                     <Route path="/register">
                         <Register/>
+                    </Route>
+                    <Route path="/orders">
+                        <OrderList/>
+                    </Route>
+                    <Route path="/checkout">
+                        <Checkout/>
                     </Route>
                     <Route path="/">
                         <Home/>

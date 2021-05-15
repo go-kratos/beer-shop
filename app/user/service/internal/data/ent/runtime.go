@@ -18,21 +18,21 @@ func init() {
 	addressFields := schema.Address{}.Fields()
 	_ = addressFields
 	// addressDescCreatedAt is the schema descriptor for created_at field.
-	addressDescCreatedAt := addressFields[7].Descriptor()
+	addressDescCreatedAt := addressFields[5].Descriptor()
 	// address.DefaultCreatedAt holds the default value on creation for the created_at field.
 	address.DefaultCreatedAt = addressDescCreatedAt.Default.(func() time.Time)
 	// addressDescUpdatedAt is the schema descriptor for updated_at field.
-	addressDescUpdatedAt := addressFields[8].Descriptor()
+	addressDescUpdatedAt := addressFields[6].Descriptor()
 	// address.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	address.DefaultUpdatedAt = addressDescUpdatedAt.Default.(func() time.Time)
 	cardFields := schema.Card{}.Fields()
 	_ = cardFields
 	// cardDescCreatedAt is the schema descriptor for created_at field.
-	cardDescCreatedAt := cardFields[4].Descriptor()
+	cardDescCreatedAt := cardFields[5].Descriptor()
 	// card.DefaultCreatedAt holds the default value on creation for the created_at field.
 	card.DefaultCreatedAt = cardDescCreatedAt.Default.(func() time.Time)
 	// cardDescUpdatedAt is the schema descriptor for updated_at field.
-	cardDescUpdatedAt := cardFields[5].Descriptor()
+	cardDescUpdatedAt := cardFields[6].Descriptor()
 	// card.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	card.DefaultUpdatedAt = cardDescUpdatedAt.Default.(func() time.Time)
 	userFields := schema.User{}.Fields()

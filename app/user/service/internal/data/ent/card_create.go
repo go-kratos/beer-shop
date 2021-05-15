@@ -21,6 +21,12 @@ type CardCreate struct {
 	hooks    []Hook
 }
 
+// SetName sets the "name" field.
+func (cc *CardCreate) SetName(s string) *CardCreate {
+	cc.mutation.SetName(s)
+	return cc
+}
+
 // SetCardNo sets the "card_no" field.
 func (cc *CardCreate) SetCardNo(s string) *CardCreate {
 	cc.mutation.SetCardNo(s)
@@ -156,6 +162,9 @@ func (cc *CardCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (cc *CardCreate) check() error {
+	if _, ok := cc.mutation.Name(); !ok {
+		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
+	}
 	if _, ok := cc.mutation.CardNo(); !ok {
 		return &ValidationError{Name: "card_no", err: errors.New("ent: missing required field \"card_no\"")}
 	}
@@ -203,6 +212,14 @@ func (cc *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 	if id, ok := cc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
+	}
+	if value, ok := cc.mutation.Name(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: card.FieldName,
+		})
+		_node.Name = value
 	}
 	if value, ok := cc.mutation.CardNo(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

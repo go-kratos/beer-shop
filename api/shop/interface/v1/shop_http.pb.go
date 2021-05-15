@@ -58,7 +58,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 	}
 	r := mux.NewRouter()
 
-	r.HandleFunc("/v1/register/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/v1/login/", func(w http.ResponseWriter, r *http.Request) {
 		var in RegisterReq
 		if err := h.Decode(r, &in); err != nil {
 			h.Error(w, r, err)

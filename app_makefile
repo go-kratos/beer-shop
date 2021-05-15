@@ -14,43 +14,42 @@ DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "go-kratos/beer-" $$0 
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 	go get -u github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2
-	go get -u github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2
 	go get -u github.com/google/wire/cmd/wire
+	go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 
 .PHONY: grpc
 # generate grpc code
 grpc:
 	 cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=$(KRATOS)/api \
            --proto_path=$(KRATOS)/third_party \
-           --proto_path=$(GOPATH)/src \
            --go_out=paths=source_relative:. \
            --go-grpc_out=paths=source_relative:. \
-           --go-errors_out=paths=source_relative:. \
            $(API_PROTO_FILES)
 
 .PHONY: http
 # generate http code
 http:
 	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=$(KRATOS)/api \
            --proto_path=$(KRATOS)/third_party \
-           --proto_path=$(GOPATH)/src \
            --go_out=paths=source_relative:. \
            --go-http_out=paths=source_relative:. \
-           --go-errors_out=paths=source_relative:. \
+           $(API_PROTO_FILES)
+
+.PHONY: swagger
+# generate swagger
+swagger:
+	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+	        --proto_path=$(KRATOS)/third_party \
+	        --openapiv2_out . \
+	        --openapiv2_opt logtostderr=true \
            $(API_PROTO_FILES)
 
 .PHONY: config
 # generate config struct
 config:
 	protoc --proto_path=. \
-           --proto_path=$(KRATOS)/api \
            --proto_path=$(KRATOS)/third_party \
-           --proto_path=$(GOPATH)/src \
            --go_out=paths=source_relative:. \
-           --go-http_out=paths=source_relative:. \
-           --go-errors_out=paths=source_relative:. \
            $(INTERNAL_PROTO_FILES)
 
 
@@ -92,6 +91,7 @@ api:
 	make grpc;
 	make http;
 	make config;
+	make swagger;
 
 .PHONY: all
 # generate all

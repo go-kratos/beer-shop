@@ -17,6 +17,7 @@ type Card struct {
 func (Card) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id"),
+		field.String("name"),
 		field.String("card_no"),
 		field.String("ccv"),
 		field.String("expires"),

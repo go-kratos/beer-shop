@@ -11,6 +11,8 @@ const (
 	Label = "card"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldName holds the string denoting the name field in the database.
+	FieldName = "name"
 	// FieldCardNo holds the string denoting the card_no field in the database.
 	FieldCardNo = "card_no"
 	// FieldCcv holds the string denoting the ccv field in the database.
@@ -37,6 +39,7 @@ const (
 // Columns holds all SQL columns for card fields.
 var Columns = []string{
 	FieldID,
+	FieldName,
 	FieldCardNo,
 	FieldCcv,
 	FieldExpires,

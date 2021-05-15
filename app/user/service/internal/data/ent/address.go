@@ -21,10 +21,6 @@ type Address struct {
 	Name string `json:"name,omitempty"`
 	// Mobile holds the value of the "mobile" field.
 	Mobile string `json:"mobile,omitempty"`
-	// Country holds the value of the "country" field.
-	Country string `json:"country,omitempty"`
-	// City holds the value of the "city" field.
-	City string `json:"city,omitempty"`
 	// Address holds the value of the "address" field.
 	Address string `json:"address,omitempty"`
 	// PostCode holds the value of the "post_code" field.
@@ -69,7 +65,7 @@ func (*Address) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case address.FieldID:
 			values[i] = &sql.NullInt64{}
-		case address.FieldName, address.FieldMobile, address.FieldCountry, address.FieldCity, address.FieldAddress, address.FieldPostCode:
+		case address.FieldName, address.FieldMobile, address.FieldAddress, address.FieldPostCode:
 			values[i] = &sql.NullString{}
 		case address.FieldCreatedAt, address.FieldUpdatedAt:
 			values[i] = &sql.NullTime{}
@@ -107,18 +103,6 @@ func (a *Address) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field mobile", values[i])
 			} else if value.Valid {
 				a.Mobile = value.String
-			}
-		case address.FieldCountry:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field country", values[i])
-			} else if value.Valid {
-				a.Country = value.String
-			}
-		case address.FieldCity:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field city", values[i])
-			} else if value.Valid {
-				a.City = value.String
 			}
 		case address.FieldAddress:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -188,10 +172,6 @@ func (a *Address) String() string {
 	builder.WriteString(a.Name)
 	builder.WriteString(", mobile=")
 	builder.WriteString(a.Mobile)
-	builder.WriteString(", country=")
-	builder.WriteString(a.Country)
-	builder.WriteString(", city=")
-	builder.WriteString(a.City)
 	builder.WriteString(", address=")
 	builder.WriteString(a.Address)
 	builder.WriteString(", post_code=")

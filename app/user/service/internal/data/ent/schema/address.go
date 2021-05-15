@@ -19,8 +19,6 @@ func (Address) Fields() []ent.Field {
 		field.Int64("id"),
 		field.String("name"),
 		field.String("mobile"),
-		field.String("country"),
-		field.String("city"),
 		field.String("address"),
 		field.String("post_code"),
 		field.Time("created_at").
