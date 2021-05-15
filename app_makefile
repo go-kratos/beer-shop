@@ -1,7 +1,7 @@
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
 APP_RELATIVE_PATH=$(shell echo $${PWD\#/*/*/*/*/*/})
-INTERNAL_PROTO_FILES=$(shell find . -name *.proto)
+INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
 API_PROTO_FILES=$(shell cd ../../../api/$(APP_RELATIVE_PATH) && find . -name *.proto)
 KRATOS_VERSION=$(shell go mod graph |grep go-kratos/kratos/v2 |head -n 1 |awk -F '@' '{print $$2}')
 KRATOS=$(GOPATH)/pkg/mod/github.com/go-kratos/kratos/v2@$(KRATOS_VERSION)
@@ -44,9 +44,9 @@ swagger:
 	        --openapiv2_opt logtostderr=true \
            $(API_PROTO_FILES)
 
-.PHONY: config
-# generate config struct
-config:
+.PHONY: proto
+# generate internal proto struct
+proto:
 	protoc --proto_path=. \
            --proto_path=$(KRATOS)/third_party \
            --go_out=paths=source_relative:. \
@@ -90,7 +90,6 @@ wire:
 api:
 	make grpc;
 	make http;
-	make config;
 	make swagger;
 
 .PHONY: all
@@ -98,7 +97,7 @@ api:
 all:
 	make grpc;
 	make http;
-	make config;
+	make proto;
 	make generate;
 	make build;
 	make test;
