@@ -5,9 +5,11 @@ ARG APP_RELATIVE_PATH
 COPY . /src
 WORKDIR /src/app/${APP_RELATIVE_PATH}
 
-RUN mkdir -p /release && GOPROXY=https://goproxy.cn go build -o /release ./...
+RUN GOPROXY=https://goproxy.cn make build
 
 FROM debian:stable-slim
+
+ARG APP_RELATIVE_PATH
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates  \
@@ -15,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && rm -rf /var/lib/apt/lists/ \
         && apt-get autoremove -y && apt-get autoclean -y
 
-COPY --from=builder /release /app
+COPY --from=builder /src/app/${APP_RELATIVE_PATH}/bin /app
 
 WORKDIR /app
 
