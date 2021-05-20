@@ -33,6 +33,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "ShopInterface"
         ]
@@ -85,6 +101,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "ShopInterface"
         ]
@@ -154,7 +186,7 @@
       }
     },
     "/v1/logout": {
-      "get": {
+      "post": {
         "operationId": "ShopInterface_Logout",
         "responses": {
           "200": {
@@ -176,6 +208,42 @@
       }
     },
     "/v1/orders": {
+      "get": {
+        "operationId": "ShopInterface_ListOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListOrderReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ShopInterface"
+        ]
+      },
       "post": {
         "operationId": "ShopInterface_CreateOrder",
         "responses": {
@@ -704,6 +772,9 @@
       }
     },
     "v1ListCartItemReply": {
+      "type": "object"
+    },
+    "v1ListOrderReply": {
       "type": "object"
     },
     "v1LoginReply": {

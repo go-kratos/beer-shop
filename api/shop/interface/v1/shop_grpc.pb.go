@@ -33,6 +33,7 @@ type ShopInterfaceClient interface {
 	ListCartItem(ctx context.Context, in *ListCartItemReq, opts ...grpc.CallOption) (*ListCartItemReply, error)
 	AddCartItem(ctx context.Context, in *AddCartItemReq, opts ...grpc.CallOption) (*AddCartItemReply, error)
 	CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CreateOrderReply, error)
+	ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error)
 }
 
 type shopInterfaceClient struct {
@@ -178,6 +179,15 @@ func (c *shopInterfaceClient) CreateOrder(ctx context.Context, in *CreateOrderRe
 	return out, nil
 }
 
+func (c *shopInterfaceClient) ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error) {
+	out := new(ListOrderReply)
+	err := c.cc.Invoke(ctx, "/shop.interface.v1.ShopInterface/ListOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ShopInterfaceServer is the server API for ShopInterface service.
 // All implementations must embed UnimplementedShopInterfaceServer
 // for forward compatibility
@@ -197,6 +207,7 @@ type ShopInterfaceServer interface {
 	ListCartItem(context.Context, *ListCartItemReq) (*ListCartItemReply, error)
 	AddCartItem(context.Context, *AddCartItemReq) (*AddCartItemReply, error)
 	CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error)
+	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
 	mustEmbedUnimplementedShopInterfaceServer()
 }
 
@@ -248,6 +259,9 @@ func (UnimplementedShopInterfaceServer) AddCartItem(context.Context, *AddCartIte
 }
 func (UnimplementedShopInterfaceServer) CreateOrder(context.Context, *CreateOrderReq) (*CreateOrderReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
+}
+func (UnimplementedShopInterfaceServer) ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrder not implemented")
 }
 func (UnimplementedShopInterfaceServer) mustEmbedUnimplementedShopInterfaceServer() {}
 
@@ -532,6 +546,24 @@ func _ShopInterface_CreateOrder_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ShopInterface_ListOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrderReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopInterfaceServer).ListOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/shop.interface.v1.ShopInterface/ListOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopInterfaceServer).ListOrder(ctx, req.(*ListOrderReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ShopInterface_ServiceDesc is the grpc.ServiceDesc for ShopInterface service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -598,6 +630,10 @@ var ShopInterface_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateOrder",
 			Handler:    _ShopInterface_CreateOrder_Handler,
+		},
+		{
+			MethodName: "ListOrder",
+			Handler:    _ShopInterface_ListOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

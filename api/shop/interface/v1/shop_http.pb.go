@@ -44,6 +44,8 @@ type ShopInterfaceHandler interface {
 
 	ListCartItem(context.Context, *ListCartItemReq) (*ListCartItemReply, error)
 
+	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
+
 	Login(context.Context, *LoginReq) (*LoginReply, error)
 
 	Logout(context.Context, *LogoutReq) (*LogoutReply, error)
@@ -128,7 +130,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 		if err := h.Encode(w, r, reply); err != nil {
 			h.Error(w, r, err)
 		}
-	}).Methods("GET")
+	}).Methods("POST")
 
 	r.HandleFunc("/v1/user/addresses", func(w http.ResponseWriter, r *http.Request) {
 		var in ListAddressReq
@@ -437,6 +439,30 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			h.Error(w, r, err)
 		}
 	}).Methods("POST")
+
+	r.HandleFunc("/v1/orders", func(w http.ResponseWriter, r *http.Request) {
+		var in ListOrderReq
+		if err := h.Decode(r, &in); err != nil {
+			h.Error(w, r, err)
+			return
+		}
+
+		next := func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListOrder(ctx, req.(*ListOrderReq))
+		}
+		if h.Middleware != nil {
+			next = h.Middleware(next)
+		}
+		out, err := next(r.Context(), &in)
+		if err != nil {
+			h.Error(w, r, err)
+			return
+		}
+		reply := out.(*ListOrderReply)
+		if err := h.Encode(w, r, reply); err != nil {
+			h.Error(w, r, err)
+		}
+	}).Methods("GET")
 
 	return r
 }

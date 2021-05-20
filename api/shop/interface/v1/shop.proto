@@ -24,7 +24,7 @@ service ShopInterface {
 
     rpc Logout (LogoutReq) returns (LogoutReply) {
         option (google.api.http) = {
-            get: "/v1/logout"
+            post: "/v1/logout"
         };
     }
 
@@ -104,6 +104,11 @@ service ShopInterface {
         };
     }
 
+    rpc ListOrder (ListOrderReq) returns (ListOrderReply) {
+        option (google.api.http) = {
+            get: "/v1/orders"
+        };
+    }
 }
 
 message RegisterReq {
@@ -259,7 +264,8 @@ message DeleteCardReply {
 
 
 message ListBeerReq {
-
+    int64 page_num = 1;
+    int64 page_size = 2;
 }
 
 message ListBeerReply {
@@ -275,7 +281,8 @@ message GetBeerReply {
 }
 
 message ListCartItemReq {
-
+    int64 page_num = 1;
+    int64 page_size = 2;
 }
 
 message ListCartItemReply {
@@ -295,5 +302,14 @@ message CreateOrderReq {
 }
 
 message CreateOrderReply {
+
+}
+
+message ListOrderReq {
+    int64 page_num = 1;
+    int64 page_size = 2;
+}
+
+message ListOrderReply {
 
 }
