@@ -1,12 +1,10 @@
 import React, {Fragment} from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom"
-
-import Nav from "./components/Nav"
+    import {
+        BrowserRouter as Router,
+        Switch,
+        Route,
+        Link
+    } from "react-router-dom"
 
 import Home from "./pages/Home"
 import Login from "./pages/Login";
@@ -14,12 +12,13 @@ import Register from "./pages/Register";
 import BeerDetail from "./pages/BeerDetail";
 import OrderList from "./pages/OrderList";
 import Checkout from "./pages/Checkout";
+import Nav from "./components/Nav";
 
 function App() {
     return (
         <Fragment>
-            <Nav/>
             <Router>
+                <Nav/>
                 <Switch>
                     <Route path="/beer/:id">
                         <BeerDetail/>

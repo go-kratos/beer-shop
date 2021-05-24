@@ -1,7 +1,40 @@
-import React from "react";
+import React, {Fragment} from "react";
 import ProductCard from "../../components/ProductCard";
 
 export default function Home(props) {
+    const beerList = [
+        {
+            "id": 1,
+            "name": "cool beer1",
+            "price": "5.99",
+        },
+        {
+            "id": 2,
+            "name": "cool beer2",
+            "price": "6.99",
+        },
+        {
+            "id": 3,
+            "name": "cool beer3",
+            "price": "7.99",
+        },
+        {
+            "id": 4,
+            "name": "cool beer4",
+            "price": "8.99",
+        },
+        {
+            "id": 5,
+            "name": "cool beer5",
+            "price": "9.99",
+        },
+        {
+            "id": 6,
+            "name": "cool beer6",
+            "price": "10.99",
+        },
+    ];
+
     return <div>
         <section className="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right"
                  style={{maxWidth: "1600px", height: "24rem", backgroundImage: "url('https://images.unsplash.com/photo-1504502350688-00f5d59bbdeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80')"}}>
@@ -42,14 +75,7 @@ export default function Home(props) {
                         </div>
                     </div>
                 </nav>
-
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-
+                { beerList.map((x)=><ProductCard data={x}/>)}
             </div>
         </section>
 

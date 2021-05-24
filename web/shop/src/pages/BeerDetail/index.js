@@ -1,6 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
+import { useParams } from "react-router-dom";
 
 export default function BeerDetail(props) {
+    const { id } = useParams();
+
+    console.log(id);
     return <div>
         <section className="text-gray-600 body-font overflow-hidden">
             <div className="container px-5 py-2 mx-auto">

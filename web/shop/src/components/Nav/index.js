@@ -1,6 +1,9 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 
 export default function Nav(props) {
+    let history = useHistory();
+
     return <nav id="header" className="w-full z-30 top-0 py-1">
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
             <label htmlFor="menu-toggle" className="cursor-pointer md:hidden block">
@@ -16,9 +19,8 @@ export default function Nav(props) {
                 <nav>
                     <ul className="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                         <li><a className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                               href="#">Shop</a></li>
-                        <li><a className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                               href="#">About</a></li>
+                        onClick={()=>{history.push("/")}}>Shop</a></li>
+                        <li><a className="inline-block no-underline hover:text-black hover:underline py-2 px-4">About</a></li>
                     </ul>
                 </nav>
             </div>

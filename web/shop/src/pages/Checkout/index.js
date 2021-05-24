@@ -3,6 +3,54 @@ import {useState} from 'react'
 
 
 export default function Checkout(props) {
+    const addrList = [
+        {
+            "id": 1,
+            "name": "Eric",
+            "mobile": "13012345678",
+            "address": "Some Road, Shanghai, China",
+            "post_code": 200000,
+        },
+        {
+            "id": 2,
+            "name": "Tony",
+            "mobile": "13000000000",
+            "address": "Some Road, Beijing, China",
+            "post_code": 100000,
+        },
+    ];
+    const cardList = [
+        {
+            "id": 1,
+            "name": "Eric",
+            "card_no": "12345678",
+        },
+        {
+            "id": 1,
+            "name": "Tony",
+            "card_no": "88888888",
+        },
+    ];
+    const cartItemList = [
+        {
+            "id": 1,
+            "name": "A beer",
+            "image": "https://images.unsplash.com/photo-1613254025696-6f80f3172937?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            "price": "5.99",
+            "quantity": 10,
+            "size": "500ml",
+        },
+        {
+            "id": 2,
+            "name": "B beer",
+            "image": "https://images.unsplash.com/photo-1613254025696-6f80f3172937?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            "price": "10.99",
+            "quantity": 5,
+            "size": "500ml",
+        },
+    ];
+    const total = "100.00";
+
     return <div className="w-full">
         <div className="md:container md:mx-auto">
             <h1>Checkout</h1>
@@ -23,24 +71,19 @@ export default function Checkout(props) {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td className="px-4 py-3">Eric</td>
-                                <td className="px-4 py-3">13012345678</td>
-                                <td className="px-4 py-3">Some Road, Shanghai, China</td>
-                                <td className="px-4 py-3 text-lg text-gray-900">200000</td>
-                                <td className="w-10 text-center">
-                                    <input name="plan" type="radio"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-3">Tony</td>
-                                <td className="px-4 py-3">13955555555</td>
-                                <td className="px-4 py-3">Some Road, Beijing, China</td>
-                                <td className="px-4 py-3 text-lg text-gray-900">100000</td>
-                                <td className="w-10 text-center">
-                                    <input name="plan" type="radio"/>
-                                </td>
-                            </tr>
+                            {
+                                addrList.map((x)=>
+                                    <tr>
+                                        <td className="px-4 py-3">{x.name}</td>
+                                        <td className="px-4 py-3">{x.mobile}</td>
+                                        <td className="px-4 py-3">{x.address}</td>
+                                        <td className="px-4 py-3 text-lg text-gray-900">{x.post_code}</td>
+                                        <td className="w-10 text-center">
+                                            <input name="plan" type="radio"/>
+                                        </td>
+                                    </tr>
+                                )
+                            }
                             </tbody>
                         </table>
                     </div>
@@ -62,20 +105,17 @@ export default function Checkout(props) {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td className="px-4 py-3">Eric</td>
-                                <td className="px-4 py-3">9999999</td>
-                                <td className="w-10 text-center">
-                                    <input name="plan" type="radio"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-3">Tony</td>
-                                <td className="px-4 py-3">88888888</td>
-                                <td className="w-10 text-center">
-                                    <input name="plan" type="radio"/>
-                                </td>
-                            </tr>
+                            {
+                                cardList.map((x)=>
+                                    <tr>
+                                        <td className="px-4 py-3">{x.name}</td>
+                                        <td className="px-4 py-3">{x.card_no}</td>
+                                        <td className="w-10 text-center">
+                                            <input name="plan" type="radio"/>
+                                        </td>
+                                    </tr>
+                                )
+                            }
                             </tbody>
                         </table>
                     </div>
@@ -86,33 +126,25 @@ export default function Checkout(props) {
             </section>
             <section className="py-6 border-b">
                 <h2>Review your order</h2>
-                <div className="py-2 flex flex-wrap md:flex-nowrap">
-                    <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto object-cover object-center rounded"
-                             src="https://images.unsplash.com/photo-1613254025696-6f80f3172937?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"/>
-                    </div>
-                    <div className="md:flex-grow">
-                        <h3 className="font-medium text-gray-900 mb-2">Guinness Draught Stout</h3>
-                        <p>$6</p>
-                        <p>Quantity: 1</p>
-                        <p>Size: 500ml</p>
-                    </div>
-                </div>
-                <div className="py-2 flex flex-wrap md:flex-nowrap">
-                    <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto object-cover object-center rounded"
-                             src="https://images.unsplash.com/photo-1613254025696-6f80f3172937?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"/>
-                    </div>
-                    <div className="md:flex-grow">
-                        <h3 className="font-medium text-gray-900 mb-2">Guinness Draught Stout</h3>
-                        <p>$6</p>
-                        <p>Quantity: 1</p>
-                        <p>Size: 500ml</p>
-                    </div>
-                </div>
+                {
+                    cartItemList.map((x)=>
+                        <div className="py-2 flex flex-wrap md:flex-nowrap">
+                            <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                                <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto object-cover object-center rounded"
+                                     src={x.image}/>
+                            </div>
+                            <div className="md:flex-grow">
+                                <h3 className="font-medium text-gray-900 mb-2">{x.name}</h3>
+                                <p>{x.price}</p>
+                                <p>Quantity: {x.quantity}</p>
+                                <p>Size: {x.size}</p>
+                            </div>
+                        </div>
+                    )
+                }
             </section>
             <section className="flex py-6">
-                <span className="title-font font-medium text-2xl text-gray-900">Order total: $58.00</span>
+                <span className="title-font font-medium text-2xl text-gray-900">Order total: {total}</span>
                 <button
                     className="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">Submit
                 </button>
