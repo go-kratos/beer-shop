@@ -1,94 +1,36 @@
-# Design
-This project is a demonstration for building microservices system with golang and Kratos framework. 
-It simulates an e-commerce website that sells beers.
+An online shop application, mono-repo microservices demo for kratos.
 
-## Features
-* Shows the project layout in mono-repo. (Which is different from the structures created with kratos-layout) 
-* Presents the practice of multiple services' communication.
-* Examples for kratos integrated with many infrastructure services such as databases, caches and message queues.
-* This project is just a toy for simulating microservices scenario, feel free to play with it
+本项目为一个使用kratos框架创建的，简单的微服务电商项目。
 
-## Components
-this section describes the components in this repository.
+由于example较碎片化，未能体现出完整的项目的样子，因此我们创建了本项目，以完成如下目标：
 
-### `/api/`
-All the API `.proto` files and generated `.go` files are in this directory.
-The directory structure is same as `/app/`.
+* 演示kratos在mono-repo中的项目结构实践（与layout创建出来的略有不同）
+* 提供多个微服务之间互相依赖调用和样例
+* 提供与各种基础设施集成和部署的样例
+* 主要为kratos框架使用演示，很多组件的设计做了简化或模拟处理，与实际的电商项目有一定出入，仅供参考
 
-### `/app/`
-All the actual services source codes are located in there.
+具体架构请参考文档：[Design](design.md)
 
-#### Service: `/app/catalog/service`
-##### Functions
-This service maintained all the beers which are selling in this shop.
-##### Features
-* Integration for Ent
-* Service Registration
+**ATTENTION: This project is a Work-in-Progress.**
 
-#### Service: `/app/cart/service`
-##### Functions
-The cart service, which can store the beers that users want to buy.
-##### Features
-* Integration for MongoDB
-* Service Registration
+**注意，目前尚在开发，暂时无法运行，仅供代码参考。**
 
-#### Service: `/app/user/service`
-##### Functions
-The user service, which holds the users' information.
-##### Features
-* Integration for Ent
-* Service Registration
+## Kratos Mono-Repo structure
+```
+.
+├── api  // API&Error Proto files & Generated codes
+│   ├── foo
+│   │   ├── job
+│   │   └── service
+│   └── bar
+│       └── interface
+├── app  // kratos microservices projects
+│   ├── foo
+│   │   ├── job
+│   │   └── service
+│   └── bar
+│       └── interface
+├── pkg  // common used packages
+└── docs
 
-#### Service: `/app/shipping/service`
-##### Functions
-This service stimulates a MQ producer. It will put the shipping package messages to the message queue.
-##### Features
-* Integration for MQ
-* Service Registration
-
-#### Job: `/app/courier/job`
-##### Functions
-This service stimulates a MQ consumer. It will receive(consume) the messages from the message queue.
-##### Features
-* Integration for MQ
-
-#### Service: `/app/order/service`
-##### Functions
-The order service, which holds the users' order.
-##### Features
-* Integration for GORM
-* Service Registration
-
-#### Service: `/app/payment/service`
-##### Functions
-Just a stimulation of payment authentication.
-##### Features
-* Service Registration
-
-#### Admin: `/app/shop/admin`
-##### Functions
-The backend for frontend(BFF) service for Administrator Web UI, to manage the shop.
-##### Features
-* Service Discovery 
-* Communication with other services
-
-#### Interface: `/app/shop/interface`
-##### Functions
-The backend for frontend(BFF) service for Administrator Web UI, to manage the shop.
-##### Features
-* Service Discovery 
-* Communication with other services
-* Integration for Cache
-
-### `/pkg/`
-The common packages which used by many services. 
-
-### `/deploy/`
-The dockerfile and deployment scripts.
-
-### `/web/`
-The frontend project.
-
-## Architecture
-This is a picture of the whole architecture.
-[TBD]
+```
