@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "v1/error_reason.proto",
+    "title": "v1/cart_error.proto",
     "version": "version not set"
   },
   "consumes": [

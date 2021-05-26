@@ -421,5 +421,5 @@ var ShopAdmin_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "v1/shop.proto",
+	Metadata: "v1/shop_admin.proto",
 }
