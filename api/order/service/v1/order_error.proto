@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package shop.interface.errors;
+package order.service.errors;
 
-option go_package = "shop/interface/v1;v1";
+option go_package = "order/service/v1;v1";
 option java_multiple_files = true;
 
 enum OrderServiceErrorReason {
