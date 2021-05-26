@@ -24,7 +24,7 @@ type CardUseCase struct {
 }
 
 func NewCardUseCase(repo CardRepo, logger log.Logger) *CardUseCase {
-	return &CardUseCase{repo: repo, log: log.NewHelper("usecase/card", logger)}
+	return &CardUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/card"))}
 }
 
 func (uc *CardUseCase) Create(ctx context.Context, u *Card) (*Card, error) {

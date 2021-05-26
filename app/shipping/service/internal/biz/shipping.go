@@ -18,5 +18,5 @@ type ShippingUseCase struct {
 }
 
 func NewShippingUseCase(repo ShippingRepo, logger log.Logger) *ShippingUseCase {
-	return &ShippingUseCase{repo: repo, log: log.NewHelper("usecase/shipping", logger)}
+	return &ShippingUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/shipping"))}
 }

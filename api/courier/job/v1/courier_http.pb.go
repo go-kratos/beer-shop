@@ -31,3 +31,14 @@ func NewCourierHandler(srv CourierHandler, opts ...http1.HandleOption) http.Hand
 
 	return r
 }
+
+type CourierHttpClient interface {
+}
+
+type CourierHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewCourierHttpClient(client *http1.Client) CourierHttpClient {
+	return &CourierHttpClientImpl{client}
+}

@@ -22,7 +22,7 @@ type Data struct {
 
 // NewData .
 func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
-	log := log.NewHelper("order-service/data", logger)
+	log := log.NewHelper(log.With(logger, "module", "order-service/data"))
 
 	db, err := gorm.Open(mysql.Open(conf.Database.Source), &gorm.Config{})
 	if err != nil {

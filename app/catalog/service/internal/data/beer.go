@@ -19,7 +19,7 @@ type beerRepo struct {
 func NewBeerRepo(data *Data, logger log.Logger) biz.BeerRepo {
 	return &beerRepo{
 		data: data,
-		log:  log.NewHelper("data/beer", logger),
+		log:  log.NewHelper(log.With(logger, "module", "data/beer")),
 	}
 }
 

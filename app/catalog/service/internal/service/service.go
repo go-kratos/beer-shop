@@ -21,5 +21,5 @@ func NewCatalogService(bc *biz.BeerUseCase, logger log.Logger) *CatalogService {
 	return &CatalogService{
 
 		bc:  bc,
-		log: log.NewHelper("service/catalog", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/catalog"))}
 }

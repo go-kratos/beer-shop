@@ -18,6 +18,6 @@ type ShopAdmin struct {
 
 func NewShopAdmin(uc *biz.UserUseCase, logger log.Logger) *ShopAdmin {
 	return &ShopAdmin{
-		log: log.NewHelper("service/interface", logger),
+		log: log.NewHelper(log.With(logger, "module", "service/interface")),
 	}
 }

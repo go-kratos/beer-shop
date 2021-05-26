@@ -134,3 +134,69 @@ func NewOrderHandler(srv OrderHandler, opts ...http1.HandleOption) http.Handler 
 
 	return r
 }
+
+type OrderHttpClient interface {
+	CreateOrder(ctx context.Context, req *CreateOrderReq, opts ...http1.CallOption) (rsp *CreateOrderReply, err error)
+
+	GetOrder(ctx context.Context, req *GetOrderReq, opts ...http1.CallOption) (rsp *GetOrderReply, err error)
+
+	ListOrder(ctx context.Context, req *ListOrderReq, opts ...http1.CallOption) (rsp *ListOrderReply, err error)
+
+	UpdateOrder(ctx context.Context, req *UpdateOrderReq, opts ...http1.CallOption) (rsp *UpdateOrderReply, err error)
+}
+
+type OrderHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewOrderHttpClient(client *http1.Client) OrderHttpClient {
+	return &OrderHttpClientImpl{client}
+}
+
+func (c *OrderHttpClientImpl) CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...http1.CallOption) (out *CreateOrderReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Order/CreateOrder", in)
+	out = &CreateOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Order/CreateOrder"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *OrderHttpClientImpl) GetOrder(ctx context.Context, in *GetOrderReq, opts ...http1.CallOption) (out *GetOrderReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Order/GetOrder", in)
+	out = &GetOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Order/GetOrder"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *OrderHttpClientImpl) ListOrder(ctx context.Context, in *ListOrderReq, opts ...http1.CallOption) (out *ListOrderReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Order/ListOrder", in)
+	out = &ListOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Order/ListOrder"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *OrderHttpClientImpl) UpdateOrder(ctx context.Context, in *UpdateOrderReq, opts ...http1.CallOption) (out *UpdateOrderReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Order/UpdateOrder", in)
+	out = &UpdateOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Order/UpdateOrder"))
+
+	if err != nil {
+		return
+	}
+	return
+}

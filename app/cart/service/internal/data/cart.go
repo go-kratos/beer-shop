@@ -21,7 +21,7 @@ func NewCartRepo(data *Data, logger log.Logger) biz.CartRepo {
 	return &cartRepo{
 		data:     data,
 		cartColl: data.db.Collection("cart"),
-		log:      log.NewHelper("repo/beer", logger),
+		log:      log.NewHelper(log.With(logger, "module", "repo/beer")),
 	}
 }
 

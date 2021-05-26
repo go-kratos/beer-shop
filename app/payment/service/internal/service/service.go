@@ -21,5 +21,5 @@ func NewPaymentService(bc *biz.BeerUseCase, logger log.Logger) *PaymentService {
 	return &PaymentService{
 
 		bc:  bc,
-		log: log.NewHelper("service/payment", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/payment"))}
 }

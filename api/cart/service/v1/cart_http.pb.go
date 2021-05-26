@@ -160,3 +160,83 @@ func NewCartHandler(srv CartHandler, opts ...http1.HandleOption) http.Handler {
 
 	return r
 }
+
+type CartHttpClient interface {
+	AddItem(ctx context.Context, req *AddItemReq, opts ...http1.CallOption) (rsp *AddItemReply, err error)
+
+	DeleteCart(ctx context.Context, req *DeleteCartReq, opts ...http1.CallOption) (rsp *DeleteCartReply, err error)
+
+	DeleteItem(ctx context.Context, req *DeleteItemReq, opts ...http1.CallOption) (rsp *DeleteItemReply, err error)
+
+	GetCart(ctx context.Context, req *GetCartReq, opts ...http1.CallOption) (rsp *GetCartReply, err error)
+
+	UpdateItem(ctx context.Context, req *UpdateItemReq, opts ...http1.CallOption) (rsp *UpdateItemReply, err error)
+}
+
+type CartHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewCartHttpClient(client *http1.Client) CartHttpClient {
+	return &CartHttpClientImpl{client}
+}
+
+func (c *CartHttpClientImpl) AddItem(ctx context.Context, in *AddItemReq, opts ...http1.CallOption) (out *AddItemReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Cart/AddItem", in)
+	out = &AddItemReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Cart/AddItem"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CartHttpClientImpl) DeleteCart(ctx context.Context, in *DeleteCartReq, opts ...http1.CallOption) (out *DeleteCartReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Cart/DeleteCart", in)
+	out = &DeleteCartReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Cart/DeleteCart"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CartHttpClientImpl) DeleteItem(ctx context.Context, in *DeleteItemReq, opts ...http1.CallOption) (out *DeleteItemReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Cart/DeleteItem", in)
+	out = &DeleteItemReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Cart/DeleteItem"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CartHttpClientImpl) GetCart(ctx context.Context, in *GetCartReq, opts ...http1.CallOption) (out *GetCartReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Cart/GetCart", in)
+	out = &GetCartReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Cart/GetCart"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CartHttpClientImpl) UpdateItem(ctx context.Context, in *UpdateItemReq, opts ...http1.CallOption) (out *UpdateItemReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Cart/UpdateItem", in)
+	out = &UpdateItemReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Cart/UpdateItem"))
+
+	if err != nil {
+		return
+	}
+	return
+}

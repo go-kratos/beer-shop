@@ -56,3 +56,27 @@ func NewPaymentHandler(srv PaymentHandler, opts ...http1.HandleOption) http.Hand
 
 	return r
 }
+
+type PaymentHttpClient interface {
+	PaymentAuth(ctx context.Context, req *PaymentAuthReq, opts ...http1.CallOption) (rsp *PaymentAuthReply, err error)
+}
+
+type PaymentHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewPaymentHttpClient(client *http1.Client) PaymentHttpClient {
+	return &PaymentHttpClientImpl{client}
+}
+
+func (c *PaymentHttpClientImpl) PaymentAuth(ctx context.Context, in *PaymentAuthReq, opts ...http1.CallOption) (out *PaymentAuthReply, err error) {
+	path := binding.EncodePath("POST", "/cart.service.v1.Payment/PaymentAuth", in)
+	out = &PaymentAuthReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/cart.service.v1.Payment/PaymentAuth"))
+
+	if err != nil {
+		return
+	}
+	return
+}

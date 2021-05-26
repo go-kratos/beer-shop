@@ -48,7 +48,7 @@ func NewData(
 	cc csV1.CartClient,
 	bc ctV1.CatalogClient,
 ) (*Data, error) {
-	l := log.NewHelper("data", logger)
+	l := log.NewHelper(log.With(logger, "module", "data"))
 	return &Data{log: l, uc: uc, cc: cc, bc: bc}, nil
 }
 

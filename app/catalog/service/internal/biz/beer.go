@@ -30,7 +30,7 @@ type BeerUseCase struct {
 }
 
 func NewBeerUseCase(repo BeerRepo, logger log.Logger) *BeerUseCase {
-	return &BeerUseCase{repo: repo, log: log.NewHelper("usecase/beer", logger)}
+	return &BeerUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/beer"))}
 }
 
 func (uc *BeerUseCase) Create(ctx context.Context, u *Beer) (*Beer, error) {

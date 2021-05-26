@@ -187,7 +187,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -264,7 +264,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -293,7 +293,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -346,7 +346,7 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -465,4 +465,238 @@ func NewShopInterfaceHandler(srv ShopInterfaceHandler, opts ...http1.HandleOptio
 	}).Methods("GET")
 
 	return r
+}
+
+type ShopInterfaceHttpClient interface {
+	AddCartItem(ctx context.Context, req *AddCartItemReq, opts ...http1.CallOption) (rsp *AddCartItemReply, err error)
+
+	CreateAddress(ctx context.Context, req *CreateAddressReq, opts ...http1.CallOption) (rsp *CreateAddressReply, err error)
+
+	CreateCard(ctx context.Context, req *CreateCardReq, opts ...http1.CallOption) (rsp *CreateCardReply, err error)
+
+	CreateOrder(ctx context.Context, req *CreateOrderReq, opts ...http1.CallOption) (rsp *CreateOrderReply, err error)
+
+	DeleteCard(ctx context.Context, req *DeleteCardReq, opts ...http1.CallOption) (rsp *DeleteCardReply, err error)
+
+	GetAddress(ctx context.Context, req *GetAddressReq, opts ...http1.CallOption) (rsp *GetAddressReply, err error)
+
+	GetBeer(ctx context.Context, req *GetBeerReq, opts ...http1.CallOption) (rsp *GetBeerReply, err error)
+
+	GetCard(ctx context.Context, req *GetCardReq, opts ...http1.CallOption) (rsp *GetCardReply, err error)
+
+	ListAddress(ctx context.Context, req *ListAddressReq, opts ...http1.CallOption) (rsp *ListAddressReply, err error)
+
+	ListBeer(ctx context.Context, req *ListBeerReq, opts ...http1.CallOption) (rsp *ListBeerReply, err error)
+
+	ListCard(ctx context.Context, req *ListCardReq, opts ...http1.CallOption) (rsp *ListCardReply, err error)
+
+	ListCartItem(ctx context.Context, req *ListCartItemReq, opts ...http1.CallOption) (rsp *ListCartItemReply, err error)
+
+	ListOrder(ctx context.Context, req *ListOrderReq, opts ...http1.CallOption) (rsp *ListOrderReply, err error)
+
+	Login(ctx context.Context, req *LoginReq, opts ...http1.CallOption) (rsp *LoginReply, err error)
+
+	Logout(ctx context.Context, req *LogoutReq, opts ...http1.CallOption) (rsp *LogoutReply, err error)
+
+	Register(ctx context.Context, req *RegisterReq, opts ...http1.CallOption) (rsp *RegisterReply, err error)
+}
+
+type ShopInterfaceHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewShopInterfaceHttpClient(client *http1.Client) ShopInterfaceHttpClient {
+	return &ShopInterfaceHttpClientImpl{client}
+}
+
+func (c *ShopInterfaceHttpClientImpl) AddCartItem(ctx context.Context, in *AddCartItemReq, opts ...http1.CallOption) (out *AddCartItemReply, err error) {
+	path := binding.EncodePath("POST", "/v1/cart", in)
+	out = &AddCartItemReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/cart"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...http1.CallOption) (out *CreateAddressReply, err error) {
+	path := binding.EncodePath("POST", "/v1/user/addresses", in)
+	out = &CreateAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/user/addresses"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) CreateCard(ctx context.Context, in *CreateCardReq, opts ...http1.CallOption) (out *CreateCardReply, err error) {
+	path := binding.EncodePath("POST", "/v1/user/cards", in)
+	out = &CreateCardReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/user/cards"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...http1.CallOption) (out *CreateOrderReply, err error) {
+	path := binding.EncodePath("POST", "/v1/orders", in)
+	out = &CreateOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/orders"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...http1.CallOption) (out *DeleteCardReply, err error) {
+	path := binding.EncodePath("DELETE", "/v1/user/cards/{id}", in)
+	out = &DeleteCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("DELETE"), http1.PathPattern("/v1/user/cards/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) GetAddress(ctx context.Context, in *GetAddressReq, opts ...http1.CallOption) (out *GetAddressReply, err error) {
+	path := binding.EncodePath("GET", "/v1/user/addresses/{id}", in)
+	out = &GetAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/user/addresses/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) GetBeer(ctx context.Context, in *GetBeerReq, opts ...http1.CallOption) (out *GetBeerReply, err error) {
+	path := binding.EncodePath("GET", "/v1/catalog/beers/{id}", in)
+	out = &GetBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/catalog/beers/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) GetCard(ctx context.Context, in *GetCardReq, opts ...http1.CallOption) (out *GetCardReply, err error) {
+	path := binding.EncodePath("GET", "/v1/user/cards/{id}", in)
+	out = &GetCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/user/cards/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) ListAddress(ctx context.Context, in *ListAddressReq, opts ...http1.CallOption) (out *ListAddressReply, err error) {
+	path := binding.EncodePath("GET", "/v1/user/addresses", in)
+	out = &ListAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/user/addresses"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) ListBeer(ctx context.Context, in *ListBeerReq, opts ...http1.CallOption) (out *ListBeerReply, err error) {
+	path := binding.EncodePath("GET", "/v1/catalog/beers", in)
+	out = &ListBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/catalog/beers"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) ListCard(ctx context.Context, in *ListCardReq, opts ...http1.CallOption) (out *ListCardReply, err error) {
+	path := binding.EncodePath("GET", "/v1/user/cards", in)
+	out = &ListCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/user/cards"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) ListCartItem(ctx context.Context, in *ListCartItemReq, opts ...http1.CallOption) (out *ListCartItemReply, err error) {
+	path := binding.EncodePath("GET", "/v1/cart", in)
+	out = &ListCartItemReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/cart"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) ListOrder(ctx context.Context, in *ListOrderReq, opts ...http1.CallOption) (out *ListOrderReply, err error) {
+	path := binding.EncodePath("GET", "/v1/orders", in)
+	out = &ListOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/v1/orders"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) Login(ctx context.Context, in *LoginReq, opts ...http1.CallOption) (out *LoginReply, err error) {
+	path := binding.EncodePath("POST", "/v1/login", in)
+	out = &LoginReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/login"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) Logout(ctx context.Context, in *LogoutReq, opts ...http1.CallOption) (out *LogoutReply, err error) {
+	path := binding.EncodePath("POST", "/v1/logout", in)
+	out = &LogoutReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/v1/logout"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopInterfaceHttpClientImpl) Register(ctx context.Context, in *RegisterReq, opts ...http1.CallOption) (out *RegisterReply, err error) {
+	path := binding.EncodePath("POST", "/v1/register", in)
+	out = &RegisterReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/v1/register"))
+
+	if err != nil {
+		return
+	}
+	return
 }

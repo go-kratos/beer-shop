@@ -28,7 +28,7 @@ type CatalogUseCase struct {
 }
 
 func NewCatalogUseCase(repo BeerRepo, logger log.Logger) *CatalogUseCase {
-	return &CatalogUseCase{repo: repo, log: log.NewHelper("usecase/beer", logger)}
+	return &CatalogUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/beer"))}
 }
 
 func (uc *CatalogUseCase) Get(ctx context.Context, id int64) (*Beer, error) {

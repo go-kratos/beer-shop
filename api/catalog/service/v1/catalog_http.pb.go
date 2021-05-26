@@ -160,3 +160,83 @@ func NewCatalogHandler(srv CatalogHandler, opts ...http1.HandleOption) http.Hand
 
 	return r
 }
+
+type CatalogHttpClient interface {
+	CreateBeer(ctx context.Context, req *CreateBeerReq, opts ...http1.CallOption) (rsp *CreateBeerReply, err error)
+
+	DeleteBeer(ctx context.Context, req *DeleteBeerReq, opts ...http1.CallOption) (rsp *DeleteBeerReply, err error)
+
+	GetBeer(ctx context.Context, req *GetBeerReq, opts ...http1.CallOption) (rsp *GetBeerReply, err error)
+
+	ListBeer(ctx context.Context, req *ListBeerReq, opts ...http1.CallOption) (rsp *ListBeerReply, err error)
+
+	UpdateBeer(ctx context.Context, req *UpdateBeerReq, opts ...http1.CallOption) (rsp *UpdateBeerReply, err error)
+}
+
+type CatalogHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewCatalogHttpClient(client *http1.Client) CatalogHttpClient {
+	return &CatalogHttpClientImpl{client}
+}
+
+func (c *CatalogHttpClientImpl) CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...http1.CallOption) (out *CreateBeerReply, err error) {
+	path := binding.EncodePath("POST", "/catalog.service.v1.Catalog/CreateBeer", in)
+	out = &CreateBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/catalog.service.v1.Catalog/CreateBeer"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CatalogHttpClientImpl) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...http1.CallOption) (out *DeleteBeerReply, err error) {
+	path := binding.EncodePath("POST", "/catalog.service.v1.Catalog/DeleteBeer", in)
+	out = &DeleteBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/catalog.service.v1.Catalog/DeleteBeer"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CatalogHttpClientImpl) GetBeer(ctx context.Context, in *GetBeerReq, opts ...http1.CallOption) (out *GetBeerReply, err error) {
+	path := binding.EncodePath("POST", "/catalog.service.v1.Catalog/GetBeer", in)
+	out = &GetBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/catalog.service.v1.Catalog/GetBeer"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CatalogHttpClientImpl) ListBeer(ctx context.Context, in *ListBeerReq, opts ...http1.CallOption) (out *ListBeerReply, err error) {
+	path := binding.EncodePath("POST", "/catalog.service.v1.Catalog/ListBeer", in)
+	out = &ListBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/catalog.service.v1.Catalog/ListBeer"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *CatalogHttpClientImpl) UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...http1.CallOption) (out *UpdateBeerReply, err error) {
+	path := binding.EncodePath("POST", "/catalog.service.v1.Catalog/UpdateBeer", in)
+	out = &UpdateBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/catalog.service.v1.Catalog/UpdateBeer"))
+
+	if err != nil {
+		return
+	}
+	return
+}

@@ -290,3 +290,153 @@ func NewUserHandler(srv UserHandler, opts ...http1.HandleOption) http.Handler {
 
 	return r
 }
+
+type UserHttpClient interface {
+	CreateAddress(ctx context.Context, req *CreateAddressReq, opts ...http1.CallOption) (rsp *CreateAddressReply, err error)
+
+	CreateCard(ctx context.Context, req *CreateCardReq, opts ...http1.CallOption) (rsp *CreateCardReply, err error)
+
+	CreateUser(ctx context.Context, req *CreateUserReq, opts ...http1.CallOption) (rsp *CreateUserReply, err error)
+
+	DeleteCard(ctx context.Context, req *DeleteCardReq, opts ...http1.CallOption) (rsp *DeleteCardReply, err error)
+
+	GetAddress(ctx context.Context, req *GetAddressReq, opts ...http1.CallOption) (rsp *GetAddressReply, err error)
+
+	GetCard(ctx context.Context, req *GetCardReq, opts ...http1.CallOption) (rsp *GetCardReply, err error)
+
+	GetUser(ctx context.Context, req *GetUserReq, opts ...http1.CallOption) (rsp *GetUserReply, err error)
+
+	ListAddress(ctx context.Context, req *ListAddressReq, opts ...http1.CallOption) (rsp *ListAddressReply, err error)
+
+	ListCard(ctx context.Context, req *ListCardReq, opts ...http1.CallOption) (rsp *ListCardReply, err error)
+
+	VerifyPassword(ctx context.Context, req *VerifyPasswordReq, opts ...http1.CallOption) (rsp *VerifyPasswordReply, err error)
+}
+
+type UserHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewUserHttpClient(client *http1.Client) UserHttpClient {
+	return &UserHttpClientImpl{client}
+}
+
+func (c *UserHttpClientImpl) CreateAddress(ctx context.Context, in *CreateAddressReq, opts ...http1.CallOption) (out *CreateAddressReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/CreateAddress", in)
+	out = &CreateAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/CreateAddress"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) CreateCard(ctx context.Context, in *CreateCardReq, opts ...http1.CallOption) (out *CreateCardReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/CreateCard", in)
+	out = &CreateCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/CreateCard"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) CreateUser(ctx context.Context, in *CreateUserReq, opts ...http1.CallOption) (out *CreateUserReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/CreateUser", in)
+	out = &CreateUserReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/CreateUser"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) DeleteCard(ctx context.Context, in *DeleteCardReq, opts ...http1.CallOption) (out *DeleteCardReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/DeleteCard", in)
+	out = &DeleteCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/DeleteCard"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) GetAddress(ctx context.Context, in *GetAddressReq, opts ...http1.CallOption) (out *GetAddressReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/GetAddress", in)
+	out = &GetAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/GetAddress"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) GetCard(ctx context.Context, in *GetCardReq, opts ...http1.CallOption) (out *GetCardReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/GetCard", in)
+	out = &GetCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/GetCard"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) GetUser(ctx context.Context, in *GetUserReq, opts ...http1.CallOption) (out *GetUserReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/GetUser", in)
+	out = &GetUserReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/GetUser"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) ListAddress(ctx context.Context, in *ListAddressReq, opts ...http1.CallOption) (out *ListAddressReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/ListAddress", in)
+	out = &ListAddressReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/ListAddress"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) ListCard(ctx context.Context, in *ListCardReq, opts ...http1.CallOption) (out *ListCardReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/ListCard", in)
+	out = &ListCardReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/ListCard"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *UserHttpClientImpl) VerifyPassword(ctx context.Context, in *VerifyPasswordReq, opts ...http1.CallOption) (out *VerifyPasswordReply, err error) {
+	path := binding.EncodePath("POST", "/user.service.v1.User/VerifyPassword", in)
+	out = &VerifyPasswordReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/user.service.v1.User/VerifyPassword"))
+
+	if err != nil {
+		return
+	}
+	return
+}

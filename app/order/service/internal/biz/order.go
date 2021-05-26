@@ -23,7 +23,7 @@ type OrderUseCase struct {
 }
 
 func NewOrderUseCase(repo OrderRepo, logger log.Logger) *OrderUseCase {
-	return &OrderUseCase{repo: repo, log: log.NewHelper("usecase/order", logger)}
+	return &OrderUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/order"))}
 }
 
 func (uc *OrderUseCase) Create(ctx context.Context, u *Order) (*Order, error) {

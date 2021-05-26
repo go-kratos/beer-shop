@@ -16,6 +16,6 @@ type courierRepo struct {
 func NewCourierRepo(data *Data, logger log.Logger) biz.CourierRepo {
 	return &courierRepo{
 		data: data,
-		log:  log.NewHelper("data/courier", logger),
+		log:  log.NewHelper(log.With(logger, "data/courier")),
 	}
 }

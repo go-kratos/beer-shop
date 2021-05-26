@@ -18,5 +18,5 @@ type CourierUseCase struct {
 }
 
 func NewCourierUseCase(repo CourierRepo, logger log.Logger) *CourierUseCase {
-	return &CourierUseCase{repo: repo, log: log.NewHelper("usecase/courier", logger)}
+	return &CourierUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/courier"))}
 }

@@ -27,7 +27,7 @@ type CartUseCase struct {
 }
 
 func NewCartUseCase(repo CartRepo, logger log.Logger) *CartUseCase {
-	return &CartUseCase{repo: repo, log: log.NewHelper("usecase/cart", logger)}
+	return &CartUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/cart"))}
 }
 
 func (uc *CartUseCase) GetCart(ctx context.Context, uid int64) (*Cart, error) {

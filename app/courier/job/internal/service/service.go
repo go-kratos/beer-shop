@@ -21,5 +21,5 @@ func NewCourierService(oc *biz.CourierUseCase, logger log.Logger) *CourierServic
 	return &CourierService{
 
 		oc:  oc,
-		log: log.NewHelper("service/courier", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/courier"))}
 }

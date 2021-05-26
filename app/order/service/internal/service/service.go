@@ -21,5 +21,5 @@ func NewOrderService(oc *biz.OrderUseCase, logger log.Logger) *OrderService {
 	return &OrderService{
 
 		oc:  oc,
-		log: log.NewHelper("service/order", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/order"))}
 }

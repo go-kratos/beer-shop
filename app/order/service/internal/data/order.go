@@ -29,7 +29,7 @@ type Order struct {
 func NewOrderRepo(data *Data, logger log.Logger) biz.OrderRepo {
 	return &orderRepo{
 		data: data,
-		log:  log.NewHelper("data/order", logger),
+		log:  log.NewHelper(log.With(logger, "module", "data/order")),
 	}
 }
 

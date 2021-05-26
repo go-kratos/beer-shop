@@ -18,7 +18,7 @@ type addressRepo struct {
 func NewAddressRepo(data *Data, logger log.Logger) biz.AddressRepo {
 	return &addressRepo{
 		data: data,
-		log:  log.NewHelper("data/address", logger),
+		log:  log.NewHelper(log.With(logger, "module", "data/address")),
 	}
 }
 

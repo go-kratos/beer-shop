@@ -151,7 +151,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -180,7 +180,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -281,7 +281,7 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 			return
 		}
 
-		if err := binding.MapProto(&in, mux.Vars(r)); err != nil {
+		if err := binding.BindVars(mux.Vars(r), &in); err != nil {
 			h.Error(w, r, err)
 			return
 		}
@@ -304,4 +304,154 @@ func NewShopAdminHandler(srv ShopAdminHandler, opts ...http1.HandleOption) http.
 	}).Methods("POST")
 
 	return r
+}
+
+type ShopAdminHttpClient interface {
+	CreateBeer(ctx context.Context, req *CreateBeerReq, opts ...http1.CallOption) (rsp *CreateBeerReply, err error)
+
+	DeleteBeer(ctx context.Context, req *DeleteBeerReq, opts ...http1.CallOption) (rsp *DeleteBeerReply, err error)
+
+	GetCustomer(ctx context.Context, req *GetCustomerReq, opts ...http1.CallOption) (rsp *GetCustomerReply, err error)
+
+	GetOrder(ctx context.Context, req *GetOrderReq, opts ...http1.CallOption) (rsp *GetOrderReply, err error)
+
+	ListBeer(ctx context.Context, req *ListBeerReq, opts ...http1.CallOption) (rsp *ListBeerReply, err error)
+
+	ListCustomer(ctx context.Context, req *ListCustomerReq, opts ...http1.CallOption) (rsp *ListCustomerReply, err error)
+
+	ListOrder(ctx context.Context, req *ListOrderReq, opts ...http1.CallOption) (rsp *ListOrderReply, err error)
+
+	Login(ctx context.Context, req *LoginReq, opts ...http1.CallOption) (rsp *LoginReply, err error)
+
+	Logout(ctx context.Context, req *LogoutReq, opts ...http1.CallOption) (rsp *LogoutReply, err error)
+
+	UpdateBeer(ctx context.Context, req *UpdateBeerReq, opts ...http1.CallOption) (rsp *UpdateBeerReply, err error)
+}
+
+type ShopAdminHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewShopAdminHttpClient(client *http1.Client) ShopAdminHttpClient {
+	return &ShopAdminHttpClientImpl{client}
+}
+
+func (c *ShopAdminHttpClientImpl) CreateBeer(ctx context.Context, in *CreateBeerReq, opts ...http1.CallOption) (out *CreateBeerReply, err error) {
+	path := binding.EncodePath("POST", "/admin/v1/catalog/beers", in)
+	out = &CreateBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/admin/v1/catalog/beers"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...http1.CallOption) (out *DeleteBeerReply, err error) {
+	path := binding.EncodePath("DELETE", "/admin/v1/catalog/beers/{id}", in)
+	out = &DeleteBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("DELETE"), http1.PathPattern("/admin/v1/catalog/beers/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...http1.CallOption) (out *GetCustomerReply, err error) {
+	path := binding.EncodePath("POST", "/admin/v1/customers/{id}", in)
+	out = &GetCustomerReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/admin/v1/customers/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) GetOrder(ctx context.Context, in *GetOrderReq, opts ...http1.CallOption) (out *GetOrderReply, err error) {
+	path := binding.EncodePath("GET", "/admin/v1/orders", in)
+	out = &GetOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/admin/v1/orders"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) ListBeer(ctx context.Context, in *ListBeerReq, opts ...http1.CallOption) (out *ListBeerReply, err error) {
+	path := binding.EncodePath("GET", "/admin/v1/catalog/beers", in)
+	out = &ListBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/admin/v1/catalog/beers"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...http1.CallOption) (out *ListCustomerReply, err error) {
+	path := binding.EncodePath("GET", "/admin/v1/customers", in)
+	out = &ListCustomerReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/admin/v1/customers"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) ListOrder(ctx context.Context, in *ListOrderReq, opts ...http1.CallOption) (out *ListOrderReply, err error) {
+	path := binding.EncodePath("GET", "/admin/v1/orders", in)
+	out = &ListOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("GET"), http1.PathPattern("/admin/v1/orders"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) Login(ctx context.Context, in *LoginReq, opts ...http1.CallOption) (out *LoginReply, err error) {
+	path := binding.EncodePath("POST", "/admin/v1/login", in)
+	out = &LoginReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/admin/v1/login"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) Logout(ctx context.Context, in *LogoutReq, opts ...http1.CallOption) (out *LogoutReply, err error) {
+	path := binding.EncodePath("POST", "/admin/v1/logout", in)
+	out = &LogoutReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("POST"), http1.PathPattern("/admin/v1/logout"))
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *ShopAdminHttpClientImpl) UpdateBeer(ctx context.Context, in *UpdateBeerReq, opts ...http1.CallOption) (out *UpdateBeerReply, err error) {
+	path := binding.EncodePath("PUT", "/admin/v1/catalog/beers/{id}", in)
+	out = &UpdateBeerReply{}
+
+	err = c.cc.Invoke(ctx, path, in, &out, http1.Method("PUT"), http1.PathPattern("/admin/v1/catalog/beers/{id}"))
+
+	if err != nil {
+		return
+	}
+	return
 }

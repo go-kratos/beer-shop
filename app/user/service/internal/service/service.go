@@ -24,5 +24,5 @@ func NewUserService(uc *biz.UserUseCase, cc *biz.CardUseCase, ac *biz.AddressUse
 		uc:  uc,
 		ac:  ac,
 		cc:  cc,
-		log: log.NewHelper("service/server-service", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/server-service"))}
 }

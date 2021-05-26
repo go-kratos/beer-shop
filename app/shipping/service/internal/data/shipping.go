@@ -16,6 +16,6 @@ type shippingRepo struct {
 func NewShippingRepo(data *Data, logger log.Logger) biz.ShippingRepo {
 	return &shippingRepo{
 		data: data,
-		log:  log.NewHelper("data/shipping", logger),
+		log:  log.NewHelper(log.With(logger, "module", "data/shipping")),
 	}
 }

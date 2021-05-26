@@ -22,7 +22,7 @@ type Data struct {
 
 // NewData .
 func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
-	log := log.NewHelper("cart-service/data", logger)
+	log := log.NewHelper(log.With(logger, "module", "cart-service/data"))
 
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 

@@ -27,7 +27,7 @@ type AddressUseCase struct {
 }
 
 func NewAddressUseCase(repo AddressRepo, logger log.Logger) *AddressUseCase {
-	return &AddressUseCase{repo: repo, log: log.NewHelper("usecase/address", logger)}
+	return &AddressUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/address"))}
 }
 
 func (uc *AddressUseCase) Create(ctx context.Context, uid int64, a *Address) (*Address, error) {

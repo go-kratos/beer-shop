@@ -56,3 +56,27 @@ func NewShippingHandler(srv ShippingHandler, opts ...http1.HandleOption) http.Ha
 
 	return r
 }
+
+type ShippingHttpClient interface {
+	ShipOrder(ctx context.Context, req *ShipOrderReq, opts ...http1.CallOption) (rsp *ShipOrderReply, err error)
+}
+
+type ShippingHttpClientImpl struct {
+	cc *http1.Client
+}
+
+func NewShippingHttpClient(client *http1.Client) ShippingHttpClient {
+	return &ShippingHttpClientImpl{client}
+}
+
+func (c *ShippingHttpClientImpl) ShipOrder(ctx context.Context, in *ShipOrderReq, opts ...http1.CallOption) (out *ShipOrderReply, err error) {
+	path := binding.EncodePath("POST", "/shipping.service.v1.Shipping/ShipOrder", in)
+	out = &ShipOrderReply{}
+
+	err = c.cc.Invoke(ctx, path, nil, &out, http1.Method("POST"), http1.PathPattern("/shipping.service.v1.Shipping/ShipOrder"))
+
+	if err != nil {
+		return
+	}
+	return
+}

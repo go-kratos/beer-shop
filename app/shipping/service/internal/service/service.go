@@ -21,5 +21,5 @@ func NewShippingService(oc *biz.ShippingUseCase, logger log.Logger) *ShippingSer
 	return &ShippingService{
 
 		oc:  oc,
-		log: log.NewHelper("service/shipping", logger)}
+		log: log.NewHelper(log.With(logger, "module", "service/shipping"))}
 }

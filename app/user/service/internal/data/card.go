@@ -18,7 +18,7 @@ type cardRepo struct {
 func NewCardRepo(data *Data, logger log.Logger) biz.CardRepo {
 	return &cardRepo{
 		data: data,
-		log:  log.NewHelper("data/card", logger),
+		log:  log.NewHelper(log.With(logger, "module", "data/card")),
 	}
 }
 
