@@ -15,7 +15,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.ShippingService) *grpc.Server {
+func NewGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.ShippingService) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			middleware.Chain(
@@ -26,7 +26,7 @@ func NewGRPCServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.Shipp
 						propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 					),
 				),
-				logging.Server(log.DefaultLogger),
+				logging.Server(logger),
 			),
 		),
 	}

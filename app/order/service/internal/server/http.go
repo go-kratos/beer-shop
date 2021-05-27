@@ -16,7 +16,7 @@ import (
 )
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.OrderService) *http.Server {
+func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.OrderService) *http.Server {
 	var opts = []http.ServerOption{}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
@@ -37,7 +37,7 @@ func NewHTTPServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.Order
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			logging.Server(log.DefaultLogger),
+			logging.Server(logger),
 		),
 	)
 	srv.HandlePrefix("/", v1.NewOrderHandler(s, m))

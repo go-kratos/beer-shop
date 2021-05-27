@@ -27,8 +27,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	beerRepo := data.NewBeerRepo(dataData, logger)
 	beerUseCase := biz.NewBeerUseCase(beerRepo, logger)
 	catalogService := service.NewCatalogService(beerUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, tracerProvider, catalogService)
-	grpcServer := server.NewGRPCServer(confServer, tracerProvider, catalogService)
+	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, catalogService)
+	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, catalogService)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {

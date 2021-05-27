@@ -27,8 +27,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	orderRepo := data.NewOrderRepo(dataData, logger)
 	orderUseCase := biz.NewOrderUseCase(orderRepo, logger)
 	orderService := service.NewOrderService(orderUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, tracerProvider, orderService)
-	grpcServer := server.NewGRPCServer(confServer, tracerProvider, orderService)
+	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, orderService)
+	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, orderService)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
