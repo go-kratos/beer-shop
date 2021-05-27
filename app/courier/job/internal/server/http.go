@@ -5,6 +5,7 @@ import (
 	"github.com/go-kratos/beer-shop/app/courier/job/internal/conf"
 	"github.com/go-kratos/beer-shop/app/courier/job/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
@@ -14,7 +15,7 @@ import (
 )
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, s *service.CourierService) *http.Server {
+func NewHTTPServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.CourierService) *http.Server {
 	var opts = []http.ServerOption{}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
@@ -29,7 +30,12 @@ func NewHTTPServer(c *conf.Server, s *service.CourierService) *http.Server {
 	m := http.Middleware(
 		middleware.Chain(
 			recovery.Recovery(),
-			tracing.Server(),
+			tracing.Server(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
 			logging.Server(log.DefaultLogger),
 		),
 	)

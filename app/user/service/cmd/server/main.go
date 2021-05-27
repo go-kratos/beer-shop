@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/go-kratos/kratos/v2/registry"
 	"os"
+
+	"github.com/go-kratos/kratos/v2/registry"
 
 	"github.com/go-kratos/beer-shop/app/user/service/internal/conf"
 
@@ -13,13 +14,17 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/go-kratos/kratos/v2/transport/http"
+	"go.opentelemetry.io/otel/exporters/trace/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	"go.opentelemetry.io/otel/semconv"
 	"gopkg.in/yaml.v2"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name string
+	Name = "beer.user.service"
 	// Version is the version of the compiled software.
 	Version string
 	// flagconf is the config flag.
@@ -32,7 +37,7 @@ func init() {
 
 func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Registrar) *kratos.App {
 	return kratos.New(
-		kratos.Name("beer.user.service"),
+		kratos.Name(Name),
 		kratos.Version(Version),
 		kratos.Metadata(map[string]string{}),
 		kratos.Logger(logger),
@@ -69,7 +74,18 @@ func main() {
 	if err := c.Scan(&rc); err != nil {
 		panic(err)
 	}
-	app, cleanup, err := initApp(bc.Server, &rc, bc.Data, logger)
+	exp, err := jaeger.NewRawExporter(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(bc.Trace.Endpoint)))
+	if err != nil {
+		panic(err)
+	}
+	tp := tracesdk.NewTracerProvider(
+		tracesdk.WithBatcher(exp),
+		tracesdk.WithResource(resource.NewWithAttributes(
+			semconv.ServiceNameKey.String(Name),
+		)),
+	)
+
+	app, cleanup, err := initApp(bc.Server, &rc, bc.Data, logger, tp)
 	if err != nil {
 		panic(err)
 	}

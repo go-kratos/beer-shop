@@ -19,6 +19,9 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	go.mongodb.org/mongo-driver v1.5.1
+	go.opentelemetry.io/otel v0.20.0
+	go.opentelemetry.io/otel/exporters/trace/jaeger v0.20.0
+	go.opentelemetry.io/otel/sdk v0.20.0
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
 	golang.org/x/tools v0.1.1 // indirect
 	google.golang.org/genproto v0.0.0-20210524171403-669157292da3

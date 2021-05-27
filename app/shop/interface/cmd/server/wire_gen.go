@@ -13,12 +13,13 @@ import (
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"go.opentelemetry.io/otel/sdk/trace"
 )
 
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
+func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
 	discovery := data.NewDiscovery(registry)
 	userClient := data.NewUserServiceClient(discovery)
 	cartClient := data.NewCartServiceClient(discovery)
@@ -30,8 +31,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	userRepo := data.NewUserRepo(dataData, logger)
 	userUseCase := biz.NewUserUseCase(userRepo, logger)
 	shopInterface := service.NewShopInterface(userUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, shopInterface)
-	grpcServer := server.NewGRPCServer(confServer, shopInterface)
+	httpServer := server.NewHTTPServer(confServer, tracerProvider, shopInterface)
+	grpcServer := server.NewGRPCServer(confServer, tracerProvider, shopInterface)
 	app := newApp(logger, httpServer, grpcServer)
 	return app, func() {
 	}, nil

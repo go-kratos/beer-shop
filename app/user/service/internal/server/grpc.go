@@ -5,6 +5,8 @@ import (
 	"github.com/go-kratos/beer-shop/app/user/service/internal/conf"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
+	"go.opentelemetry.io/otel/propagation"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
@@ -14,12 +16,17 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, s *service.UserService) *grpc.Server {
+func NewGRPCServer(c *conf.Server, tp *tracesdk.TracerProvider, s *service.UserService) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			middleware.Chain(
 				recovery.Recovery(),
-				tracing.Server(),
+				tracing.Server(
+					tracing.WithTracerProvider(tp),
+					tracing.WithPropagators(
+						propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+					),
+				),
 				logging.Server(log.DefaultLogger),
 			),
 		),

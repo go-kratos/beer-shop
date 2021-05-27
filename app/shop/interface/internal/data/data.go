@@ -67,13 +67,15 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 func NewUserServiceClient(r registry.Discovery) usV1.UserClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///default/beer.user.service"),
+		grpc.WithEndpoint("discovery:///beer.user.service"),
 		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(),
 	)
 	if err != nil {
 		panic(err)
 	}
-	return usV1.NewUserClient(conn)
+	c := usV1.NewUserClient(conn)
+	return c
 }
 
 func NewCartServiceClient(r registry.Discovery) csV1.CartClient {

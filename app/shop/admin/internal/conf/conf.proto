@@ -6,8 +6,13 @@ option go_package = "shop/interface/internal/conf;conf";
 import "google/protobuf/duration.proto";
 
 message Bootstrap {
-  Server server = 1;
-  Data data = 2;
+    Trace trace = 1;
+    Server server = 2;
+    Data data = 3;
+}
+
+message Trace {
+    string endpoint = 1;
 }
 
 message Server {
