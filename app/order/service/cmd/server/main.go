@@ -50,7 +50,12 @@ func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Reg
 
 func main() {
 	flag.Parse()
-	logger := log.With(log.NewStdLogger(os.Stdout), "ts", log.DefaultTimestamp)
+	logger := log.With(log.NewStdLogger(os.Stdout),
+		"service.name", Name,
+		"service.version", Version,
+		"ts", log.DefaultTimestamp,
+		"caller", log.DefaultCaller,
+	)
 
 	c := config.New(
 		config.WithSource(
