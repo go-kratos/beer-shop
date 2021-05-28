@@ -2,6 +2,10 @@ package data
 
 import (
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware"
+	"github.com/go-kratos/kratos/v2/middleware/recovery"
+	"github.com/go-kratos/kratos/v2/middleware/tracing"
+	"go.opentelemetry.io/otel/propagation"
 
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 
@@ -18,6 +22,7 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/google/wire"
 	consulAPI "github.com/hashicorp/consul/api"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
 // ProviderSet is data providers.
@@ -64,12 +69,19 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	return r
 }
 
-func NewUserServiceClient(r registry.Discovery) usV1.UserClient {
+func NewUserServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) usV1.UserClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.user.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(),
+		grpc.WithMiddleware(middleware.Chain(
+			tracing.Client(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			recovery.Recovery())),
 	)
 	if err != nil {
 		panic(err)
@@ -78,11 +90,19 @@ func NewUserServiceClient(r registry.Discovery) usV1.UserClient {
 	return c
 }
 
-func NewCartServiceClient(r registry.Discovery) csV1.CartClient {
+func NewCartServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) csV1.CartClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///default/beer.cart.service"),
+		grpc.WithEndpoint("discovery:///beer.cart.service"),
 		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(middleware.Chain(
+			tracing.Client(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			recovery.Recovery())),
 	)
 	if err != nil {
 		panic(err)
@@ -90,11 +110,19 @@ func NewCartServiceClient(r registry.Discovery) csV1.CartClient {
 	return csV1.NewCartClient(conn)
 }
 
-func NewCatalogServiceClient(r registry.Discovery) ctV1.CatalogClient {
+func NewCatalogServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) ctV1.CatalogClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///default/beer.catalog.service"),
+		grpc.WithEndpoint("discovery:///beer.catalog.service"),
 		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(middleware.Chain(
+			tracing.Client(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			recovery.Recovery())),
 	)
 	if err != nil {
 		panic(err)
@@ -102,11 +130,19 @@ func NewCatalogServiceClient(r registry.Discovery) ctV1.CatalogClient {
 	return ctV1.NewCatalogClient(conn)
 }
 
-func NewOrderServiceClient(r registry.Discovery) osV1.OrderClient {
+func NewOrderServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) osV1.OrderClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///default/beer.catalog.service"),
+		grpc.WithEndpoint("discovery:///beer.order.service"),
 		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(middleware.Chain(
+			tracing.Client(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			recovery.Recovery())),
 	)
 	if err != nil {
 		panic(err)
@@ -114,11 +150,19 @@ func NewOrderServiceClient(r registry.Discovery) osV1.OrderClient {
 	return osV1.NewOrderClient(conn)
 }
 
-func NewPaymentServiceClient(r registry.Discovery) psV1.PaymentClient {
+func NewPaymentServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) psV1.PaymentClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///default/beer.payment.service"),
+		grpc.WithEndpoint("discovery:///beer.payment.service"),
 		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(middleware.Chain(
+			tracing.Client(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			recovery.Recovery())),
 	)
 	if err != nil {
 		panic(err)

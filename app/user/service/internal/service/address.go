@@ -10,8 +10,6 @@ func (s *UserService) CreateAddress(ctx context.Context, req *v1.CreateAddressRe
 	rv, err := s.ac.Create(ctx, req.Uid, &biz.Address{
 		Name:     req.Name,
 		Mobile:   req.Mobile,
-		Country:  req.Country,
-		City:     req.City,
 		Address:  req.Address,
 		PostCode: req.PostCode,
 	})
@@ -26,8 +24,6 @@ func (s *UserService) GetAddress(ctx context.Context, req *v1.GetAddressReq) (*v
 		Id:       x.Id,
 		Name:     x.Name,
 		Mobile:   x.Mobile,
-		Country:  x.Country,
-		City:     x.City,
 		Address:  x.Address,
 		PostCode: x.PostCode,
 	}, err
@@ -41,8 +37,6 @@ func (s *UserService) ListAddress(ctx context.Context, req *v1.ListAddressReq) (
 			Id:       x.Id,
 			Name:     x.Name,
 			Mobile:   x.Mobile,
-			Country:  x.Country,
-			City:     x.City,
 			Address:  x.Address,
 			PostCode: x.PostCode,
 		})

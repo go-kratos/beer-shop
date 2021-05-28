@@ -9,8 +9,6 @@ type Address struct {
 	Id       int64
 	Name     string
 	Mobile   string
-	Country  string
-	City     string
 	Address  string
 	PostCode string
 }

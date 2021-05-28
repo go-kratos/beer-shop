@@ -19,6 +19,7 @@ type UserService struct {
 	log *log.Helper
 }
 
+
 func NewUserService(uc *biz.UserUseCase, cc *biz.CardUseCase, ac *biz.AddressUseCase, logger log.Logger) *UserService {
 	return &UserService{
 		uc:  uc,

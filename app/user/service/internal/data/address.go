@@ -27,17 +27,15 @@ func (r *addressRepo) CreateAddress(ctx context.Context, a *biz.Address) (*biz.A
 		Create().
 		SetName(a.Name).
 		SetAddress(a.Address).
-		SetCity(a.City).
-		SetCountry(a.Country).
 		SetMobile(a.Mobile).
+		SetPostCode(a.PostCode).
 		Save(ctx)
 	return &biz.Address{
-		Id:      po.ID,
-		Name:    po.Name,
-		Mobile:  po.Mobile,
-		Country: po.Country,
-		City:    po.City,
-		Address: po.Address,
+		Id:       po.ID,
+		Name:     po.Name,
+		Mobile:   po.Mobile,
+		PostCode: po.PostCode,
+		Address:  po.Address,
 	}, err
 }
 
@@ -47,12 +45,11 @@ func (r *addressRepo) GetAddress(ctx context.Context, id int64) (*biz.Address, e
 		return nil, err
 	}
 	return &biz.Address{
-		Id:      po.ID,
-		Name:    po.Name,
-		Mobile:  po.Mobile,
-		Country: po.Country,
-		City:    po.City,
-		Address: po.Address,
+		Id:       po.ID,
+		Name:     po.Name,
+		Mobile:   po.Mobile,
+		PostCode: po.PostCode,
+		Address:  po.Address,
 	}, err
 }
 
@@ -64,12 +61,11 @@ func (r *addressRepo) ListAddress(ctx context.Context, uid int64) ([]*biz.Addres
 	rv := make([]*biz.Address, 0)
 	for _, po := range pos {
 		rv = append(rv, &biz.Address{
-			Id:      po.ID,
-			Name:    po.Name,
-			Mobile:  po.Mobile,
-			Country: po.Country,
-			City:    po.City,
-			Address: po.Address,
+			Id:       po.ID,
+			Name:     po.Name,
+			Mobile:   po.Mobile,
+			PostCode: po.PostCode,
+			Address:  po.Address,
 		})
 	}
 	return rv, err
