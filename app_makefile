@@ -21,7 +21,7 @@ DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "go-kratos/beer-" $$0 
 # generate grpc code
 grpc:
 	 cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=$(KRATOS)/third_party \
+           --proto_path=../../../third_party \
            --go_out=paths=source_relative:. \
            --go-grpc_out=paths=source_relative:. \
            $(API_PROTO_FILES)
@@ -30,7 +30,7 @@ grpc:
 # generate http code
 http:
 	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=$(KRATOS)/third_party \
+           --proto_path=../../../third_party \
            --go_out=paths=source_relative:. \
            --go-http_out=paths=source_relative:. \
            $(API_PROTO_FILES)
@@ -39,7 +39,7 @@ http:
 # generate swagger
 swagger:
 	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-	        --proto_path=$(KRATOS)/third_party \
+	        --proto_path=../../../third_party \
 	        --openapiv2_out . \
 	        --openapiv2_opt logtostderr=true \
            $(API_PROTO_FILES)
@@ -48,7 +48,7 @@ swagger:
 # generate internal proto struct
 proto:
 	protoc --proto_path=. \
-           --proto_path=$(KRATOS)/third_party \
+           --proto_path=../../../third_party \
            --go_out=paths=source_relative:. \
            $(INTERNAL_PROTO_FILES)
 
