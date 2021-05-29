@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getToken} from "../auth";
 
 const service = axios.create({
     baseURL: process.env.NODE_ENV=== "production" ? "//beer.go-kratos.dev" : "//localhost:8000",
@@ -6,7 +7,7 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(config => {
-    config.headers['token'] = sessionStorage.getItem('token') || '';
+    config.headers['token'] = getToken() || '';
     return config;
 });
 

@@ -1,14 +1,20 @@
-import React, {Fragment} from "react";
-import { useParams } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
 
 export default function BeerDetail(props) {
-    const { id } = useParams();
+    const {id} = useParams();
+    const [data, setData] = useState({});
+    useEffect(() => {
+        setData({
 
-    console.log(id);
+        })
+    });
+
+        console.log(id);
     return <div>
         <section className="text-gray-600 body-font overflow-hidden">
-            <div className="container px-5 py-2 mx-auto">
-                <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            <div className="container px-5 py-2 mx-auto max-w-screen-md">
+                <div className="flex flex-wrap">
                     <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                          src="https://images.unsplash.com/photo-1613254025696-6f80f3172937?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"/>
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -96,7 +102,7 @@ export default function BeerDetail(props) {
                         <div className="flex">
                             <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
                             <button
-                                className="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">Add
+                                className="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded-none">Add
                                 to Cart
                             </button>
                         </div>

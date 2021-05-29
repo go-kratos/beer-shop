@@ -1,45 +1,54 @@
-import React, {Fragment} from "react";
+import React, {useState, useEffect} from "react";
 import ProductCard from "../../components/ProductCard";
 
 export default function Home(props) {
-    const beerList = [
-        {
-            "id": 1,
-            "name": "cool beer1",
-            "price": "5.99",
-        },
-        {
-            "id": 2,
-            "name": "cool beer2",
-            "price": "6.99",
-        },
-        {
-            "id": 3,
-            "name": "cool beer3",
-            "price": "7.99",
-        },
-        {
-            "id": 4,
-            "name": "cool beer4",
-            "price": "8.99",
-        },
-        {
-            "id": 5,
-            "name": "cool beer5",
-            "price": "9.99",
-        },
-        {
-            "id": 6,
-            "name": "cool beer6",
-            "price": "10.99",
-        },
-    ];
+    const [beerList, setBeerList] = useState([]);
+    useEffect(() => {
+        setBeerList([
+            {
+                "id": 1,
+                "name": "cool beer1",
+                "price": "5.99",
+            },
+            {
+                "id": 2,
+                "name": "cool beer2",
+                "price": "6.99",
+            },
+            {
+                "id": 3,
+                "name": "cool beer3",
+                "price": "7.99",
+            },
+            {
+                "id": 4,
+                "name": "cool beer4",
+                "price": "8.99",
+            },
+            {
+                "id": 5,
+                "name": "cool beer5",
+                "price": "9.99",
+            },
+            {
+                "id": 6,
+                "name": "cool beer6",
+                "price": "10.99",
+            },
+        ]);
+    });
+
 
     return <div>
         <section className="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right"
-                 style={{maxWidth: "1600px", height: "24rem", backgroundImage: "url('https://images.unsplash.com/photo-1504502350688-00f5d59bbdeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80')"}}>
+                 style={{
+                     maxWidth: "1600px",
+                     height: "24rem",
+                     backgroundImage: "url('https://images.unsplash.com/photo-1504502350688-00f5d59bbdeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80')"
+                 }}>
             <div className="container mx-auto">
-                <div className="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide text-white">
+                <div
+                    className="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide text-white">
                     <h1 className="text-2xl my-4">Your Favorite Beer</h1>
                     <a className="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-white hover:border-white"
                        href="#">Buy Now !</a>
@@ -47,7 +56,7 @@ export default function Home(props) {
             </div>
         </section>
         <section className="bg-white py-8">
-            <div className="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <div className="container mx-auto max-w-screen-md flex items-center flex-wrap pt-4 pb-12">
                 <nav id="store" className="w-full z-30 top-0 px-6 py-1">
                     <div
                         className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
@@ -75,7 +84,7 @@ export default function Home(props) {
                         </div>
                     </div>
                 </nav>
-                { beerList.map((x)=><ProductCard data={x}/>)}
+                {beerList.map((x) => <ProductCard data={x}/>)}
             </div>
         </section>
 
@@ -87,13 +96,14 @@ export default function Home(props) {
                 </a>
 
                 <p className="mt-8 mb-8">BeerShop is a simple but complete microservices demo for kratos. created by <a
-                        className="text-gray-800 underline hover:text-gray-900"
-                        href="https://go-kratos.dev">go-kratos.dev</a></p>
+                    className="text-gray-800 underline hover:text-gray-900"
+                    href="https://go-kratos.dev">go-kratos.dev</a></p>
                 <p className="mb-8">This project describes the microservices project layout in mono-repo,
                     how the services communicate with each other and the deployment of the services.</p>
-                <p className="mb-8">All the backend microservices are built with kratos framework. You could get the project's source code from <a
-                    className="text-gray-800 underline hover:text-gray-900"
-                    href="https://github.com/go-kratos/beer-shop">https://github.com/go-kratos/beer-shop</a></p>
+                <p className="mb-8">All the backend microservices are built with kratos framework. You could get the
+                    project's source code from <a
+                        className="text-gray-800 underline hover:text-gray-900"
+                        href="https://github.com/go-kratos/beer-shop">https://github.com/go-kratos/beer-shop</a></p>
             </div>
 
         </section>
