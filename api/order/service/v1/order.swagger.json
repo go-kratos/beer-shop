@@ -24,7 +24,7 @@
           "type": "string",
           "format": "int64"
         },
-        "userId": {
+        "user_id": {
           "type": "string",
           "format": "int64"
         }
@@ -33,7 +33,7 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "type_url": {
           "type": "string"
         },
         "value": {
@@ -67,7 +67,7 @@
           "type": "string",
           "format": "int64"
         },
-        "userId": {
+        "user_id": {
           "type": "string",
           "format": "int64"
         }
@@ -80,7 +80,7 @@
           "type": "string",
           "format": "int64"
         },
-        "userId": {
+        "user_id": {
           "type": "string",
           "format": "int64"
         }
@@ -104,7 +104,7 @@
           "type": "string",
           "format": "int64"
         },
-        "userId": {
+        "user_id": {
           "type": "string",
           "format": "int64"
         }

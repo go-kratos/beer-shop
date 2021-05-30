@@ -20,7 +20,7 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "type_url": {
           "type": "string"
         },
         "value": {
@@ -61,7 +61,7 @@
     "v1AddItemReplyItem": {
       "type": "object",
       "properties": {
-        "itemId": {
+        "item_id": {
           "type": "string",
           "format": "int64"
         },
@@ -88,7 +88,7 @@
     "v1DeleteItemReplyItem": {
       "type": "object",
       "properties": {
-        "itemId": {
+        "item_id": {
           "type": "string",
           "format": "int64"
         },
@@ -112,7 +112,7 @@
     "v1GetCartReplyItem": {
       "type": "object",
       "properties": {
-        "itemId": {
+        "item_id": {
           "type": "string",
           "format": "int64"
         },
@@ -136,7 +136,7 @@
     "v1UpdateItemReplyItem": {
       "type": "object",
       "properties": {
-        "itemId": {
+        "item_id": {
           "type": "string",
           "format": "int64"
         },

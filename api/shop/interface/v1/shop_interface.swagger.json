@@ -35,14 +35,14 @@
         },
         "parameters": [
           {
-            "name": "pageNum",
+            "name": "page_num",
             "in": "query",
             "required": false,
             "type": "string",
             "format": "int64"
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "string",
@@ -103,14 +103,14 @@
         },
         "parameters": [
           {
-            "name": "pageNum",
+            "name": "page_num",
             "in": "query",
             "required": false,
             "type": "string",
             "format": "int64"
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "string",
@@ -226,14 +226,14 @@
         },
         "parameters": [
           {
-            "name": "pageNum",
+            "name": "page_num",
             "in": "query",
             "required": false,
             "type": "string",
             "format": "int64"
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "string",
@@ -544,7 +544,7 @@
         "address": {
           "type": "string"
         },
-        "postCode": {
+        "post_code": {
           "type": "string"
         }
       }
@@ -556,7 +556,7 @@
           "type": "string",
           "format": "int64"
         },
-        "cardNo": {
+        "card_no": {
           "type": "string"
         },
         "ccv": {
@@ -570,7 +570,7 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "type_url": {
           "type": "string"
         },
         "value": {
@@ -625,7 +625,7 @@
         "address": {
           "type": "string"
         },
-        "postCode": {
+        "post_code": {
           "type": "string"
         }
       }
@@ -652,7 +652,7 @@
         "address": {
           "type": "string"
         },
-        "postCode": {
+        "post_code": {
           "type": "string"
         }
       }
@@ -673,7 +673,7 @@
           "type": "string",
           "format": "int64"
         },
-        "cardNo": {
+        "card_no": {
           "type": "string"
         },
         "ccv": {
@@ -720,7 +720,7 @@
         "address": {
           "type": "string"
         },
-        "postCode": {
+        "post_code": {
           "type": "string"
         }
       }
@@ -735,7 +735,7 @@
           "type": "string",
           "format": "int64"
         },
-        "cardNo": {
+        "card_no": {
           "type": "string"
         },
         "ccv": {
