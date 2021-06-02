@@ -9,8 +9,8 @@ APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | sed -En "s/\//-/p")
 DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "go-kratos/beer-" $$0 ":0.1.0"}')
 
 .PHONY: init
-     # init env
-     init:
+# init env
+init:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 	go get -u github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2
@@ -53,7 +53,6 @@ proto:
            --go_out=paths=source_relative:. \
            $(INTERNAL_PROTO_FILES)
 
-
 .PHONY: generate
 # generate client code
 generate:
@@ -88,20 +87,11 @@ wire:
 
 .PHONY: api
 # generate api proto
-api:
-	make grpc;
-	make http;
-	make swagger;
+api: grpc http swagger
 
 .PHONY: all
 # generate all
-all:
-	make grpc;
-	make http;
-	make proto;
-	make generate;
-	make build;
-	make test;
+all: grpc http proto generate build test
 
 # show help
 help:
