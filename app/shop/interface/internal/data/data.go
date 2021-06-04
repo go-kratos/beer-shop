@@ -2,7 +2,6 @@ package data
 
 import (
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"go.opentelemetry.io/otel/propagation"
@@ -74,14 +73,14 @@ func NewUserServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) use
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.user.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(middleware.Chain(
+		grpc.WithMiddleware(
 			tracing.Client(
 				tracing.WithTracerProvider(tp),
 				tracing.WithPropagators(
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			recovery.Recovery())),
+			recovery.Recovery()),
 	)
 	if err != nil {
 		panic(err)
@@ -95,14 +94,14 @@ func NewCartServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) car
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.cart.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(middleware.Chain(
+		grpc.WithMiddleware(
 			tracing.Client(
 				tracing.WithTracerProvider(tp),
 				tracing.WithPropagators(
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			recovery.Recovery())),
+			recovery.Recovery()),
 	)
 	if err != nil {
 		panic(err)
@@ -115,14 +114,14 @@ func NewCatalogServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) 
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.catalog.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(middleware.Chain(
+		grpc.WithMiddleware(
 			tracing.Client(
 				tracing.WithTracerProvider(tp),
 				tracing.WithPropagators(
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			recovery.Recovery())),
+			recovery.Recovery()),
 	)
 	if err != nil {
 		panic(err)
@@ -135,14 +134,14 @@ func NewOrderServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) or
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.order.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(middleware.Chain(
+		grpc.WithMiddleware(
 			tracing.Client(
 				tracing.WithTracerProvider(tp),
 				tracing.WithPropagators(
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			recovery.Recovery())),
+			recovery.Recovery()),
 	)
 	if err != nil {
 		panic(err)
@@ -155,14 +154,14 @@ func NewPaymentServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) 
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.payment.service"),
 		grpc.WithDiscovery(r),
-		grpc.WithMiddleware(middleware.Chain(
+		grpc.WithMiddleware(
 			tracing.Client(
 				tracing.WithTracerProvider(tp),
 				tracing.WithPropagators(
 					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 				),
 			),
-			recovery.Recovery())),
+			recovery.Recovery()),
 	)
 	if err != nil {
 		panic(err)

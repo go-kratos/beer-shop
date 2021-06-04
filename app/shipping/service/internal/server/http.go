@@ -1,13 +1,13 @@
 package server
 
 import (
-	"github.com/go-kratos/beer-shop/api/shipping/service/v1"
+	v1 "github.com/go-kratos/beer-shop/api/shipping/service/v1"
 	"github.com/go-kratos/beer-shop/app/shipping/service/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shipping/service/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
+	"go.opentelemetry.io/otel/propagation"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 
-	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
@@ -28,16 +28,14 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 	}
 	srv := http.NewServer(opts...)
 	m := http.Middleware(
-		middleware.Chain(
-			recovery.Recovery(),
-			tracing.Server(
-				tracing.WithTracerProvider(tp),
-				tracing.WithPropagators(
-					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-				),
+		recovery.Recovery(),
+		tracing.Server(
+			tracing.WithTracerProvider(tp),
+			tracing.WithPropagators(
+				propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
 			),
-			logging.Server(logger),
 		),
+		logging.Server(logger),
 	)
 	srv.HandlePrefix("/", v1.NewShippingHandler(s, m))
 	return srv

@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

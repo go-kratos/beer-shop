@@ -2,7 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/api/shop/interface/v1"
+
+	v1 "github.com/go-kratos/beer-shop/api/shop/interface/v1"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
 )
 

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/go-kratos/beer-shop/api/user/service/v1"
+	v1 "github.com/go-kratos/beer-shop/api/user/service/v1"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -18,7 +18,6 @@ type UserService struct {
 	cc  *biz.CardUseCase
 	log *log.Helper
 }
-
 
 func NewUserService(uc *biz.UserUseCase, cc *biz.CardUseCase, ac *biz.AddressUseCase, logger log.Logger) *UserService {
 	return &UserService{
