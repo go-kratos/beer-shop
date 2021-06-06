@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/user"
-	"github.com/go-kratos/beer-shop/app/user/service/internal/pkg/utils"
+	"github.com/go-kratos/beer-shop/app/user/service/internal/pkg/util"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -24,7 +24,7 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 }
 
 func (r *userRepo) CreateUser(ctx context.Context, u *biz.User) (*biz.User, error) {
-	ph, err := utils.HashPassword(u.Password)
+	ph, err := util.HashPassword(u.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -52,5 +52,5 @@ func (r *userRepo) VerifyPassword(ctx context.Context, u *biz.User) (bool, error
 	if err != nil {
 		return false, err
 	}
-	return utils.CheckPasswordHash(u.Password, po.PasswordHash), nil
+	return util.CheckPasswordHash(u.Password, po.PasswordHash), nil
 }

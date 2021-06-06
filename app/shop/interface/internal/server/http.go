@@ -1,8 +1,9 @@
 package server
 
 import (
-	v1 "github.com/go-kratos/beer-shop/api/shop/interface/v1"
+	"github.com/go-kratos/beer-shop/api/shop/interface/v1"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
+	"github.com/go-kratos/beer-shop/app/shop/interface/internal/pkg/middleware/cors"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
 	"go.opentelemetry.io/otel/propagation"
@@ -28,6 +29,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 	}
 	srv := http.NewServer(opts...)
 	m := http.Middleware(
+		cors.CORS(),
 		recovery.Recovery(),
 		tracing.Server(
 			tracing.WithTracerProvider(tp),

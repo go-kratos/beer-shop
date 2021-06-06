@@ -7,4 +7,6 @@ option java_multiple_files = true;
 
 enum UserServiceErrorReason {
     UNKNOWN_ERROR = 0;
+    LOGIN_FAILED = 1;
+    REGISTER_FAILED = 2;
 }

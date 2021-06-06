@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/go-kratos/beer-shop/pkg/utils/pagination"
+	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 	"gorm.io/gorm"
 
 	"github.com/go-kratos/kratos/v2/log"
