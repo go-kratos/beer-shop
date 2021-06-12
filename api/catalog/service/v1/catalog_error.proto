@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package catalog.service.errors;
+package catalog.service.v1;
 import "errors/errors.proto";
 
 option go_package = "catalog/service/v1;v1";

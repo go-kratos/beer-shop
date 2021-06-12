@@ -39,7 +39,7 @@
         "address": {
           "type": "string"
         },
-        "post_code": {
+        "postCode": {
           "type": "string"
         }
       }
@@ -51,7 +51,7 @@
           "type": "string",
           "format": "int64"
         },
-        "card_no": {
+        "cardNo": {
           "type": "string"
         },
         "ccv": {
@@ -65,7 +65,7 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "type_url": {
+        "typeUrl": {
           "type": "string"
         },
         "value": {
@@ -114,7 +114,7 @@
         "address": {
           "type": "string"
         },
-        "post_code": {
+        "postCode": {
           "type": "string"
         }
       }
@@ -170,7 +170,7 @@
         "address": {
           "type": "string"
         },
-        "post_code": {
+        "postCode": {
           "type": "string"
         }
       }
@@ -182,7 +182,7 @@
           "type": "string",
           "format": "int64"
         },
-        "card_no": {
+        "cardNo": {
           "type": "string"
         },
         "ccv": {

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package courier.job.errors;
+package courier.job.v1;
 import "errors/errors.proto";
 
 option go_package = "courier/job/v1;v1";

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package shop.admin.errors;
+package shop.admin.v1;
 import "errors/errors.proto";
 
 option go_package = "shop/admin/v1;v1";

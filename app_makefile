@@ -39,7 +39,7 @@ http:
 # generate errors code
 errors:
 	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=./third_party \
+           --proto_path=../../../third_party \
            --go_out=paths=source_relative:. \
            --go-errors_out=paths=source_relative:. \
            $(API_PROTO_FILES)
