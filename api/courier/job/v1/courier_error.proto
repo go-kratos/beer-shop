@@ -1,10 +1,13 @@
 syntax = "proto3";
 
 package courier.job.errors;
+import "errors/errors.proto";
 
 option go_package = "courier/job/v1;v1";
 option java_multiple_files = true;
 
 enum CourierJobErrorReason {
+    option (errors.default_code) = 500;
+
     UNKNOWN_ERROR = 0;
 }

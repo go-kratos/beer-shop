@@ -35,6 +35,15 @@ http:
            --go-http_out=paths=source_relative:. \
            $(API_PROTO_FILES)
 
+.PHONY: errors
+# generate errors code
+errors:
+	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+           --proto_path=./third_party \
+           --go_out=paths=source_relative:. \
+           --go-errors_out=paths=source_relative:. \
+           $(API_PROTO_FILES)
+
 .PHONY: swagger
 # generate swagger
 swagger:
@@ -42,7 +51,6 @@ swagger:
 	        --proto_path=../../../third_party \
 	        --openapiv2_out . \
 	        --openapiv2_opt logtostderr=true \
-            --openapiv2_opt json_names_for_fields=false \
            $(API_PROTO_FILES)
 
 .PHONY: proto
@@ -87,7 +95,7 @@ wire:
 
 .PHONY: api
 # generate api proto
-api: grpc http swagger
+api: grpc http swagger errors
 
 .PHONY: all
 # generate all

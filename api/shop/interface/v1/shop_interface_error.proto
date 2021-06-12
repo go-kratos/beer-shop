@@ -1,10 +1,13 @@
 syntax = "proto3";
 
 package shop.interface.errors;
+import "errors/errors.proto";
 
 option go_package = "shop/interface/v1;v1";
 option java_multiple_files = true;
 
 enum ShopInterfaceErrorReason {
+    option (errors.default_code) = 500;
+
     UNKNOWN_ERROR = 0;
 }
