@@ -27,10 +27,9 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	cartRepo := data.NewCartRepo(dataData, logger)
 	cartUseCase := biz.NewCartUseCase(cartRepo, logger)
 	cartService := service.NewCartService(cartUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, cartService)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, cartService)
 	registrar := server.NewRegistrar(registry)
-	app := newApp(logger, httpServer, grpcServer, registrar)
+	app := newApp(logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

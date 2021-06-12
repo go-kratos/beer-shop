@@ -27,10 +27,9 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	shippingRepo := data.NewShippingRepo(dataData, logger)
 	shippingUseCase := biz.NewShippingUseCase(shippingRepo, logger)
 	shippingService := service.NewShippingService(shippingUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shippingService)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shippingService)
 	registrar := server.NewRegistrar(registry)
-	app := newApp(logger, httpServer, grpcServer, registrar)
+	app := newApp(logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

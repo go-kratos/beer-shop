@@ -27,10 +27,9 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	courierRepo := data.NewCourierRepo(dataData, logger)
 	courierUseCase := biz.NewCourierUseCase(courierRepo, logger)
 	courierService := service.NewCourierService(courierUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, courierService)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, courierService)
 	registrar := server.NewRegistrar(registry)
-	app := newApp(logger, httpServer, grpcServer, registrar)
+	app := newApp(logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

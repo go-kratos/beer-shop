@@ -27,10 +27,9 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	beerRepo := data.NewBeerRepo(dataData, logger)
 	beerUseCase := biz.NewBeerUseCase(beerRepo, logger)
 	paymentService := service.NewPaymentService(beerUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, paymentService)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, paymentService)
 	registrar := server.NewRegistrar(registry)
-	app := newApp(logger, httpServer, grpcServer, registrar)
+	app := newApp(logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil
