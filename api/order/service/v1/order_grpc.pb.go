@@ -34,7 +34,7 @@ func NewOrderClient(cc grpc.ClientConnInterface) OrderClient {
 
 func (c *orderClient) ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error) {
 	out := new(ListOrderReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/ListOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/order.service.v1.Order/ListOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (c *orderClient) ListOrder(ctx context.Context, in *ListOrderReq, opts ...g
 
 func (c *orderClient) CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CreateOrderReply, error) {
 	out := new(CreateOrderReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/CreateOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/order.service.v1.Order/CreateOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (c *orderClient) CreateOrder(ctx context.Context, in *CreateOrderReq, opts 
 
 func (c *orderClient) GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error) {
 	out := new(GetOrderReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/GetOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/order.service.v1.Order/GetOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *orderClient) GetOrder(ctx context.Context, in *GetOrderReq, opts ...grp
 
 func (c *orderClient) UpdateOrder(ctx context.Context, in *UpdateOrderReq, opts ...grpc.CallOption) (*UpdateOrderReply, error) {
 	out := new(UpdateOrderReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Order/UpdateOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/order.service.v1.Order/UpdateOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func _Order_ListOrder_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/ListOrder",
+		FullMethod: "/order.service.v1.Order/ListOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServer).ListOrder(ctx, req.(*ListOrderReq))
@@ -136,7 +136,7 @@ func _Order_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/CreateOrder",
+		FullMethod: "/order.service.v1.Order/CreateOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServer).CreateOrder(ctx, req.(*CreateOrderReq))
@@ -154,7 +154,7 @@ func _Order_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/GetOrder",
+		FullMethod: "/order.service.v1.Order/GetOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServer).GetOrder(ctx, req.(*GetOrderReq))
@@ -172,7 +172,7 @@ func _Order_UpdateOrder_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Order/UpdateOrder",
+		FullMethod: "/order.service.v1.Order/UpdateOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServer).UpdateOrder(ctx, req.(*UpdateOrderReq))
@@ -184,7 +184,7 @@ func _Order_UpdateOrder_Handler(srv interface{}, ctx context.Context, dec func(i
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Order_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "cart.service.v1.Order",
+	ServiceName: "order.service.v1.Order",
 	HandlerType: (*OrderServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
