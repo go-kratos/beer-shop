@@ -162,9 +162,13 @@ github.com/go-kratos/kratos v1.0.0 h1:BEtuBTfdFqi8kIZlyx1Vxi97wB2i91b4mTw8ELQQ7r
 github.com/go-kratos/kratos/cmd/kratos v0.0.0-20210217095515-c4e4aa563867 h1:jldOECx9nG3NpKab5QokJDQJ3G1mbDboFA1rzSs9eVk=
 github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210612035248-4a257c1a3430 h1:NhsAwe81am3lcH4cEN2mFe2egPT7cFhUcl5oMRWJLwo=
 github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210612035248-4a257c1a3430/go.mod h1:UPd2zDHXR3EdbXfjbGu6GQ33iTiyp2/2sBWx09celvE=
+github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210614042515-0ff1c6f89ac7 h1:YJl+XPfhp+rYPm/lABmRcXcJIvWIX0f4x5kjT8ZcvKA=
+github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210614042515-0ff1c6f89ac7/go.mod h1:UPd2zDHXR3EdbXfjbGu6GQ33iTiyp2/2sBWx09celvE=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-errors v0.0.0-20210217095515-c4e4aa563867 h1:gONezQ5Q5e/fig1yKnDy7kRzharqCIdfr4hagLsJI9w=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210612035248-4a257c1a3430 h1:1ja8KyciH1Bk06KtsbbLLRqRwiSoW9t8dFWpw/tzvCI=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210612035248-4a257c1a3430/go.mod h1:vYV8OyJ78V3MuUNbBrldho3x1QITMumaXyTLSpF1Yt0=
+github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210615034041-60b1e593f1d1 h1:EqoS5InbuWRxXX7I1lQNT8RbeO+Ep3EqS8qZbgaq5ZY=
+github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210615034041-60b1e593f1d1/go.mod h1:vYV8OyJ78V3MuUNbBrldho3x1QITMumaXyTLSpF1Yt0=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http v0.0.0-20210217095515-c4e4aa563867 h1:3CvBc2AvZKGz/Ra9QN2/LzP+CXsyoRjsoOX1KFF7ZQY=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210515081852-24b1ca6bc3dc h1:M0zgq+W1WLgNsyLuvDkO6snchnFYOl8TXTsJzV4a3ss=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210515081852-24b1ca6bc3dc/go.mod h1:wnTqblRJSiVn9EdaOuoTPO0ahBDH8x/KGnT9IfXdn+o=
@@ -172,6 +176,8 @@ github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210526084621-637a
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210526084621-637af7f4b077/go.mod h1:iHw7LJ7OsTRF41FaAiIfimL5i/1HT+EN/k9oV4zCBN4=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210612035248-4a257c1a3430 h1:Kfv0FMlZrZaDh043awMrzj09rRd+xXC7PeL6cJrXO44=
 github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210612035248-4a257c1a3430/go.mod h1:f/J8Ez6BLS3F6qqUuA/wcE5qg8Mtx9f93CcxdpCwoqo=
+github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210615034041-60b1e593f1d1 h1:sDtPpzublZDjGtdQllAogM1YUdWg/721zytZ35ohwAs=
+github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210615034041-60b1e593f1d1/go.mod h1:f/J8Ez6BLS3F6qqUuA/wcE5qg8Mtx9f93CcxdpCwoqo=
 github.com/go-kratos/kratos/v2 v2.0.0-20210311152607-a4409adf164e/go.mod h1:oLvFyDBJkkWN8TPqb+NmpvRrSy9uM/K+XQubVRc11a8=
 github.com/go-kratos/kratos/v2 v2.0.0-20210425121923-9806191b7f32/go.mod h1:hwEYWw8GFuJ8IoNt3T/3k+7kUfYt+h2fHDcyFlR1jBA=
 github.com/go-kratos/kratos/v2 v2.0.0-20210429074603-98bd6c0c00c5/go.mod h1:ABzj/OAz9XmjyeTirYBBIHqxmeV9Sbd9NXLx9CsCgbE=
@@ -183,6 +189,8 @@ github.com/go-kratos/kratos/v2 v2.0.0-rc1 h1:viA9QKyGEfWY+F6o9rDVawd/8XCDRJ8aYjM
 github.com/go-kratos/kratos/v2 v2.0.0-rc1/go.mod h1:VILB/ejl8b/uhbGf66BJkJh9A/WTJamZ5Z2kbFl/4iI=
 github.com/go-kratos/kratos/v2 v2.0.0-rc2 h1:eAcqwbhQDKjTHZFoRJQrUi+BUoT5Ouq7G2kc2U6KZ/k=
 github.com/go-kratos/kratos/v2 v2.0.0-rc2/go.mod h1:puDEhRv+dqKa4ZdlInEAbO8ibGxqNhAXFjGleIRh9V4=
+github.com/go-kratos/kratos/v2 v2.0.0-rc3 h1:sxMo9AgMBwNw0rs3DlihtefxYymSEA5bXFFSg96tmVA=
+github.com/go-kratos/kratos/v2 v2.0.0-rc3/go.mod h1:b3YbddNSpAUPbO84XkMTt2llIuDReEzjJGOkuCo5hgI=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0 h1:MP4Eh7ZCb31lleYCFuwm0oe4/YGak+5l1vA2NOE80nA=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
@@ -874,6 +882,8 @@ golang.org/x/sys v0.0.0-20210525143221-35b2ab0089ea h1:+WiDlPBBaO+h9vPNZi8uJ3k4B
 golang.org/x/sys v0.0.0-20210525143221-35b2ab0089ea/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20210611083646-a4fc73990273 h1:faDu4veV+8pcThn4fewv6TVlNCezafGoC1gM/mxQLbQ=
 golang.org/x/sys v0.0.0-20210611083646-a4fc73990273/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 h1:SrN+KX8Art/Sf4HNj6Zcz06G7VEz+7w9tdXTPOZ7+l4=
+golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 h1:v+OssWQX+hTHEmOBgwxdZxK4zHq3yOs8F9J7mk0PY8E=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210503060354-a79de5458b56 h1:b8jxX3zqjpqb2LklXPzKSGJhzyxCOZSz8ncv8Nv+y7w=
@@ -1025,6 +1035,8 @@ google.golang.org/genproto v0.0.0-20210524171403-669157292da3 h1:xFyh6GBb+NO1L0x
 google.golang.org/genproto v0.0.0-20210524171403-669157292da3/go.mod h1:P3QM42oQyzQSnHPnZ/vqoCdDmzH28fzWByN9asMeM8A=
 google.golang.org/genproto v0.0.0-20210611144927-798beca9d670 h1:M9c2dapWGIISuWaz5vr/RUk5Qn2Hs8DZ9CJb5aH266Q=
 google.golang.org/genproto v0.0.0-20210611144927-798beca9d670/go.mod h1:UODoCrxHCcBojKKwX1terBiRUaqAsFqJiF615XL43r0=
+google.golang.org/genproto v0.0.0-20210614182748-5b3b54cad159 h1:7TIh9IZzwv/Gxqf+uYm45KzZTG1BlkZzb3yOa9GqgVE=
+google.golang.org/genproto v0.0.0-20210614182748-5b3b54cad159/go.mod h1:SzzZ/N+nwJDaO1kznhnlzqS8ocJICar6hYhVyhi++24=
 google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
 google.golang.org/grpc v1.20.1/go.mod h1:10oTOabMzJvdu6/UiuZezV6QK5dSlG84ov/aaiqXj38=
 google.golang.org/grpc v1.21.1/go.mod h1:oYelfM1adQP15Ek0mdvEgi9Df8B9CZIaU1084ijfRaM=

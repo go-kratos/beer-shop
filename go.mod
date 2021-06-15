@@ -9,10 +9,10 @@ require (
 	github.com/cpuguy83/go-md2man v1.0.10 // indirect
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
-	github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210612035248-4a257c1a3430 // indirect
-	github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210612035248-4a257c1a3430 // indirect
-	github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210612035248-4a257c1a3430 // indirect
-	github.com/go-kratos/kratos/v2 v2.0.0-rc2
+	github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20210614042515-0ff1c6f89ac7 // indirect
+	github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20210615034041-60b1e593f1d1 // indirect
+	github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20210615034041-60b1e593f1d1 // indirect
+	github.com/go-kratos/kratos/v2 v2.0.0-rc3
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
 	github.com/golang/protobuf v1.5.2
@@ -33,10 +33,10 @@ require (
 	go.opentelemetry.io/otel/exporters/trace/jaeger v0.20.0
 	go.opentelemetry.io/otel/sdk v0.20.0
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
-	golang.org/x/sys v0.0.0-20210611083646-a4fc73990273 // indirect
+	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
 	golang.org/x/term v0.0.0-20210503060354-a79de5458b56 // indirect
 	golang.org/x/tools v0.1.3 // indirect
-	google.golang.org/genproto v0.0.0-20210611144927-798beca9d670
+	google.golang.org/genproto v0.0.0-20210614182748-5b3b54cad159
 	google.golang.org/grpc v1.38.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0 // indirect
 	google.golang.org/protobuf v1.26.0

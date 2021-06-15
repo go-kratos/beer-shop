@@ -37,6 +37,6 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		),
 		logging.Server(logger),
 	)
-	srv.HandlePrefix("/", v1.NewShopAdminHandler(s, m))
+	v1.RegisterShopAdminHTTPServer(srv, s)
 	return srv
 }
