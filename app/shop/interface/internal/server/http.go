@@ -16,7 +16,18 @@ import (
 
 // NewHTTPServer new a HTTP server.
 func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.ShopInterface) *http.Server {
-	var opts = []http.ServerOption{}
+	var opts = []http.ServerOption{
+		http.Middleware(
+			recovery.Recovery(),
+			tracing.Server(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			logging.Server(logger),
+		),
+	}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
 	}
@@ -26,17 +37,8 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 	if c.Http.Timeout != nil {
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
+
 	srv := http.NewServer(opts...)
-	m := http.Middleware(
-		recovery.Recovery(),
-		tracing.Server(
-			tracing.WithTracerProvider(tp),
-			tracing.WithPropagators(
-				propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-			),
-		),
-		logging.Server(logger),
-	)
 	v1.RegisterShopInterfaceHTTPServer(srv, s)
 	return srv
 }

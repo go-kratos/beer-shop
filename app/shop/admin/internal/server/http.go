@@ -1,22 +1,33 @@
 package server
 
 import (
-	v1 "github.com/go-kratos/beer-shop/api/shop/admin/v1"
+	"github.com/go-kratos/beer-shop/api/shop/admin/v1"
 	"github.com/go-kratos/beer-shop/app/shop/admin/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shop/admin/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
-	"go.opentelemetry.io/otel/propagation"
-	tracesdk "go.opentelemetry.io/otel/sdk/trace"
-
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
+	"go.opentelemetry.io/otel/propagation"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+
 	"github.com/go-kratos/kratos/v2/transport/http"
 )
 
 // NewHTTPServer new a HTTP server.
 func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.ShopAdmin) *http.Server {
-	var opts = []http.ServerOption{}
+	var opts = []http.ServerOption{
+		http.Middleware(
+			recovery.Recovery(),
+			tracing.Server(
+				tracing.WithTracerProvider(tp),
+				tracing.WithPropagators(
+					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
+				),
+			),
+			logging.Server(logger),
+		),
+	}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
 	}
@@ -27,16 +38,6 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	m := http.Middleware(
-		recovery.Recovery(),
-		tracing.Server(
-			tracing.WithTracerProvider(tp),
-			tracing.WithPropagators(
-				propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-			),
-		),
-		logging.Server(logger),
-	)
 	v1.RegisterShopAdminHTTPServer(srv, s)
 	return srv
 }
