@@ -122,6 +122,8 @@ github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87/go.mod h1:O21Cide
 github.com/go-kratos/kratos/v2 v2.0.0-20210425121923-9806191b7f32/go.mod h1:hwEYWw8GFuJ8IoNt3T/3k+7kUfYt+h2fHDcyFlR1jBA=
 github.com/go-kratos/kratos/v2 v2.0.0-rc5 h1:dVSN5d9OWOFVTDrirbdGS+9FJe2SmSwXLKSKiqahvSw=
 github.com/go-kratos/kratos/v2 v2.0.0-rc5/go.mod h1:b3YbddNSpAUPbO84XkMTt2llIuDReEzjJGOkuCo5hgI=
+github.com/go-kratos/kratos/v2 v2.0.0-rc6 h1:S2qAsRXtqIO/LtjBeF/XjFooywvsEK9+ac27/FBzQiQ=
+github.com/go-kratos/kratos/v2 v2.0.0-rc6/go.mod h1:zARdBWWPfNW3suNHg6QwOI0WbIYRN8uCQ2q41aZxGbo=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0 h1:MP4Eh7ZCb31lleYCFuwm0oe4/YGak+5l1vA2NOE80nA=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=

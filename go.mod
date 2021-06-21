@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.7.0
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
-	github.com/go-kratos/kratos/v2 v2.0.0-rc5
+	github.com/go-kratos/kratos/v2 v2.0.0-rc6
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
