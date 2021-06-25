@@ -1,2 +1,2 @@
 # Cart Service
-ademo of MongoDB integration
+a demo of MongoDB integration
