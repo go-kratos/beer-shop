@@ -2,7 +2,6 @@ package biz
 
 import (
 	"context"
-
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -18,15 +17,17 @@ type UserRepo interface {
 }
 
 type UserUseCase struct {
-	repo UserRepo
-	log  *log.Helper
+	repo   UserRepo
+	log    *log.Helper
+	authUc *AuthUseCase
 }
 
-func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
+func NewUserUseCase(repo UserRepo, logger log.Logger, authUc *AuthUseCase) *UserUseCase {
 	log := log.NewHelper(log.With(logger, "module", "usecase/interface"))
 	return &UserUseCase{
-		repo: repo,
-		log:  log,
+		repo:   repo,
+		log:    log,
+		authUc: authUc,
 	}
 }
 
@@ -35,7 +36,11 @@ func (uc *UserUseCase) Register(ctx context.Context, u *User) (*User, error) {
 }
 
 func (uc *UserUseCase) Login(ctx context.Context, u *User) (string, error) {
-	return uc.repo.Login(ctx, u)
+	token, err := uc.repo.Login(ctx, u)
+	if err != nil {
+		return token, err
+	}
+	return uc.authUc.Auth(token, u.Username)
 }
 
 func (uc *UserUseCase) Logout(ctx context.Context, u *User) error {

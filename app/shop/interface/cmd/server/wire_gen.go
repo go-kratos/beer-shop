@@ -19,7 +19,7 @@ import (
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
+func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, auth *conf.Auth, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
 	discovery := data.NewDiscovery(registry)
 	userClient := data.NewUserServiceClient(discovery, tracerProvider)
 	cartClient := data.NewCartServiceClient(discovery, tracerProvider)
@@ -29,7 +29,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
+	authUseCase := biz.NewAuthUseCase(auth)
+	userUseCase := biz.NewUserUseCase(userRepo, logger, authUseCase)
 	shopInterface := service.NewShopInterface(userUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopInterface)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shopInterface)

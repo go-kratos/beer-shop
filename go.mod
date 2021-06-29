@@ -8,6 +8,7 @@ require (
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
 	github.com/go-kratos/kratos/v2 v2.0.0-rc6
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
