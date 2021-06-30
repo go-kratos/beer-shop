@@ -9,7 +9,6 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
-	"go.opentelemetry.io/otel/propagation"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
@@ -19,11 +18,7 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		grpc.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
-				tracing.WithTracerProvider(tp),
-				tracing.WithPropagators(
-					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-				),
-			),
+				tracing.WithTracerProvider(tp),),
 			logging.Server(logger),
 		),
 	}
