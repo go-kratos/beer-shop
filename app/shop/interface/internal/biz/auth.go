@@ -16,11 +16,10 @@ func NewAuthUseCase(conf *conf.Auth) *AuthUseCase {
 	}
 }
 
-func (receiver AuthUseCase) Auth(token, username string) (string, error) {
+func (receiver AuthUseCase) Auth(userId int64) (string, error) {
 
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"token":    token,
-		"username": username,
+		"user_id": userId,
 	})
 	return claims.SignedString(receiver.key)
 }
@@ -34,8 +33,7 @@ func (receiver AuthUseCase) CheckJWT(jwtToken string) (map[string]interface{}, e
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		result := make(map[string]interface{}, 2)
-		result["token"] = claims["token"]
-		result["username"] = claims["username"]
+		result["user_id"] = claims["user_id"]
 		return result, nil
 	} else {
 		return nil, errors.New("token type error")

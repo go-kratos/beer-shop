@@ -40,7 +40,7 @@ func (uc *UserUseCase) Login(ctx context.Context, u *User) (string, error) {
 	if err != nil {
 		return token, err
 	}
-	return uc.authUc.Auth(token, u.Username)
+	return uc.authUc.Auth(u.Id)
 }
 
 func (uc *UserUseCase) Logout(ctx context.Context, u *User) error {
