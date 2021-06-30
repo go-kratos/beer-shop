@@ -28,7 +28,11 @@ func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
 }
 
 func (uc *UserUseCase) Create(ctx context.Context, u *User) (*User, error) {
-	return uc.repo.CreateUser(ctx, u)
+	out, err := uc.repo.CreateUser(ctx, u)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (uc *UserUseCase) Get(ctx context.Context, id int64) (*User, error) {

@@ -1,20 +1,18 @@
 package server
 
 import (
-	"fmt"
 	"github.com/go-kratos/beer-shop/api/shop/interface/v1"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/swagger-api/openapiv2"
 	"github.com/gorilla/handlers"
-	"go.opentelemetry.io/otel/propagation"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	nethttp "net/http"
 )
 
 // NewHTTPServer new a HTTP server.
@@ -23,11 +21,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		http.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
-				tracing.WithTracerProvider(tp),
-				tracing.WithPropagators(
-					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-				),
-			),
+				tracing.WithTracerProvider(tp),),
 			logging.Server(logger),
 		),
 		http.Filter(handlers.CORS(
@@ -46,16 +40,9 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-
+	h := openapiv2.NewHandler()
+	srv.HandlePrefix("/q/", h)
 	v1.RegisterShopInterfaceHTTPServer(srv, s)
 	return srv
 }
 
-
-func globalFilter(next nethttp.Handler) nethttp.Handler {
-	return nethttp.HandlerFunc(func(w nethttp.ResponseWriter, r *nethttp.Request) {
-		fmt.Println("global filter in")
-		next.ServeHTTP(w, r)
-		fmt.Println("global filter out")
-	})
-}

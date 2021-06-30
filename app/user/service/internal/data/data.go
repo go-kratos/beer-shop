@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/migrate"
 
 	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent"
 	"github.com/go-kratos/kratos/v2/log"
@@ -34,7 +35,7 @@ func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
 		return nil, nil, err
 	}
 	// Run the auto migration tool.
-	if err := client.Schema.Create(context.Background()); err != nil {
+	if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
 		log.Errorf("failed creating schema resources: %v", err)
 		return nil, nil, err
 	}

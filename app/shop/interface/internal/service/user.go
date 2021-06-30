@@ -12,6 +12,9 @@ func (s *ShopInterface) Register(ctx context.Context, req *v1.RegisterReq) (*v1.
 		Username: req.Username,
 		Password: req.Password,
 	})
+	if err != nil {
+		return nil, err
+	}
 	return &v1.RegisterReply{
 		Id: rv.Id,
 	}, err

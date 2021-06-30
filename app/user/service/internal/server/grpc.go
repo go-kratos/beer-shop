@@ -1,17 +1,15 @@
 package server
 
 import (
-	v1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	"github.com/go-kratos/beer-shop/api/user/service/v1"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/conf"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
-	"go.opentelemetry.io/otel/propagation"
-	tracesdk "go.opentelemetry.io/otel/sdk/trace"
-
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
 // NewGRPCServer new a gRPC server.
@@ -20,11 +18,7 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		grpc.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
-				tracing.WithTracerProvider(tp),
-				tracing.WithPropagators(
-					propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{}),
-				),
-			),
+				tracing.WithTracerProvider(tp),),
 			logging.Server(logger),
 		),
 	}
