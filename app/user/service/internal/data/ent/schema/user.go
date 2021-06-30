@@ -18,7 +18,7 @@ type User struct {
 func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id"),
-		field.String("username"),
+		field.String("username").Unique(),
 		field.String("password_hash"),
 		field.Time("created_at").
 			Default(time.Now).SchemaType(map[string]string{

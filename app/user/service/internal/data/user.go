@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-
 	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/user"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/pkg/util"
@@ -33,6 +32,9 @@ func (r *userRepo) CreateUser(ctx context.Context, u *biz.User) (*biz.User, erro
 		SetUsername(u.Username).
 		SetPasswordHash(ph).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
 	return &biz.User{Id: po.ID, Username: po.Username}, err
 }
 

@@ -29,6 +29,9 @@ func (rp *userRepo) Register(ctx context.Context, u *biz.User) (*biz.User, error
 		Username: u.Username,
 		Password: u.Password,
 	})
+	if err != nil {
+		return nil, err
+	}
 
 	return &biz.User{
 		Id:       reply.Id,

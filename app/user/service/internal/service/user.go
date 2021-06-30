@@ -12,6 +12,9 @@ func (s *UserService) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v
 		Username: req.Username,
 		Password: req.Password,
 	})
+	if err != nil {
+		return nil, err
+	}
 	return &v1.CreateUserReply{
 		Id:       rv.Id,
 		Username: rv.Username,

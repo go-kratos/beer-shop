@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	entgo.io/ent v0.7.0
+	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
 	github.com/go-kratos/kratos/v2 v2.0.0-rc6

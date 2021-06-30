@@ -10,7 +10,7 @@ server:
 data:
   database:
     driver: mysql
-    source: root:dangerous@tcp(127.0.0.1:3306)/test
+    source: root:dangerous@tcp(127.0.0.1:3306)/test?parseTime=true
   redis:
     addr: 127.0.0.1:6379
     read_timeout: 0.2s
