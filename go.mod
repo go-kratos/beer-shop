@@ -9,6 +9,7 @@ require (
 	github.com/go-kratos/kratos/v2 v2.0.0-rc7
 	github.com/go-kratos/swagger-api v0.1.6
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1

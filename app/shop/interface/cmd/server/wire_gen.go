@@ -19,7 +19,7 @@ import (
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
+func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, auth *conf.Auth, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
 	discovery := data.NewDiscovery(registry)
 	userClient := data.NewUserServiceClient(discovery, tracerProvider)
 	cartClient := data.NewCartServiceClient(discovery, tracerProvider)
