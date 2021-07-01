@@ -549,6 +549,39 @@
         }
       }
     },
+    "ListBeerReplyBeer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeerImage"
+          }
+        }
+      }
+    },
+    "ListBeerReplyBeerImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
     "ListCardReplyCard": {
       "type": "object",
       "properties": {
@@ -726,7 +759,37 @@
       }
     },
     "v1GetBeerReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1GetBeerReplyImage"
+          }
+        }
+      }
+    },
+    "v1GetBeerReplyImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
     },
     "v1GetCardReply": {
       "type": "object",
@@ -758,7 +821,15 @@
       }
     },
     "v1ListBeerReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeer"
+          }
+        }
+      }
     },
     "v1ListCardReply": {
       "type": "object",

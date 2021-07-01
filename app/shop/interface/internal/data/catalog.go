@@ -9,21 +9,21 @@ import (
 	ctV1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
 )
 
-var _ biz.BeerRepo = (*beerRepo)(nil)
+var _ biz.CatalogRepo = (*catalogRepo)(nil)
 
-type beerRepo struct {
+type catalogRepo struct {
 	data *Data
 	log  *log.Helper
 }
 
-func NewBeerRepo(data *Data, logger log.Logger) biz.BeerRepo {
-	return &beerRepo{
+func NewBeerRepo(data *Data, logger log.Logger) biz.CatalogRepo {
+	return &catalogRepo{
 		data: data,
 		log:  log.NewHelper(log.With(logger, "module", "data/beer")),
 	}
 }
 
-func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
+func (r *catalogRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 	reply, err := r.data.bc.GetBeer(ctx, &ctV1.GetBeerReq{
 		Id: id,
 	})
@@ -43,7 +43,7 @@ func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 	}, err
 }
 
-func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
+func (r *catalogRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
 	reply, err := r.data.bc.ListBeer(ctx, &ctV1.ListBeerReq{
 		PageNum:  pageNum,
 		PageSize: pageSize,

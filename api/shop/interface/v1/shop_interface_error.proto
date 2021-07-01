@@ -10,4 +10,6 @@ enum ShopInterfaceErrorReason {
     option (errors.default_code) = 500;
 
     UNKNOWN_ERROR = 0;
+    LOGIN_FAILED = 1 [(errors.code) = 401];
+    USERNAME_CONFLICT = 2 [(errors.code) = 409];
 }

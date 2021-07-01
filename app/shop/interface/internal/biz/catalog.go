@@ -18,24 +18,24 @@ type Beer struct {
 	Images      []Image
 }
 
-type BeerRepo interface {
+type CatalogRepo interface {
 	GetBeer(ctx context.Context, id int64) (*Beer, error)
 	ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error)
 }
 
 type CatalogUseCase struct {
-	repo BeerRepo
+	repo CatalogRepo
 	log  *log.Helper
 }
 
-func NewCatalogUseCase(repo BeerRepo, logger log.Logger) *CatalogUseCase {
+func NewCatalogUseCase(repo CatalogRepo, logger log.Logger) *CatalogUseCase {
 	return &CatalogUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/beer"))}
 }
 
-func (uc *CatalogUseCase) Get(ctx context.Context, id int64) (*Beer, error) {
+func (uc *CatalogUseCase) GetBeer(ctx context.Context, id int64) (*Beer, error) {
 	return uc.repo.GetBeer(ctx, id)
 }
 
-func (uc *CatalogUseCase) List(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error) {
+func (uc *CatalogUseCase) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error) {
 	return uc.repo.ListBeer(ctx, pageNum, pageSize)
 }

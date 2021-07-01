@@ -19,7 +19,7 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		grpc.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
-				tracing.WithTracerProvider(tp),),
+				tracing.WithTracerProvider(tp)),
 			logging.Server(logger),
 		),
 	}
