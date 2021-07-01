@@ -262,14 +262,23 @@ message DeleteCardReply {
     bool ok = 1;
 }
 
-
 message ListBeerReq {
     int64 page_num = 1;
     int64 page_size = 2;
 }
 
 message ListBeerReply {
-
+    message Beer {
+        message Image {
+            string url = 1;
+        }
+        int64 id = 1;
+        string name = 2;
+        string description = 3;
+        int64 count = 4;
+        repeated Image image = 5;
+    }
+    repeated Beer results = 1;
 }
 
 message GetBeerReq {
@@ -277,7 +286,14 @@ message GetBeerReq {
 }
 
 message GetBeerReply {
-
+    message Image {
+        string url = 1;
+    }
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    int64 count = 4;
+    repeated Image image = 5;
 }
 
 message ListCartItemReq {

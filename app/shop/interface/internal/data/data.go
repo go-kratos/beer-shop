@@ -32,6 +32,7 @@ var ProviderSet = wire.NewSet(
 	NewOrderServiceClient,
 	NewPaymentServiceClient,
 	NewUserRepo,
+	NewBeerRepo,
 )
 
 // Data .
@@ -73,7 +74,8 @@ func NewUserServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) use
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
-			recovery.Recovery()),
+			recovery.Recovery(),
+		),
 	)
 	if err != nil {
 		panic(err)
@@ -89,7 +91,8 @@ func NewCartServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) car
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
-			recovery.Recovery()),
+			recovery.Recovery(),
+		),
 	)
 	if err != nil {
 		panic(err)
@@ -104,7 +107,8 @@ func NewCatalogServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) 
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
-			recovery.Recovery()),
+			recovery.Recovery(),
+		),
 	)
 	if err != nil {
 		panic(err)
@@ -119,7 +123,8 @@ func NewOrderServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) or
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
-			recovery.Recovery()),
+			recovery.Recovery(),
+		),
 	)
 	if err != nil {
 		panic(err)
@@ -134,7 +139,8 @@ func NewPaymentServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) 
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
-			recovery.Recovery()),
+			recovery.Recovery(),
+		),
 	)
 	if err != nil {
 		panic(err)

@@ -21,7 +21,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 		http.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
-				tracing.WithTracerProvider(tp),),
+				tracing.WithTracerProvider(tp)),
 			logging.Server(logger),
 		),
 		http.Filter(handlers.CORS(
@@ -45,4 +45,3 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 	v1.RegisterShopInterfaceHTTPServer(srv, s)
 	return srv
 }
-
