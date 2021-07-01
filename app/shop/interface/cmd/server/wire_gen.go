@@ -29,9 +29,10 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
-	beerRepo := data.NewBeerRepo(dataData, logger)
-	catalogUseCase := biz.NewCatalogUseCase(beerRepo, logger)
+	authUseCase := biz.NewAuthUseCase(auth)
+	userUseCase := biz.NewUserUseCase(userRepo, logger, authUseCase)
+	catalogRepo := data.NewBeerRepo(dataData, logger)
+	catalogUseCase := biz.NewCatalogUseCase(catalogRepo, logger)
 	shopInterface := service.NewShopInterface(userUseCase, catalogUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopInterface)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shopInterface)
