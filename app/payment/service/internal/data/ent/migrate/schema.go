@@ -15,7 +15,6 @@ var (
 		{Name: "description", Type: field.TypeString},
 		{Name: "count", Type: field.TypeInt64},
 		{Name: "price", Type: field.TypeInt64},
-		{Name: "images", Type: field.TypeJSON},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 	}

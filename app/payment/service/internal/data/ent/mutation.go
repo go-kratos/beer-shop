@@ -8,7 +8,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-kratos/beer-shop/app/payment/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/beer"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/predicate"
 
@@ -39,7 +38,6 @@ type BeerMutation struct {
 	addcount      *int64
 	price         *int64
 	addprice      *int64
-	images        *[]biz.Image
 	created_at    *time.Time
 	updated_at    *time.Time
 	clearedFields map[string]struct{}
@@ -317,42 +315,6 @@ func (m *BeerMutation) ResetPrice() {
 	m.addprice = nil
 }
 
-// SetImages sets the "images" field.
-func (m *BeerMutation) SetImages(b []biz.Image) {
-	m.images = &b
-}
-
-// Images returns the value of the "images" field in the mutation.
-func (m *BeerMutation) Images() (r []biz.Image, exists bool) {
-	v := m.images
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldImages returns the old "images" field's value of the Beer entity.
-// If the Beer object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *BeerMutation) OldImages(ctx context.Context) (v []biz.Image, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldImages is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldImages requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldImages: %w", err)
-	}
-	return oldValue.Images, nil
-}
-
-// ResetImages resets all changes to the "images" field.
-func (m *BeerMutation) ResetImages() {
-	m.images = nil
-}
-
 // SetCreatedAt sets the "created_at" field.
 func (m *BeerMutation) SetCreatedAt(t time.Time) {
 	m.created_at = &t
@@ -439,7 +401,7 @@ func (m *BeerMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *BeerMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 6)
 	if m.name != nil {
 		fields = append(fields, beer.FieldName)
 	}
@@ -451,9 +413,6 @@ func (m *BeerMutation) Fields() []string {
 	}
 	if m.price != nil {
 		fields = append(fields, beer.FieldPrice)
-	}
-	if m.images != nil {
-		fields = append(fields, beer.FieldImages)
 	}
 	if m.created_at != nil {
 		fields = append(fields, beer.FieldCreatedAt)
@@ -477,8 +436,6 @@ func (m *BeerMutation) Field(name string) (ent.Value, bool) {
 		return m.Count()
 	case beer.FieldPrice:
 		return m.Price()
-	case beer.FieldImages:
-		return m.Images()
 	case beer.FieldCreatedAt:
 		return m.CreatedAt()
 	case beer.FieldUpdatedAt:
@@ -500,8 +457,6 @@ func (m *BeerMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldCount(ctx)
 	case beer.FieldPrice:
 		return m.OldPrice(ctx)
-	case beer.FieldImages:
-		return m.OldImages(ctx)
 	case beer.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
 	case beer.FieldUpdatedAt:
@@ -542,13 +497,6 @@ func (m *BeerMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPrice(v)
-		return nil
-	case beer.FieldImages:
-		v, ok := value.([]biz.Image)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetImages(v)
 		return nil
 	case beer.FieldCreatedAt:
 		v, ok := value.(time.Time)
@@ -651,9 +599,6 @@ func (m *BeerMutation) ResetField(name string) error {
 		return nil
 	case beer.FieldPrice:
 		m.ResetPrice()
-		return nil
-	case beer.FieldImages:
-		m.ResetImages()
 		return nil
 	case beer.FieldCreatedAt:
 		m.ResetCreatedAt()

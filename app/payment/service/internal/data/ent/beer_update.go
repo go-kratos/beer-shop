@@ -10,7 +10,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/go-kratos/beer-shop/app/payment/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/beer"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/predicate"
 )
@@ -63,12 +62,6 @@ func (bu *BeerUpdate) SetPrice(i int64) *BeerUpdate {
 // AddPrice adds i to the "price" field.
 func (bu *BeerUpdate) AddPrice(i int64) *BeerUpdate {
 	bu.mutation.AddPrice(i)
-	return bu
-}
-
-// SetImages sets the "images" field.
-func (bu *BeerUpdate) SetImages(b []biz.Image) *BeerUpdate {
-	bu.mutation.SetImages(b)
 	return bu
 }
 
@@ -216,13 +209,6 @@ func (bu *BeerUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: beer.FieldPrice,
 		})
 	}
-	if value, ok := bu.mutation.Images(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
-			Value:  value,
-			Column: beer.FieldImages,
-		})
-	}
 	if value, ok := bu.mutation.CreatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
@@ -290,12 +276,6 @@ func (buo *BeerUpdateOne) SetPrice(i int64) *BeerUpdateOne {
 // AddPrice adds i to the "price" field.
 func (buo *BeerUpdateOne) AddPrice(i int64) *BeerUpdateOne {
 	buo.mutation.AddPrice(i)
-	return buo
-}
-
-// SetImages sets the "images" field.
-func (buo *BeerUpdateOne) SetImages(b []biz.Image) *BeerUpdateOne {
-	buo.mutation.SetImages(b)
 	return buo
 }
 
@@ -446,13 +426,6 @@ func (buo *BeerUpdateOne) sqlSave(ctx context.Context) (_node *Beer, err error) 
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: beer.FieldPrice,
-		})
-	}
-	if value, ok := buo.mutation.Images(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
-			Value:  value,
-			Column: beer.FieldImages,
 		})
 	}
 	if value, ok := buo.mutation.CreatedAt(); ok {

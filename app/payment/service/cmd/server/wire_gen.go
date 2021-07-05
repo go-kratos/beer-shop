@@ -20,13 +20,14 @@ import (
 
 // initApp init kratos application.
 func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
-	dataData, cleanup, err := data.NewData(confData, logger)
+	client := data.NewEntClient(confData, logger)
+	dataData, cleanup, err := data.NewData(client, logger)
 	if err != nil {
 		return nil, nil, err
 	}
-	beerRepo := data.NewBeerRepo(dataData, logger)
-	beerUseCase := biz.NewBeerUseCase(beerRepo, logger)
-	paymentService := service.NewPaymentService(beerUseCase, logger)
+	paymentRepo := data.NewPaymentRepo(dataData, logger)
+	paymentUseCase := biz.NewPaymentUseCase(paymentRepo, logger)
+	paymentService := service.NewPaymentService(paymentUseCase, logger)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, paymentService)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, grpcServer, registrar)

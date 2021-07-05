@@ -15,32 +15,36 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewUserRepo, NewCardRepo, NewAddressRepo)
+var ProviderSet = wire.NewSet(NewData, NewEntClient, NewUserRepo, NewCardRepo, NewAddressRepo)
 
 // Data .
 type Data struct {
 	db *ent.Client
 }
 
-// NewData .
-func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
-	log := log.NewHelper(log.With(logger, "module", "server-service/data"))
+func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
+	log := log.NewHelper(log.With(logger, "module", "user-service/data/ent"))
 
 	client, err := ent.Open(
 		conf.Database.Driver,
 		conf.Database.Source,
 	)
 	if err != nil {
-		log.Errorf("failed opening connection to sqlite: %v", err)
-		return nil, nil, err
+		log.Fatalf("failed opening connection to db: %v", err)
 	}
 	// Run the auto migration tool.
 	if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
-		log.Errorf("failed creating schema resources: %v", err)
-		return nil, nil, err
+		log.Fatalf("failed creating schema resources: %v", err)
 	}
+	return client
+}
+
+// NewData .
+func NewData(entClient *ent.Client, logger log.Logger) (*Data, func(), error) {
+	log := log.NewHelper(log.With(logger, "module", "user-service/data"))
+
 	d := &Data{
-		db: client,
+		db: entClient,
 	}
 	return d, func() {
 		if err := d.db.Close(); err != nil {

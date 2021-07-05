@@ -3,13 +3,11 @@
 package ent
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/go-kratos/beer-shop/app/payment/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/beer"
 )
 
@@ -26,8 +24,6 @@ type Beer struct {
 	Count int64 `json:"count,omitempty"`
 	// Price holds the value of the "price" field.
 	Price int64 `json:"price,omitempty"`
-	// Images holds the value of the "images" field.
-	Images []biz.Image `json:"images,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -39,8 +35,6 @@ func (*Beer) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case beer.FieldImages:
-			values[i] = &[]byte{}
 		case beer.FieldID, beer.FieldCount, beer.FieldPrice:
 			values[i] = &sql.NullInt64{}
 		case beer.FieldName, beer.FieldDescription:
@@ -92,15 +86,6 @@ func (b *Beer) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				b.Price = value.Int64
 			}
-		case beer.FieldImages:
-
-			if value, ok := values[i].(*[]byte); !ok {
-				return fmt.Errorf("unexpected type %T for field images", values[i])
-			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &b.Images); err != nil {
-					return fmt.Errorf("unmarshal field images: %w", err)
-				}
-			}
 		case beer.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
@@ -149,8 +134,6 @@ func (b *Beer) String() string {
 	builder.WriteString(fmt.Sprintf("%v", b.Count))
 	builder.WriteString(", price=")
 	builder.WriteString(fmt.Sprintf("%v", b.Price))
-	builder.WriteString(", images=")
-	builder.WriteString(fmt.Sprintf("%v", b.Images))
 	builder.WriteString(", created_at=")
 	builder.WriteString(b.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", updated_at=")
