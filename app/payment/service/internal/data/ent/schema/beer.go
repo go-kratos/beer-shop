@@ -6,7 +6,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
-	"github.com/go-kratos/beer-shop/app/payment/service/internal/biz"
 )
 
 // Beer holds the schema definition for the Beer entity.
@@ -22,7 +21,6 @@ func (Beer) Fields() []ent.Field {
 		field.String("description"),
 		field.Int64("count"),
 		field.Int64("price"),
-		field.JSON("images", []biz.Image{}),
 		field.Time("created_at").
 			Default(time.Now).SchemaType(map[string]string{
 			dialect.MySQL: "datetime",

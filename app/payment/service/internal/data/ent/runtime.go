@@ -16,11 +16,11 @@ func init() {
 	beerFields := schema.Beer{}.Fields()
 	_ = beerFields
 	// beerDescCreatedAt is the schema descriptor for created_at field.
-	beerDescCreatedAt := beerFields[6].Descriptor()
+	beerDescCreatedAt := beerFields[5].Descriptor()
 	// beer.DefaultCreatedAt holds the default value on creation for the created_at field.
 	beer.DefaultCreatedAt = beerDescCreatedAt.Default.(func() time.Time)
 	// beerDescUpdatedAt is the schema descriptor for updated_at field.
-	beerDescUpdatedAt := beerFields[7].Descriptor()
+	beerDescUpdatedAt := beerFields[6].Descriptor()
 	// beer.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	beer.DefaultUpdatedAt = beerDescUpdatedAt.Default.(func() time.Time)
 }

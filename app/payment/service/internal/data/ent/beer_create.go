@@ -10,7 +10,6 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/go-kratos/beer-shop/app/payment/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/payment/service/internal/data/ent/beer"
 )
 
@@ -42,12 +41,6 @@ func (bc *BeerCreate) SetCount(i int64) *BeerCreate {
 // SetPrice sets the "price" field.
 func (bc *BeerCreate) SetPrice(i int64) *BeerCreate {
 	bc.mutation.SetPrice(i)
-	return bc
-}
-
-// SetImages sets the "images" field.
-func (bc *BeerCreate) SetImages(b []biz.Image) *BeerCreate {
-	bc.mutation.SetImages(b)
 	return bc
 }
 
@@ -161,9 +154,6 @@ func (bc *BeerCreate) check() error {
 	if _, ok := bc.mutation.Price(); !ok {
 		return &ValidationError{Name: "price", err: errors.New("ent: missing required field \"price\"")}
 	}
-	if _, ok := bc.mutation.Images(); !ok {
-		return &ValidationError{Name: "images", err: errors.New("ent: missing required field \"images\"")}
-	}
 	if _, ok := bc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New("ent: missing required field \"created_at\"")}
 	}
@@ -234,14 +224,6 @@ func (bc *BeerCreate) createSpec() (*Beer, *sqlgraph.CreateSpec) {
 			Column: beer.FieldPrice,
 		})
 		_node.Price = value
-	}
-	if value, ok := bc.mutation.Images(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
-			Value:  value,
-			Column: beer.FieldImages,
-		})
-		_node.Images = value
 	}
 	if value, ok := bc.mutation.CreatedAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

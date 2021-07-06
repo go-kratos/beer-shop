@@ -19,8 +19,6 @@ const (
 	FieldCount = "count"
 	// FieldPrice holds the string denoting the price field in the database.
 	FieldPrice = "price"
-	// FieldImages holds the string denoting the images field in the database.
-	FieldImages = "images"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -36,7 +34,6 @@ var Columns = []string{
 	FieldDescription,
 	FieldCount,
 	FieldPrice,
-	FieldImages,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 }

@@ -13,13 +13,12 @@ var ProviderSet = wire.NewSet(NewPaymentService)
 type PaymentService struct {
 	v1.UnimplementedPaymentServer
 
-	bc  *biz.BeerUseCase
+	pc  *biz.PaymentUseCase
 	log *log.Helper
 }
 
-func NewPaymentService(bc *biz.BeerUseCase, logger log.Logger) *PaymentService {
+func NewPaymentService(pc *biz.PaymentUseCase, logger log.Logger) *PaymentService {
 	return &PaymentService{
-
-		bc:  bc,
+		pc:  pc,
 		log: log.NewHelper(log.With(logger, "module", "service/payment"))}
 }
