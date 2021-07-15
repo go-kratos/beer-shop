@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	entgo.io/ent v0.7.0
+	github.com/Shopify/sarama v1.29.1
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
 	github.com/go-kratos/kratos/v2 v2.0.0
@@ -15,7 +16,6 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/hashicorp/consul/api v1.8.1
-	github.com/klauspost/compress v1.11.7 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
 	go.mongodb.org/mongo-driver v1.5.1
@@ -23,7 +23,7 @@ require (
 	go.opentelemetry.io/otel/exporters/jaeger v1.0.0-RC1
 	go.opentelemetry.io/otel/exporters/trace/jaeger v0.20.0
 	go.opentelemetry.io/otel/sdk v1.0.0-RC1
-	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
+	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 	google.golang.org/genproto v0.0.0-20210707164411-8c882eb9abba
 	google.golang.org/grpc v1.39.0
 	google.golang.org/protobuf v1.27.1

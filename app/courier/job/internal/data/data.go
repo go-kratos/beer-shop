@@ -1,6 +1,7 @@
 package data
 
 import (
+	"github.com/Shopify/sarama"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 
@@ -11,16 +12,31 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewCourierRepo)
+var ProviderSet = wire.NewSet(NewData, NewKafkaConsumenr, NewCourierRepo)
 
 // Data .
 type Data struct {
+	kc  sarama.Consumer
+	log *log.Helper
 }
 
 // NewData .
-func NewData(conf *conf.Data, logger log.Logger) (*Data, func(), error) {
-	d := &Data{}
+func NewData(consumer sarama.Consumer, logger log.Logger) (*Data, func(), error) {
+	log := log.NewHelper(log.With(logger, "module", "courier-job/data"))
+	d := &Data{
+		kc:  consumer,
+		log: log,
+	}
 	return d, func() {
 
 	}, nil
+}
+
+func NewKafkaConsumenr(conf *conf.Data) sarama.Consumer {
+	c := sarama.NewConfig()
+	p, err := sarama.NewConsumer(conf.Kafka.Addrs, c)
+	if err != nil {
+		panic(err)
+	}
+	return p
 }
