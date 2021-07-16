@@ -78,10 +78,8 @@ message ListAddressReply {
         int64 id = 1;
         string name = 2;
         string mobile = 3;
-        string country = 4;
-        string city = 5;
-        string address = 6;
-        string post_code = 7;
+        string address = 4;
+        string post_code = 5;
     }
     repeated Address results = 1;
 }
@@ -90,20 +88,16 @@ message CreateAddressReq {
     int64 uid = 1;
     string name = 2;
     string mobile = 3;
-    string country = 4;
-    string city = 5;
-    string address = 6;
-    string post_code = 7;
+    string address = 4;
+    string post_code = 5;
 }
 
 message CreateAddressReply {
     int64 id = 1;
     string name = 2;
     string mobile = 3;
-    string country = 4;
-    string city = 5;
-    string address = 6;
-    string post_code = 7;
+    string address = 4;
+    string post_code = 5;
 }
 
 message GetAddressReq {
@@ -114,10 +108,8 @@ message GetAddressReply {
     int64 id = 1;
     string name = 2;
     string mobile = 3;
-    string country = 4;
-    string city = 5;
-    string address = 6;
-    string post_code = 7;
+    string address = 4;
+    string post_code = 5;
 }
 
 message ListCardReq {

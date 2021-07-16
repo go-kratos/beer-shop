@@ -30,12 +30,6 @@
         "mobile": {
           "type": "string"
         },
-        "country": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
         "address": {
           "type": "string"
         },
@@ -105,12 +99,6 @@
         "mobile": {
           "type": "string"
         },
-        "country": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
         "address": {
           "type": "string"
         },
@@ -159,12 +147,6 @@
           "type": "string"
         },
         "mobile": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "city": {
           "type": "string"
         },
         "address": {

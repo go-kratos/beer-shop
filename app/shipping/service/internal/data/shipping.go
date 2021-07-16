@@ -19,3 +19,5 @@ func NewShippingRepo(data *Data, logger log.Logger) biz.ShippingRepo {
 		log:  log.NewHelper(log.With(logger, "module", "data/shipping")),
 	}
 }
+
+
