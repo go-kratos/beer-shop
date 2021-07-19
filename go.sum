@@ -126,6 +126,8 @@ github.com/go-kratos/kratos/v2 v2.0.0-rc7 h1:Qvpz07BefgMFQycSDb57NlWhtYGz4me3wh8
 github.com/go-kratos/kratos/v2 v2.0.0-rc7/go.mod h1:/2bGobqE+/F9kKOe4Re0OO5X2NWNGt+7n2e8Y5DHFRc=
 github.com/go-kratos/kratos/v2 v2.0.0 h1:3IS/6jgbFfQtK9PTRs4mEhhXXA36xnKTaTKfcKiO96I=
 github.com/go-kratos/kratos/v2 v2.0.0/go.mod h1:USzTcAP7LS1rHVITQ/x/5JvlkUpG17pnfbqYV4j7SWc=
+github.com/go-kratos/kratos/v2 v2.0.1 h1:iFteVlcLWnAQu5n4I5bTN63svW+0YylGwhNTYO2MkOQ=
+github.com/go-kratos/kratos/v2 v2.0.1/go.mod h1:Jz6fuJFF2SLczQ7Y8ocKieVGgstQKa+R9NX09bCHekU=
 github.com/go-kratos/swagger-api v0.1.6 h1:1XKySOZtUOukYuGKoV+Ygy2rg06EO4/3zLdL7RHMxKs=
 github.com/go-kratos/swagger-api v0.1.6/go.mod h1:oTyV1c5b2THGP43XzBv6CX+loCrjHe6xflbi52m+xGA=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=

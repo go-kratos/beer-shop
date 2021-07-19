@@ -7,7 +7,7 @@ require (
 	github.com/Shopify/sarama v1.29.1
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
-	github.com/go-kratos/kratos/v2 v2.0.0
+	github.com/go-kratos/kratos/v2 v2.0.1
 	github.com/go-kratos/swagger-api v0.1.6
 	github.com/go-playground/form/v4 v4.2.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0
