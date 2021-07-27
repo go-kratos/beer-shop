@@ -5,15 +5,15 @@ go 1.15
 require (
 	entgo.io/ent v0.7.0
 	github.com/Shopify/sarama v1.29.1
-	github.com/go-kratos/consul v0.0.0-20210425141546-e047a9f6ec87
-	github.com/go-kratos/kratos/v2 v2.0.2
+	github.com/go-kratos/consul v0.1.4
+	github.com/go-kratos/kratos/v2 v2.0.3
 	github.com/go-kratos/swagger-api v0.1.6
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
-	github.com/hashicorp/consul/api v1.8.1
+	github.com/hashicorp/consul/api v1.9.1
 	go.mongodb.org/mongo-driver v1.5.1
 	go.opentelemetry.io/otel v1.0.0-RC1
 	go.opentelemetry.io/otel/exporters/jaeger v1.0.0-RC1
