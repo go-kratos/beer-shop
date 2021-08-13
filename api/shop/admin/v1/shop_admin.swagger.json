@@ -33,6 +33,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "ShopAdmin"
         ]
@@ -127,7 +143,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "image": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1UpdateBeerReqImage"
+                  }
+                }
+              }
             }
           }
         ],
@@ -159,7 +193,7 @@
       }
     },
     "/admin/v1/customers/{id}": {
-      "post": {
+      "get": {
         "operationId": "ShopAdmin_GetCustomer",
         "responses": {
           "200": {
@@ -182,14 +216,6 @@
             "required": true,
             "type": "string",
             "format": "int64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
-            }
           }
         ],
         "tags": [
@@ -285,6 +311,39 @@
     }
   },
   "definitions": {
+    "ListBeerReplyBeer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeerImage"
+          }
+        }
+      }
+    },
+    "ListBeerReplyBeerImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -319,7 +378,33 @@
       "type": "object"
     },
     "v1CreateBeerReq": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateBeerReqImage"
+          }
+        }
+      }
+    },
+    "v1CreateBeerReqImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
     },
     "v1DeleteBeerReply": {
       "type": "object"
@@ -331,7 +416,15 @@
       "type": "object"
     },
     "v1ListBeerReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeer"
+          }
+        }
+      }
     },
     "v1ListCustomerReply": {
       "type": "object"
@@ -340,7 +433,12 @@
       "type": "object"
     },
     "v1LoginReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
     },
     "v1LoginReq": {
       "type": "object",
@@ -361,6 +459,14 @@
     },
     "v1UpdateBeerReply": {
       "type": "object"
+    },
+    "v1UpdateBeerReqImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
     }
   }
 }

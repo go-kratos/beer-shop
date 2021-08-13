@@ -41,7 +41,7 @@ func RegisterShopAdminHTTPServer(s *http.Server, srv ShopAdminHTTPServer) {
 	r.GET("/admin/v1/orders", _ShopAdmin_ListOrder0_HTTP_Handler(srv))
 	r.GET("/admin/v1/orders", _ShopAdmin_GetOrder0_HTTP_Handler(srv))
 	r.GET("/admin/v1/customers", _ShopAdmin_ListCustomer0_HTTP_Handler(srv))
-	r.POST("/admin/v1/customers/{id}", _ShopAdmin_GetCustomer0_HTTP_Handler(srv))
+	r.GET("/admin/v1/customers/{id}", _ShopAdmin_GetCustomer0_HTTP_Handler(srv))
 }
 
 func _ShopAdmin_Login0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
@@ -224,7 +224,7 @@ func _ShopAdmin_ListCustomer0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx htt
 func _ShopAdmin_GetCustomer0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetCustomerReq
-		if err := ctx.Bind(&in); err != nil {
+		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
@@ -293,10 +293,10 @@ func (c *ShopAdminHTTPClientImpl) DeleteBeer(ctx context.Context, in *DeleteBeer
 func (c *ShopAdminHTTPClientImpl) GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...http.CallOption) (*GetCustomerReply, error) {
 	var out GetCustomerReply
 	pattern := "/admin/v1/customers/{id}"
-	path := binding.EncodeURL(pattern, in, false)
+	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/GetCustomer"))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

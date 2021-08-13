@@ -33,7 +33,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	shopAdmin := service.NewShopAdmin(userUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopAdmin)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shopAdmin)
-	app := newApp(logger, httpServer, grpcServer)
+	registrar := data.NewRegistrar(registry)
+	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
 	}, nil
 }
