@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package cart.service.v1;
+package payment.service.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "api/cart/service/v1;v1";
+option go_package = "github.com/go-kratos/beer-shop/api/payment/service/v1;v1";
 
 
 service Payment {

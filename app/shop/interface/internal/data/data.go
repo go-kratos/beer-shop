@@ -8,11 +8,11 @@ import (
 
 	"context"
 
-	cartv1 "github.com/go-kratos/beer-shop/api/cart/service/v1"
-	catalogv1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
-	orderv1 "github.com/go-kratos/beer-shop/api/order/service/v1"
-	paymentv1 "github.com/go-kratos/beer-shop/api/payment/service/v1"
-	userv1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	cartv1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/cart/service/v1"
+	catalogv1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/catalog/service/v1"
+	orderv1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/order/service/v1"
+	paymentv1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/payment/service/v1"
+	userv1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/user/service/v1"
 
 	consul "github.com/go-kratos/consul/registry"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -26,13 +26,14 @@ import (
 var ProviderSet = wire.NewSet(
 	NewData,
 	NewDiscovery,
+	NewUserRepo,
+	NewBeerRepo,
+
 	NewUserServiceClient,
 	NewCartServiceClient,
 	NewCatalogServiceClient,
 	NewOrderServiceClient,
 	NewPaymentServiceClient,
-	NewUserRepo,
-	NewBeerRepo,
 )
 
 // Data .
@@ -63,7 +64,7 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	if err != nil {
 		panic(err)
 	}
-	r := consul.New(cli)
+	r := consul.New(cli, consul.WithHealthCheck(false))
 	return r
 }
 

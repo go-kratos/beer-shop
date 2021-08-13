@@ -2,11 +2,13 @@ GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
 APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && echo $$b/$$a)
 INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
-API_PROTO_FILES=$(shell cd ../../../api/$(APP_RELATIVE_PATH) && find . -name *.proto)
+API_PROTO_FILES=$(shell cd ../../../ && find api/$(APP_RELATIVE_PATH) -name '*.proto'|awk '{print "../../../"$$1}')
 KRATOS_VERSION=$(shell go mod graph |grep go-kratos/kratos/v2 |head -n 1 |awk -F '@' '{print $$2}')
 KRATOS=$(GOPATH)/pkg/mod/github.com/go-kratos/kratos/v2@$(KRATOS_VERSION)
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | sed -En "s/\//-/p")
 DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "go-kratos/beer-" $$0 ":0.1.0"}')
+MODULE=$(shell cat ../../../go.mod | grep module | head -n 1 | awk -F ' ' '{print $$2}')
+API_PROTOC_OUTPUT_PATH=internal
 
 .PHONY: init
 # init env
@@ -17,37 +19,28 @@ init:
 	go get -u github.com/google/wire/cmd/wire
 	go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 
-.PHONY: grpc
-# generate grpc code
-grpc:
-	 cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+.PHONY: api
+# generate api code
+api:
+	 protoc --proto_path=../../../api \
            --proto_path=../../../third_party \
-           --go_out=paths=source_relative:. \
-           --go-grpc_out=paths=source_relative:. \
-           $(API_PROTO_FILES)
-
-.PHONY: http
-# generate http code
-http:
-	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=../../../third_party \
-           --go_out=paths=source_relative:. \
-           --go-http_out=paths=source_relative:. \
+ 	       --go_out=paths=import,module=$(MODULE):$(API_PROTOC_OUTPUT_PATH) \
+ 	       --go-http_out=paths=import,module=$(MODULE):$(API_PROTOC_OUTPUT_PATH) \
+ 	       --go-grpc_out=paths=import,module=$(MODULE):$(API_PROTOC_OUTPUT_PATH) \
            $(API_PROTO_FILES)
 
 .PHONY: errors
 # generate errors code
 errors:
-	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+	protoc --proto_path=../../../api \
            --proto_path=../../../third_party \
-           --go_out=paths=source_relative:. \
-           --go-errors_out=paths=source_relative:. \
+		   --go_out=$(API_PROTOC_OUTPUT_PATH) \
            $(API_PROTO_FILES)
 
 .PHONY: swagger
 # generate swagger
 swagger:
-	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+	protoc --proto_path=../../../api \
 	        --proto_path=../../../third_party \
 	        --openapiv2_out . \
 	        --openapiv2_opt logtostderr=true \
@@ -92,10 +85,6 @@ docker:
 # generate wire
 wire:
 	cd cmd/server && wire
-
-.PHONY: api
-# generate api proto
-api: grpc http swagger errors
 
 .PHONY: all
 # generate all

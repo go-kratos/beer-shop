@@ -3,7 +3,7 @@ syntax = "proto3";
 package shop.admin.v1;
 import "errors/errors.proto";
 
-option go_package = "shop/admin/v1;v1";
+option go_package = "github.com/go-kratos/beer-shop/api/shop/admin/v1;v1";
 option java_multiple_files = true;
 
 enum ShopAdminErrorReason {

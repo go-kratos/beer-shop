@@ -4,7 +4,7 @@ package user.service.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "api/user/service/v1;v1";
+option go_package = "github.com/go-kratos/beer-shop/api/user/service/v1;v1";
 
 
 service User {

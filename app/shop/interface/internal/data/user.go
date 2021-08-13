@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 
-	usV1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	usV1 "github.com/go-kratos/beer-shop/app/shop/interface/internal/api/user/service/v1"
 )
 
 var _ biz.UserRepo = (*userRepo)(nil)

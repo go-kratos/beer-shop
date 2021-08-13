@@ -1,7 +1,7 @@
 package biz
 
 import (
-	usV1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	usV1 "github.com/go-kratos/beer-shop/app/shop/admin/internal/api/user/service/v1"
 	"github.com/go-kratos/kratos/v2/log"
 )
 

@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/go-kratos/beer-shop/api/payment/service/v1"
+	"github.com/go-kratos/beer-shop/app/payment/service/internal/api/payment/service/v1"
 )
 
 func (s *PaymentService) PaymentAuth(ctx context.Context, req *v1.PaymentAuthReq) (reply *v1.PaymentAuthReply, err error) {
