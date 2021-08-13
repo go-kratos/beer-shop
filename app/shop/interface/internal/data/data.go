@@ -63,7 +63,7 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	if err != nil {
 		panic(err)
 	}
-	r := consul.New(cli)
+	r := consul.New(cli, consul.WithHealthCheck(false))
 	return r
 }
 

@@ -25,6 +25,7 @@ service ShopInterface {
     rpc Logout (LogoutReq) returns (LogoutReply) {
         option (google.api.http) = {
             post: "/v1/logout"
+            body: "*"
         };
     }
 

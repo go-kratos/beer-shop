@@ -20,13 +20,15 @@ import (
 
 // initApp init kratos application.
 func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
-	dataData, err := data.NewData(confData, logger)
+	discovery := data.NewDiscovery(registry)
+	userClient := data.NewUserServiceClient(discovery, tracerProvider)
+	cartClient := data.NewCartServiceClient(discovery, tracerProvider)
+	catalogClient := data.NewCatalogServiceClient(discovery, tracerProvider)
+	dataData, err := data.NewData(confData, logger, userClient, cartClient, catalogClient)
 	if err != nil {
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
-	discovery := biz.NewDiscovery()
-	userClient := biz.NewUserServiceClient(discovery)
 	userUseCase := biz.NewUserUseCase(userRepo, logger, userClient)
 	shopAdmin := service.NewShopAdmin(userUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopAdmin)
