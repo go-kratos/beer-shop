@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/user"
 
 	"github.com/go-kratos/kratos/v2/log"
 
@@ -29,12 +30,15 @@ func (r *cardRepo) CreateCard(ctx context.Context, a *biz.Card) (*biz.Card, erro
 		SetCcv(a.CCV).
 		SetExpires(a.Expires).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
 	return &biz.Card{
 		Id:      po.ID,
 		CardNo:  po.CardNo,
 		CCV:     po.Ccv,
 		Expires: po.Expires,
-	}, err
+	}, nil
 }
 
 func (r *cardRepo) GetCard(ctx context.Context, id int64) (*biz.Card, error) {
@@ -51,7 +55,11 @@ func (r *cardRepo) GetCard(ctx context.Context, id int64) (*biz.Card, error) {
 }
 
 func (r *cardRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error) {
-	pos, err := r.data.db.Card.Query().All(ctx)
+	pos, err := r.data.db.User.
+		Query().
+		Where(user.ID(uid)).
+		QueryCards().
+		All(ctx)
 	if err != nil {
 		return nil, err
 	}
