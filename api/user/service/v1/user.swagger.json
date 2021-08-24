@@ -56,6 +56,18 @@
         }
       }
     },
+    "ListUserReplyUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -205,6 +217,17 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ListCardReplyCard"
+          }
+        }
+      }
+    },
+    "v1ListUserReply": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListUserReplyUser"
           }
         }
       }

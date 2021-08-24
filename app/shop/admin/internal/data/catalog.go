@@ -6,7 +6,7 @@ import (
 	"github.com/go-kratos/beer-shop/app/shop/admin/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 
-	ctV1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
+	catalogv1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
 )
 
 var _ biz.CatalogRepo = (*catalogRepo)(nil)
@@ -24,7 +24,7 @@ func NewCatalogRepo(data *Data, logger log.Logger) biz.CatalogRepo {
 }
 
 func (r *catalogRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
-	reply, err := r.data.bc.GetBeer(ctx, &ctV1.GetBeerReq{
+	reply, err := r.data.bc.GetBeer(ctx, &catalogv1.GetBeerReq{
 		Id: id,
 	})
 	if err != nil {
@@ -44,7 +44,7 @@ func (r *catalogRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) 
 }
 
 func (r *catalogRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
-	reply, err := r.data.bc.ListBeer(ctx, &ctV1.ListBeerReq{
+	reply, err := r.data.bc.ListBeer(ctx, &catalogv1.ListBeerReq{
 		PageNum:  pageNum,
 		PageSize: pageSize,
 	})
@@ -65,4 +65,44 @@ func (r *catalogRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]
 		})
 	}
 	return rv, err
+}
+
+func (r *catalogRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
+	images := make([]*catalogv1.CreateBeerReq_Image, 0)
+	for _, x := range b.Images {
+		images = append(images, &catalogv1.CreateBeerReq_Image{Url: x.URL})
+	}
+	reply, err := r.data.bc.CreateBeer(ctx, &catalogv1.CreateBeerReq{
+		Name:        b.Name,
+		Description: b.Description,
+		Count:       b.Count,
+		Image:       images,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &biz.Beer{
+		Id: reply.Id,
+	}, err
+}
+
+func (r *catalogRepo) UpdateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
+	images := make([]*catalogv1.UpdateBeerReq_Image, 0)
+	for _, x := range b.Images {
+		images = append(images, &catalogv1.UpdateBeerReq_Image{Url: x.URL})
+	}
+	reply, err := r.data.bc.UpdateBeer(ctx, &catalogv1.UpdateBeerReq{
+		Name:        b.Name,
+		Description: b.Description,
+		Count:       b.Count,
+		Image:       images,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &biz.Beer{
+		Id: reply.Id,
+	}, err
 }

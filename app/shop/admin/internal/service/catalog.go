@@ -45,3 +45,15 @@ func (s *ShopAdmin) GetBeer(ctx context.Context, req *v1.GetBeerReq) (*v1.GetBee
 	}
 	return reply, nil
 }
+
+func (s *ShopAdmin) CreateBeer(ctx context.Context, req *v1.CreateBeerReq) (*v1.CreateBeerReply, error) {
+	return nil, nil
+}
+
+func (s *ShopAdmin) UpdateBeer(ctx context.Context, req *v1.UpdateBeerReq) (*v1.UpdateBeerReply, error) {
+	return nil, nil
+}
+
+func (s *ShopAdmin) DeleteBeer(ctx context.Context, req *v1.DeleteBeerReq) (*v1.DeleteBeerReply, error) {
+	return nil, nil
+}

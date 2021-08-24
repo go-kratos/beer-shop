@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.7.0
 	github.com/Shopify/sarama v1.29.1
 	github.com/go-kratos/consul v0.1.5
-	github.com/go-kratos/kratos/v2 v2.0.4
+	github.com/go-kratos/kratos/v2 v2.0.5
 	github.com/go-kratos/swagger-api v0.1.6
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible

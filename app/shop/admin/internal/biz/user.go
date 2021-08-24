@@ -6,6 +6,7 @@ import (
 )
 
 type User struct {
+	Id int64
 }
 
 type UserRepo interface {
