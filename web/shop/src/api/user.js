@@ -1,8 +1,8 @@
 import service from './index'
 
-const login = (email, password) => {
-    return service.get("​/v1​/login", {
-        email,
+export const login = (username, password) => {
+    return service.post("/v1/login", {
+        username,
         password,
     })
 };

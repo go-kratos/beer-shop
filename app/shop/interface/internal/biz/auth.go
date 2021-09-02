@@ -17,7 +17,6 @@ func NewAuthUseCase(conf *conf.Auth) *AuthUseCase {
 }
 
 func (receiver AuthUseCase) Auth(userId int64) (string, error) {
-
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": userId,
 	})
