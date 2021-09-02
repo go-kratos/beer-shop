@@ -8,7 +8,7 @@ export default function BeerDetail(props) {
         setData({
 
         })
-    });
+    }, []);
 
         console.log(id);
     return <div>

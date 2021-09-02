@@ -7,7 +7,9 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(config => {
-    config.headers['token'] = getToken() || '';
+    if (getToken()) {
+        config.headers['Authorization'] = 'Bearer ' + getToken() || '';
+    }
     return config;
 });
 

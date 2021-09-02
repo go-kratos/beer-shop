@@ -59,7 +59,7 @@ export default function Checkout(props) {
         ]);
 
         setTotal(100);
-    });
+    }, []);
 
 
     return <div className="container mx-auto bg-white max-w-screen-md">

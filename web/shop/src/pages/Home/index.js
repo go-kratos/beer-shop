@@ -36,7 +36,7 @@ export default function Home(props) {
                 "price": "10.99",
             },
         ]);
-    });
+    }, []);
 
 
     return <div>
@@ -84,7 +84,7 @@ export default function Home(props) {
                         </div>
                     </div>
                 </nav>
-                {beerList.map((x) => <ProductCard data={x}/>)}
+                {beerList.map((x) => <ProductCard key={x.id} data={x}/>)}
             </div>
         </section>
 
