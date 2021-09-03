@@ -15,27 +15,27 @@ export const register = (username, email, password) => {
     })
 };
 
-const logout = () => {
+export const logout = () => {
     return service.post("/v1/logout")
 };
 
-const listAddress = () => {
+export const listAddress = () => {
     return service.get("/v1/user/addresses")
 };
 
-const createAddress = (address) => {
+export const createAddress = (address) => {
     return service.post("/v1/user/addresses", {
         address,
     })
 };
 
-const listCard = (card) => {
+export const listCard = (card) => {
     return service.get("/v1/user/cards", {
         card,
     })
 };
 
-const createCard = (card) => {
+export const createCard = (card) => {
     return service.post("/v1/user/cards", {
         card,
     })

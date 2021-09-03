@@ -1,23 +1,27 @@
 import service from './index'
 
-const listCartItem = () => {
+export const listCartItem = () => {
     return service.get("/v1/cart")
 };
 
-const addCartItem = (id) => {
-    return service.get("/v1/cart", {
+export const addCartItem = (id) => {
+    return service.put("/v1/cart", {
         id,
     })
 };
 
-const createOrder = () => {
+export const createOrder = () => {
     return service.post("/v1/orders", {
 
     })
 };
 
-const listOrder = (pageNum, pageSize) => {
+export const listOrder = (pageNum, pageSize) => {
     return service.get("/v1/orders", {
         pageNum, pageSize
     })
+};
+
+export const getOrderDetail = (id) => {
+    return service.get("/v1/orders/"+id)
 };
