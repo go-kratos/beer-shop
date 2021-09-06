@@ -13,9 +13,14 @@ type courierRepo struct {
 	log  *log.Helper
 }
 
+type ShippingEntry struct {
+	OrderId string `json:"order_id"`
+}
+
 func NewCourierRepo(data *Data, logger log.Logger) biz.CourierRepo {
 	return &courierRepo{
 		data: data,
 		log:  log.NewHelper(log.With(logger, "data/courier")),
 	}
 }
+

@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from "react";
 import ProductCard from "../../components/ProductCard";
+import {listBeer} from "../../api/beer";
 
 export default function Home(props) {
     const [beerList, setBeerList] = useState([]);
     useEffect(() => {
+        listBeer().then((res)=>{
+            setBeerList(res.data.results)
+        });
+
         setBeerList([
             {
                 "id": 1,

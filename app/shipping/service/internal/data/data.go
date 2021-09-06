@@ -28,7 +28,7 @@ func NewData(producer sarama.AsyncProducer, conf *conf.Data, logger log.Logger) 
 		log: log,
 	}
 	return d, func() {
-
+		d.kp.Close()
 	}, nil
 }
 

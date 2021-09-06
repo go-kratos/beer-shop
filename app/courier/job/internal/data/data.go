@@ -28,7 +28,7 @@ func NewData(consumer sarama.Consumer, logger log.Logger) (*Data, func(), error)
 		log: log,
 	}
 	return d, func() {
-
+		d.kc.Close()
 	}, nil
 }
 
