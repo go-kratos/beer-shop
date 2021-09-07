@@ -23,4 +23,3 @@ func NewCourierRepo(data *Data, logger log.Logger) biz.CourierRepo {
 		log:  log.NewHelper(log.With(logger, "data/courier")),
 	}
 }
-

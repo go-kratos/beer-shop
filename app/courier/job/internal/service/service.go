@@ -19,7 +19,6 @@ type CourierService struct {
 
 func NewCourierService(oc *biz.CourierUseCase, logger log.Logger) *CourierService {
 	return &CourierService{
-
 		oc:  oc,
 		log: log.NewHelper(log.With(logger, "module", "service/courier"))}
 }

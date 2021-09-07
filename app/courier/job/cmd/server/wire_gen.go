@@ -20,8 +20,10 @@ import (
 
 // initApp init kratos application.
 func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
-	consumer := data.NewKafkaConsumenr(confData)
-	dataData, cleanup, err := data.NewData(consumer, logger)
+	consumer := data.NewKafkaConsumer(confData)
+	discovery := data.NewDiscovery(registry)
+	orderClient := data.NewOrderServiceClient(discovery, tracerProvider)
+	dataData, cleanup, err := data.NewData(consumer, logger, orderClient)
 	if err != nil {
 		return nil, nil, err
 	}
