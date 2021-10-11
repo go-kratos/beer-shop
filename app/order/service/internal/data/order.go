@@ -4,8 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 	"gorm.io/gorm"
+
+	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 
 	"github.com/go-kratos/kratos/v2/log"
 
@@ -36,7 +37,7 @@ func NewOrderRepo(data *Data, logger log.Logger) biz.OrderRepo {
 
 func (r *orderRepo) CreateOrder(ctx context.Context, b *biz.Order) (*biz.Order, error) {
 	o := Order{Id: b.Id, UserId: b.UserId}
-	result := r.data.db.WithContext(ctx).Create(o)
+	result := r.data.db.WithContext(ctx).Create(&o)
 	return &biz.Order{
 		Id: o.Id,
 	}, result.Error
