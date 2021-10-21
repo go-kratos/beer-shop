@@ -33,6 +33,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "ShopAdmin"
         ]
@@ -127,68 +143,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
-            }
-          }
-        ],
-        "tags": [
-          "ShopAdmin"
-        ]
-      }
-    },
-    "/admin/v1/customers": {
-      "get": {
-        "operationId": "ShopAdmin_ListCustomer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ListCustomerReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "ShopAdmin"
-        ]
-      }
-    },
-    "/admin/v1/customers/{id}": {
-      "post": {
-        "operationId": "ShopAdmin_GetCustomer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCustomerReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "image": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1UpdateBeerReqImage"
+                  }
+                }
+              }
             }
           }
         ],
@@ -282,9 +255,95 @@
           "ShopAdmin"
         ]
       }
+    },
+    "/admin/v1/users": {
+      "get": {
+        "operationId": "ShopAdmin_ListUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ShopAdmin"
+        ]
+      }
+    },
+    "/admin/v1/users/{id}": {
+      "get": {
+        "operationId": "ShopAdmin_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ShopAdmin"
+        ]
+      }
     }
   },
   "definitions": {
+    "ListBeerReplyBeer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeerImage"
+          }
+        }
+      }
+    },
+    "ListBeerReplyBeerImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -319,28 +378,76 @@
       "type": "object"
     },
     "v1CreateBeerReq": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        },
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateBeerReqImage"
+          }
+        }
+      }
+    },
+    "v1CreateBeerReqImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
     },
     "v1DeleteBeerReply": {
-      "type": "object"
-    },
-    "v1GetCustomerReply": {
       "type": "object"
     },
     "v1GetOrderReply": {
       "type": "object"
     },
-    "v1ListBeerReply": {
-      "type": "object"
+    "v1GetUserReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
     },
-    "v1ListCustomerReply": {
-      "type": "object"
+    "v1ListBeerReply": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBeerReplyBeer"
+          }
+        }
+      }
     },
     "v1ListOrderReply": {
       "type": "object"
     },
-    "v1LoginReply": {
+    "v1ListUserReply": {
       "type": "object"
+    },
+    "v1LoginReply": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
     },
     "v1LoginReq": {
       "type": "object",
@@ -361,6 +468,14 @@
     },
     "v1UpdateBeerReply": {
       "type": "object"
+    },
+    "v1UpdateBeerReqImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
     }
   }
 }

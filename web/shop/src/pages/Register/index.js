@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    NavLink
+    NavLink, useHistory,
 } from "react-router-dom"
 import {register} from "../../api/user";
 
@@ -9,11 +9,21 @@ export default function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const history = useHistory();
 
     const handleSubmit = (event) => {
         console.log("username", username);
         event.preventDefault();
-        register(username, email, password)
+        register(username, email, password).then(
+            ()=>{
+                console.log("ok!");
+                history.push('/');
+            }
+        ).catch(
+            ()=>{
+                console.log("err!")
+            },
+        )
     };
 
     return (

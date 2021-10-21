@@ -19,7 +19,6 @@ type ShippingService struct {
 
 func NewShippingService(oc *biz.ShippingUseCase, logger log.Logger) *ShippingService {
 	return &ShippingService{
-
 		oc:  oc,
 		log: log.NewHelper(log.With(logger, "module", "service/shipping"))}
 }

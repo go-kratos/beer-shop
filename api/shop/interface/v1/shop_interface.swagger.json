@@ -202,6 +202,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LogoutReq"
+            }
+          }
+        ],
         "tags": [
           "ShopInterface"
         ]
@@ -868,6 +878,9 @@
       }
     },
     "v1LogoutReply": {
+      "type": "object"
+    },
+    "v1LogoutReq": {
       "type": "object"
     },
     "v1RegisterReply": {

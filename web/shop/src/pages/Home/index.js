@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from "react";
 import ProductCard from "../../components/ProductCard";
+import {listBeer} from "../../api/beer";
 
 export default function Home(props) {
     const [beerList, setBeerList] = useState([]);
     useEffect(() => {
+        listBeer().then((res)=>{
+            setBeerList(res.data.results)
+        });
+
         setBeerList([
             {
                 "id": 1,
@@ -36,7 +41,7 @@ export default function Home(props) {
                 "price": "10.99",
             },
         ]);
-    });
+    }, []);
 
 
     return <div>
@@ -84,7 +89,7 @@ export default function Home(props) {
                         </div>
                     </div>
                 </nav>
-                {beerList.map((x) => <ProductCard data={x}/>)}
+                {beerList.map((x) => <ProductCard key={x.id} data={x}/>)}
             </div>
         </section>
 

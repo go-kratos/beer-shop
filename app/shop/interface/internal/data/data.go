@@ -26,6 +26,7 @@ import (
 var ProviderSet = wire.NewSet(
 	NewData,
 	NewDiscovery,
+	NewRegistrar,
 	NewUserServiceClient,
 	NewCartServiceClient,
 	NewCatalogServiceClient,
@@ -63,7 +64,19 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	if err != nil {
 		panic(err)
 	}
-	r := consul.New(cli)
+	r := consul.New(cli, consul.WithHealthCheck(false))
+	return r
+}
+
+func NewRegistrar(conf *conf.Registry) registry.Registrar {
+	c := consulAPI.DefaultConfig()
+	c.Address = conf.Consul.Address
+	c.Scheme = conf.Consul.Scheme
+	cli, err := consulAPI.NewClient(c)
+	if err != nil {
+		panic(err)
+	}
+	r := consul.New(cli, consul.WithHealthCheck(false))
 	return r
 }
 

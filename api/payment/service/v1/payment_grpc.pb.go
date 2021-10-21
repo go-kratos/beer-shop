@@ -31,7 +31,7 @@ func NewPaymentClient(cc grpc.ClientConnInterface) PaymentClient {
 
 func (c *paymentClient) PaymentAuth(ctx context.Context, in *PaymentAuthReq, opts ...grpc.CallOption) (*PaymentAuthReply, error) {
 	out := new(PaymentAuthReply)
-	err := c.cc.Invoke(ctx, "/cart.service.v1.Payment/PaymentAuth", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/payment.service.v1.Payment/PaymentAuth", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func _Payment_PaymentAuth_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cart.service.v1.Payment/PaymentAuth",
+		FullMethod: "/payment.service.v1.Payment/PaymentAuth",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServer).PaymentAuth(ctx, req.(*PaymentAuthReq))
@@ -88,7 +88,7 @@ func _Payment_PaymentAuth_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Payment_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "cart.service.v1.Payment",
+	ServiceName: "payment.service.v1.Payment",
 	HandlerType: (*PaymentServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
