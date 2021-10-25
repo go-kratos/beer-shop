@@ -14,7 +14,7 @@ import (
 	paymentv1 "github.com/go-kratos/beer-shop/api/payment/service/v1"
 	userv1 "github.com/go-kratos/beer-shop/api/user/service/v1"
 
-	consul "github.com/go-kratos/consul/registry"
+	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/google/wire"

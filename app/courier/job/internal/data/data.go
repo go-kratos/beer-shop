@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/Shopify/sarama"
 	orderv1 "github.com/go-kratos/beer-shop/api/order/service/v1"
-	consul "github.com/go-kratos/consul/registry"
+	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
