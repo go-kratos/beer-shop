@@ -2,12 +2,12 @@ import axios from 'axios';
 import {getToken} from "../auth";
 
 const service = axios.create({
-    baseURL: process.env.NODE_ENV=== "production" ? "//localhost:8000" : "//localhost:8000",
+    baseURL: process.env.NODE_ENV=== "production" ? "//localhost:8100" : "//localhost:8100",
     timeout: 1000,
 });
 
 service.interceptors.request.use(config => {
-    config.headers['token'] = getToken() || '';
+    config.headers['Authorization'] = 'Bearer ' + getToken() || '';
     return config;
 });
 

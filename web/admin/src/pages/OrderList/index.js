@@ -1,10 +1,18 @@
 import React, {useState, useEffect} from "react";
 import {Avatar, Button, List, PageHeader, Pagination, Skeleton} from "antd";
+import {listBeer} from "../../api/catalog";
+import {Link, useRouteMatch} from "react-router-dom";
 
-export default function Beer() {
-    const [beerList, setBeerList] = useState([]);
+export default function OrderList() {
+    const [orderList, setOrderList] = useState([]);
+    let {path, url} = useRouteMatch();
+
     useEffect(() => {
-        setBeerList([
+        // listBeer().then((res) => {
+        //     setBeerList(res.data.results)
+        // });
+
+        setOrderList([
             {
                 "id": 1,
                 "name": "cool beer1",
@@ -49,31 +57,27 @@ export default function Beer() {
             <PageHeader
                 ghost={false}
                 onBack={() => window.history.back()}
-                title="Beers"
-                extra={[
-                    <Button key="1" type="primary">
-                        New
-                    </Button>,
-                ]}
+                title="Order"
             />
-
-            <List
-                pagination={<Pagination defaultCurrent={1} total={50} />}
-                dataSource={beerList}
-                renderItem={(item, i) => (
-                    <List.Item
-                        actions={[<a key={i}>edit</a>]}
-                    >
-                        <Skeleton avatar title={false} loading={item.loading} active>
-                            <List.Item.Meta
-                                avatar={<Avatar shape="square" size={64} src={item.images[0]}/>}
-                                title={<a href="">{item.name}</a>}
-                                description={item.price}
-                            />
-                        </Skeleton>
-                    </List.Item>
-                )}
-            />
+            <div style={{background: "#fff"}}>
+                <List
+                    pagination={<Pagination defaultCurrent={1} total={50}/>}
+                    dataSource={orderList}
+                    renderItem={(item, i) => (
+                        <List.Item
+                            actions={[<a key={i}>edit</a>]}
+                        >
+                            <Skeleton avatar title={false} loading={item.loading} active>
+                                <List.Item.Meta
+                                    avatar={<Avatar shape="square" size={64} src={item.images[0]}/>}
+                                    title={<Link to={`${path}/${item.id}`}>{item.name}</Link>}
+                                    description={item.price}
+                                />
+                            </Skeleton>
+                        </List.Item>
+                    )}
+                />
+            </div>
         </div>
     )
 }
