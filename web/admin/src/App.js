@@ -25,7 +25,7 @@ import {
 import BeerDetail from "./pages/BeerDetail";
 import CustomerDetail from "./pages/CustomerDetail";
 import OrderDetail from "./pages/OrderDetail";
-import {renderRoutes} from "react-router-config";
+import {renderRoutes, matchRoutes} from "react-router-config";
 
 const {Header, Sider, Content} = Layout;
 
@@ -41,50 +41,48 @@ function Main(props) {
             exact: true,
             path: "/beers",
             component: BeerList,
-            routes: [
-                {
-                    exact: true,
-                    path: "/beers/:id",
-                    component: BeerDetail
-                },
-            ]
+        },
+        {
+            path: "/beers/:id",
+            component: BeerDetail
         },
         {
             name: "Customers",
             icon: <TeamOutlined/>,
             exact: true,
             path: "/customers", component: CustomerList,
-            routes: [
-                {
-                    exact: true,
-                    path: "/customers/:id", component: CustomerDetail
-                },
-            ]
+        },
+        {
+            path: "/customers/:id",
+            component: CustomerDetail
         },
         {
             name: "Orders", icon: <FileProtectOutlined/>,
             exact: true,
             path: "/orders",
             component: OrderList,
-            routes: [
-                {
-                    path: "/orders/:id",
-                    component: OrderDetail
-                },
-            ]
+        },
+        {
+            path: "/orders/:id",
+            component: OrderDetail
         },
     ];
+    const location = useLocation()
+    const branch = matchRoutes(routes, location.pathname)
+    const selectedPath = branch[0] ? branch[0].route.path : '/'
 
     return <Layout>
         <Sider theme="light" collapsible>
-            <Menu mode="inline">
-                {routes.map((x) =>
-                    <Menu.Item key={x.path} icon={x.icon}>
-                        <NavLink activeClassName='ant-menu-item-selected' to={x.path}>
-                            {x.name}
-                        </NavLink>
-                    </Menu.Item>
-                )}
+            <Menu mode="inline" selectedKeys={[selectedPath]}>
+                {routes.map((x) => {
+                    if (x.name) {
+                        return <Menu.Item key={x.path} icon={x.icon}>
+                            <NavLink to={x.path}>
+                                {x.name}
+                            </NavLink>
+                        </Menu.Item>
+                    }
+                })}
             </Menu>
         </Sider>
         <Layout style={{
