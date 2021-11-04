@@ -7,7 +7,7 @@ export default function ProductCard(props) {
     return (
         <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col cursor-pointer" onClick={()=>{history.push('/beer/'+props.data.id)}}>
                 <img className="hover:grow hover:shadow-lg object-cover h-full w-full"
-                     src="https://images.unsplash.com/photo-1588704487282-e7c55e0448bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=668&q=80"/>
+                     src={props.data.images[0]}/>
                     <div className="pt-3 flex items-center justify-between">
                         <p className="">{props.data.name}</p>
                         <svg className="h-6 w-6 fill-current text-gray-500 hover:text-black"

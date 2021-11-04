@@ -7,7 +7,7 @@ import {login} from "../../api/user";
 export default function BeerDetail(props) {
     const {id} = useParams();
     const [data, setData] = useState({});
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState(1);
 
     useEffect(() => {
         getBeerDetail(id).then((res)=>{
@@ -59,7 +59,7 @@ export default function BeerDetail(props) {
                             <span className="title-font font-medium text-2xl text-gray-900">{data.price}</span>
                             <button
                                 className="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded-none"
-                            onClick={()=>{handleSubmit()}}
+                            onClick={(evt)=>{handleSubmit(evt)}}
                             >Add to Cart</button>
                         </div>
                     </div>

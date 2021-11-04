@@ -1,5 +1,4 @@
 # 设计
-This project is a demonstration for building microservices system with golang and Kratos framework. 
 这是一个使用go语言和Kratos框架搭建的微服务演示项目。
 项目模拟销售啤酒的电商平台
 
