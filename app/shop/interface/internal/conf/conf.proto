@@ -55,6 +55,7 @@ message Registry {
 }
 
 message Auth {
-    string key = 1;
+    string service_key = 1;
+    string api_key = 2;
 }
 

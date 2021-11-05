@@ -1,12 +1,13 @@
 package data
 
 import (
+	"context"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
-
-	"context"
+	jwt2 "github.com/golang-jwt/jwt/v4"
 
 	cartv1 "github.com/go-kratos/beer-shop/api/cart/service/v1"
 	catalogv1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
@@ -80,7 +81,7 @@ func NewRegistrar(conf *conf.Registry) registry.Registrar {
 	return r
 }
 
-func NewUserServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) userv1.UserClient {
+func NewUserServiceClient(ac *conf.Auth, r registry.Discovery, tp *tracesdk.TracerProvider) userv1.UserClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
 		grpc.WithEndpoint("discovery:///beer.user.service"),
@@ -88,6 +89,9 @@ func NewUserServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) use
 		grpc.WithMiddleware(
 			tracing.Client(tracing.WithTracerProvider(tp)),
 			recovery.Recovery(),
+			jwt.Client(func(token *jwt2.Token) (interface{}, error) {
+				return []byte(ac.ServiceKey), nil
+			}, jwt.WithSigningMethod(jwt2.SigningMethodHS256)),
 		),
 	)
 	if err != nil {

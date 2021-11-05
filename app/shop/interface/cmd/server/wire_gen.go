@@ -21,7 +21,7 @@ import (
 // initApp init kratos application.
 func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, auth *conf.Auth, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
 	discovery := data.NewDiscovery(registry)
-	userClient := data.NewUserServiceClient(discovery, tracerProvider)
+	userClient := data.NewUserServiceClient(auth, discovery, tracerProvider)
 	cartClient := data.NewCartServiceClient(discovery, tracerProvider)
 	catalogClient := data.NewCatalogServiceClient(discovery, tracerProvider)
 	dataData, err := data.NewData(confData, logger, userClient, cartClient, catalogClient)
@@ -34,8 +34,8 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	catalogRepo := data.NewBeerRepo(dataData, logger)
 	catalogUseCase := biz.NewCatalogUseCase(catalogRepo, logger)
 	shopInterface := service.NewShopInterface(userUseCase, catalogUseCase, logger)
-	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopInterface)
-	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shopInterface)
+	httpServer := server.NewHTTPServer(confServer, auth, logger, tracerProvider, shopInterface)
+	grpcServer := server.NewGRPCServer(confServer, auth, logger, tracerProvider, shopInterface)
 	registrar := data.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
