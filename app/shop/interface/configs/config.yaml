@@ -16,4 +16,5 @@ data:
     read_timeout: 0.2s
     write_timeout: 0.2s
 auth:
-  key: some_jwt_sign_key
+  service_key: some_jwt_sign_key
+  api_key: some_api_key
