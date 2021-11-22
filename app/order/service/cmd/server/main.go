@@ -15,8 +15,7 @@ import (
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/sdk/resource"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
-	"go.opentelemetry.io/otel/semconv/v1.4.0"
-	"gopkg.in/yaml.v2"
+	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
@@ -59,7 +58,6 @@ func main() {
 		config.WithSource(
 			file.NewSource(flagconf),
 		),
-
 	)
 	if err := c.Load(); err != nil {
 		panic(err)
