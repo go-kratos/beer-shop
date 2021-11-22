@@ -61,9 +61,7 @@ func main() {
 		config.WithSource(
 			file.NewSource(flagconf),
 		),
-		config.WithDecoder(func(kv *config.KeyValue, v map[string]interface{}) error {
-			return yaml.Unmarshal(kv.Value, v)
-		}),
+
 	)
 	if err := c.Load(); err != nil {
 		panic(err)

@@ -34,10 +34,13 @@ function Main(props) {
         {
             name: "Dashboard",
             icon: <DashboardOutlined/>,
-            exact: true, path: "/", component: Dashboard,
+            exact: true,
+            path: "/",
+            component: Dashboard,
         },
         {
-            name: "Beers", icon: <AppstoreOutlined/>,
+            name: "Beers",
+            icon: <AppstoreOutlined/>,
             exact: true,
             path: "/beers",
             component: BeerList,
@@ -50,14 +53,16 @@ function Main(props) {
             name: "Customers",
             icon: <TeamOutlined/>,
             exact: true,
-            path: "/customers", component: CustomerList,
+            path: "/customers",
+            component: CustomerList,
         },
         {
             path: "/customers/:id",
             component: CustomerDetail
         },
         {
-            name: "Orders", icon: <FileProtectOutlined/>,
+            name: "Orders",
+            icon: <FileProtectOutlined/>,
             exact: true,
             path: "/orders",
             component: OrderList,
