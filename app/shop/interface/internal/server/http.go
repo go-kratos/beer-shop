@@ -5,7 +5,9 @@ import (
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
 	"github.com/go-kratos/swagger-api/openapiv2"
+	jwt2 "github.com/golang-jwt/jwt/v4"
 	"github.com/gorilla/handlers"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 
@@ -16,13 +18,16 @@ import (
 )
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.ShopInterface) *http.Server {
+func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, tp *tracesdk.TracerProvider, s *service.ShopInterface) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
 			tracing.Server(
 				tracing.WithTracerProvider(tp)),
 			logging.Server(logger),
+			jwt.Server(func(token *jwt2.Token) (interface{}, error) {
+				return []byte(ac.ApiKey), nil
+			}, jwt.WithSigningMethod(jwt2.SigningMethodHS256)),
 		),
 		http.Filter(handlers.CORS(
 			handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),

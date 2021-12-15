@@ -16,7 +16,6 @@ import (
 	"go.opentelemetry.io/otel/sdk/resource"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/semconv/v1.4.0"
-	"gopkg.in/yaml.v2"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
@@ -59,9 +58,6 @@ func main() {
 		config.WithSource(
 			file.NewSource(flagconf),
 		),
-		config.WithDecoder(func(kv *config.KeyValue, v map[string]interface{}) error {
-			return yaml.Unmarshal(kv.Value, v)
-		}),
 	)
 	if err := c.Load(); err != nil {
 		panic(err)

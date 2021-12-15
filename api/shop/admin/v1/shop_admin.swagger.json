@@ -170,59 +170,6 @@
         ]
       }
     },
-    "/admin/v1/customers": {
-      "get": {
-        "operationId": "ShopAdmin_ListCustomer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ListCustomerReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "ShopAdmin"
-        ]
-      }
-    },
-    "/admin/v1/customers/{id}": {
-      "get": {
-        "operationId": "ShopAdmin_GetCustomer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCustomerReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "ShopAdmin"
-        ]
-      }
-    },
     "/admin/v1/login": {
       "post": {
         "operationId": "ShopAdmin_Login",
@@ -304,6 +251,59 @@
             }
           }
         },
+        "tags": [
+          "ShopAdmin"
+        ]
+      }
+    },
+    "/admin/v1/users": {
+      "get": {
+        "operationId": "ShopAdmin_ListUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ShopAdmin"
+        ]
+      }
+    },
+    "/admin/v1/users/{id}": {
+      "get": {
+        "operationId": "ShopAdmin_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "ShopAdmin"
         ]
@@ -409,11 +409,20 @@
     "v1DeleteBeerReply": {
       "type": "object"
     },
-    "v1GetCustomerReply": {
-      "type": "object"
-    },
     "v1GetOrderReply": {
       "type": "object"
+    },
+    "v1GetUserReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
     },
     "v1ListBeerReply": {
       "type": "object",
@@ -426,10 +435,10 @@
         }
       }
     },
-    "v1ListCustomerReply": {
+    "v1ListOrderReply": {
       "type": "object"
     },
-    "v1ListOrderReply": {
+    "v1ListUserReply": {
       "type": "object"
     },
     "v1LoginReply": {

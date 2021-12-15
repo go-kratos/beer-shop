@@ -2,14 +2,14 @@ package main
 
 import (
 	"flag"
-	"github.com/go-kratos/kratos/v2"
-	"gopkg.in/yaml.v3"
 	"os"
+
+	"github.com/go-kratos/kratos/v2"
 
 	"github.com/go-kratos/kratos/v2/registry"
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/sdk/resource"
-	"go.opentelemetry.io/otel/semconv/v1.4.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 
 	"github.com/go-kratos/beer-shop/app/cart/service/internal/conf"
 
@@ -60,9 +60,6 @@ func main() {
 		config.WithSource(
 			file.NewSource(flagconf),
 		),
-		config.WithDecoder(func(kv *config.KeyValue, v map[string]interface{}) error {
-			return yaml.Unmarshal(kv.Value, v)
-		}),
 	)
 	if err := c.Load(); err != nil {
 		panic(err)

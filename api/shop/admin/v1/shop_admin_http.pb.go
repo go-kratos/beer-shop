@@ -20,11 +20,11 @@ const _ = http.SupportPackageIsVersion1
 type ShopAdminHTTPServer interface {
 	CreateBeer(context.Context, *CreateBeerReq) (*CreateBeerReply, error)
 	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
-	GetCustomer(context.Context, *GetCustomerReq) (*GetCustomerReply, error)
 	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
+	GetUser(context.Context, *GetUserReq) (*GetUserReply, error)
 	ListBeer(context.Context, *ListBeerReq) (*ListBeerReply, error)
-	ListCustomer(context.Context, *ListCustomerReq) (*ListCustomerReply, error)
 	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
+	ListUser(context.Context, *ListUserReq) (*ListUserReply, error)
 	Login(context.Context, *LoginReq) (*LoginReply, error)
 	Logout(context.Context, *LogoutReq) (*LogoutReply, error)
 	UpdateBeer(context.Context, *UpdateBeerReq) (*UpdateBeerReply, error)
@@ -40,8 +40,8 @@ func RegisterShopAdminHTTPServer(s *http.Server, srv ShopAdminHTTPServer) {
 	r.DELETE("/admin/v1/catalog/beers/{id}", _ShopAdmin_DeleteBeer0_HTTP_Handler(srv))
 	r.GET("/admin/v1/orders", _ShopAdmin_ListOrder0_HTTP_Handler(srv))
 	r.GET("/admin/v1/orders", _ShopAdmin_GetOrder0_HTTP_Handler(srv))
-	r.GET("/admin/v1/customers", _ShopAdmin_ListCustomer0_HTTP_Handler(srv))
-	r.GET("/admin/v1/customers/{id}", _ShopAdmin_GetCustomer0_HTTP_Handler(srv))
+	r.GET("/admin/v1/users", _ShopAdmin_ListUser0_HTTP_Handler(srv))
+	r.GET("/admin/v1/users/{id}", _ShopAdmin_GetUser0_HTTP_Handler(srv))
 }
 
 func _ShopAdmin_Login0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
@@ -202,43 +202,43 @@ func _ShopAdmin_GetOrder0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Co
 	}
 }
 
-func _ShopAdmin_ListCustomer0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
+func _ShopAdmin_ListUser0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListCustomerReq
+		var in ListUserReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, "/shop.admin.v1.ShopAdmin/ListCustomer")
+		http.SetOperation(ctx, "/shop.admin.v1.ShopAdmin/ListUser")
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListCustomer(ctx, req.(*ListCustomerReq))
+			return srv.ListUser(ctx, req.(*ListUserReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListCustomerReply)
+		reply := out.(*ListUserReply)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _ShopAdmin_GetCustomer0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
+func _ShopAdmin_GetUser0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in GetCustomerReq
+		var in GetUserReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, "/shop.admin.v1.ShopAdmin/GetCustomer")
+		http.SetOperation(ctx, "/shop.admin.v1.ShopAdmin/GetUser")
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetCustomer(ctx, req.(*GetCustomerReq))
+			return srv.GetUser(ctx, req.(*GetUserReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*GetCustomerReply)
+		reply := out.(*GetUserReply)
 		return ctx.Result(200, reply)
 	}
 }
@@ -246,11 +246,11 @@ func _ShopAdmin_GetCustomer0_HTTP_Handler(srv ShopAdminHTTPServer) func(ctx http
 type ShopAdminHTTPClient interface {
 	CreateBeer(ctx context.Context, req *CreateBeerReq, opts ...http.CallOption) (rsp *CreateBeerReply, err error)
 	DeleteBeer(ctx context.Context, req *DeleteBeerReq, opts ...http.CallOption) (rsp *DeleteBeerReply, err error)
-	GetCustomer(ctx context.Context, req *GetCustomerReq, opts ...http.CallOption) (rsp *GetCustomerReply, err error)
 	GetOrder(ctx context.Context, req *GetOrderReq, opts ...http.CallOption) (rsp *GetOrderReply, err error)
+	GetUser(ctx context.Context, req *GetUserReq, opts ...http.CallOption) (rsp *GetUserReply, err error)
 	ListBeer(ctx context.Context, req *ListBeerReq, opts ...http.CallOption) (rsp *ListBeerReply, err error)
-	ListCustomer(ctx context.Context, req *ListCustomerReq, opts ...http.CallOption) (rsp *ListCustomerReply, err error)
 	ListOrder(ctx context.Context, req *ListOrderReq, opts ...http.CallOption) (rsp *ListOrderReply, err error)
+	ListUser(ctx context.Context, req *ListUserReq, opts ...http.CallOption) (rsp *ListUserReply, err error)
 	Login(ctx context.Context, req *LoginReq, opts ...http.CallOption) (rsp *LoginReply, err error)
 	Logout(ctx context.Context, req *LogoutReq, opts ...http.CallOption) (rsp *LogoutReply, err error)
 	UpdateBeer(ctx context.Context, req *UpdateBeerReq, opts ...http.CallOption) (rsp *UpdateBeerReply, err error)
@@ -290,11 +290,11 @@ func (c *ShopAdminHTTPClientImpl) DeleteBeer(ctx context.Context, in *DeleteBeer
 	return &out, err
 }
 
-func (c *ShopAdminHTTPClientImpl) GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...http.CallOption) (*GetCustomerReply, error) {
-	var out GetCustomerReply
-	pattern := "/admin/v1/customers/{id}"
+func (c *ShopAdminHTTPClientImpl) GetOrder(ctx context.Context, in *GetOrderReq, opts ...http.CallOption) (*GetOrderReply, error) {
+	var out GetOrderReply
+	pattern := "/admin/v1/orders"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/GetCustomer"))
+	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/GetOrder"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -303,11 +303,11 @@ func (c *ShopAdminHTTPClientImpl) GetCustomer(ctx context.Context, in *GetCustom
 	return &out, err
 }
 
-func (c *ShopAdminHTTPClientImpl) GetOrder(ctx context.Context, in *GetOrderReq, opts ...http.CallOption) (*GetOrderReply, error) {
-	var out GetOrderReply
-	pattern := "/admin/v1/orders"
+func (c *ShopAdminHTTPClientImpl) GetUser(ctx context.Context, in *GetUserReq, opts ...http.CallOption) (*GetUserReply, error) {
+	var out GetUserReply
+	pattern := "/admin/v1/users/{id}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/GetOrder"))
+	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/GetUser"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -329,11 +329,11 @@ func (c *ShopAdminHTTPClientImpl) ListBeer(ctx context.Context, in *ListBeerReq,
 	return &out, err
 }
 
-func (c *ShopAdminHTTPClientImpl) ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...http.CallOption) (*ListCustomerReply, error) {
-	var out ListCustomerReply
-	pattern := "/admin/v1/customers"
+func (c *ShopAdminHTTPClientImpl) ListOrder(ctx context.Context, in *ListOrderReq, opts ...http.CallOption) (*ListOrderReply, error) {
+	var out ListOrderReply
+	pattern := "/admin/v1/orders"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/ListCustomer"))
+	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/ListOrder"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -342,11 +342,11 @@ func (c *ShopAdminHTTPClientImpl) ListCustomer(ctx context.Context, in *ListCust
 	return &out, err
 }
 
-func (c *ShopAdminHTTPClientImpl) ListOrder(ctx context.Context, in *ListOrderReq, opts ...http.CallOption) (*ListOrderReply, error) {
-	var out ListOrderReply
-	pattern := "/admin/v1/orders"
+func (c *ShopAdminHTTPClientImpl) ListUser(ctx context.Context, in *ListUserReq, opts ...http.CallOption) (*ListUserReply, error) {
+	var out ListUserReply
+	pattern := "/admin/v1/users"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/ListOrder"))
+	opts = append(opts, http.Operation("/shop.admin.v1.ShopAdmin/ListUser"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

@@ -4,7 +4,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-type Courier struct {
+type ShipOrder struct {
 	Id     int64
 	UserId int64
 }

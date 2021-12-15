@@ -7,7 +7,7 @@ services:
   web-admin:
     image: go-kratos/beer-web-admin:0.1.0
     ports:
-      - 80:80
+      - 81:81
   user-service:
     image: go-kratos/beer-user-service:0.1.0
     hostname: user-service

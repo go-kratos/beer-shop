@@ -2,10 +2,10 @@ trace:
   endpoint: http://127.0.0.1:14268/api/traces
 server:
   http:
-    addr: 0.0.0.0:8100
+    addr: 0.0.0.0:8000
     timeout: 1s
   grpc:
-    addr: 0.0.0.0:9100
+    addr: 0.0.0.0:9000
     timeout: 1s
 data:
   database:
@@ -16,4 +16,5 @@ data:
     read_timeout: 0.2s
     write_timeout: 0.2s
 auth:
-  key: some_jwt_sign_key
+  service_key: some_jwt_sign_key
+  api_key: some_api_key

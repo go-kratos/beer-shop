@@ -30,7 +30,9 @@ func initApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
 	userUseCase := biz.NewUserUseCase(userRepo, logger, userClient)
-	shopAdmin := service.NewShopAdmin(userUseCase, logger)
+	catalogRepo := data.NewCatalogRepo(dataData, logger)
+	catalogUseCase := biz.NewCatalogUseCase(catalogRepo, logger)
+	shopAdmin := service.NewShopAdmin(userUseCase, catalogUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, logger, tracerProvider, shopAdmin)
 	grpcServer := server.NewGRPCServer(confServer, logger, tracerProvider, shopAdmin)
 	registrar := data.NewRegistrar(registry)

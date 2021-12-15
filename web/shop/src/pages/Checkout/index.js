@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
 import Modal from "../../components/Modal";
+import {listCartItem} from "../../api/order"
+import {listCard} from "../../api/user"
+import {listAddress} from "../../api/user"
 
 export default function Checkout(props) {
     const [addrList, setAddrList] = useState([]);
@@ -9,20 +12,32 @@ export default function Checkout(props) {
 
 
     useEffect(() => {
+        listCartItem().then((res)=>{
+            setCartItemList(res.data.results)
+        });
+
+        listAddress().then((res)=>{
+            setAddrList(res.data.results)
+        });
+
+        listCard().then((res)=>{
+            setCardList(res.data.results)
+        });
+
         setAddrList([
             {
                 "id": 1,
                 "name": "Eric",
                 "mobile": "13012345678",
                 "address": "Some Road, Shanghai, China",
-                "post_code": 200000,
+                "postCode": 200000,
             },
             {
                 "id": 2,
                 "name": "Tony",
                 "mobile": "13000000000",
                 "address": "Some Road, Beijing, China",
-                "post_code": 100000,
+                "postCode": 100000,
             },
         ]);
 
@@ -30,12 +45,12 @@ export default function Checkout(props) {
             {
                 "id": 1,
                 "name": "Eric",
-                "card_no": "12345678",
+                "cardNo": "12345678",
             },
             {
                 "id": 1,
                 "name": "Tony",
-                "card_no": "88888888",
+                "cardNo": "88888888",
             },
         ]);
 
@@ -59,7 +74,7 @@ export default function Checkout(props) {
         ]);
 
         setTotal(100);
-    });
+    }, []);
 
 
     return <div className="container mx-auto bg-white max-w-screen-md">
@@ -90,7 +105,7 @@ export default function Checkout(props) {
                                     <td className="px-4 py-3">{x.name}</td>
                                     <td className="px-4 py-3">{x.mobile}</td>
                                     <td className="px-4 py-3">{x.address}</td>
-                                    <td className="px-4 py-3 text-lg text-gray-900">{x.post_code}</td>
+                                    <td className="px-4 py-3 text-lg text-gray-900">{x.postCode}</td>
                                     <td className="w-10 text-center">
                                         <input name="plan" type="radio"/>
                                     </td>
@@ -122,7 +137,7 @@ export default function Checkout(props) {
                             cardList && cardList.map((x) =>
                                 <tr>
                                     <td className="px-4 py-3">{x.name}</td>
-                                    <td className="px-4 py-3">{x.card_no}</td>
+                                    <td className="px-4 py-3">{x.cardNo}</td>
                                     <td className="w-10 text-center">
                                         <input name="plan" type="radio"/>
                                     </td>

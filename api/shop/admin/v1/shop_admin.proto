@@ -60,15 +60,15 @@ service ShopAdmin {
         };
     }
 
-    rpc ListCustomer (ListCustomerReq) returns (ListCustomerReply) {
+    rpc ListUser (ListUserReq) returns (ListUserReply) {
         option (google.api.http) = {
-            get: "/admin/v1/customers"
+            get: "/admin/v1/users"
         };
     }
 
-    rpc GetCustomer (GetCustomerReq) returns (GetCustomerReply) {
+    rpc GetUser (GetUserReq) returns (GetUserReply) {
         option (google.api.http) = {
-            get: "/admin/v1/customers/{id}"
+            get: "/admin/v1/users/{id}"
         };
     }
 }
@@ -108,6 +108,15 @@ message GetUserReq {
 message GetUserReply {
     int64 id = 1;
     string username = 2;
+}
+
+
+message ListUserReq {
+
+}
+
+message ListUserReply {
+
 }
 
 message CreateUserReq {
@@ -290,22 +299,6 @@ message ListOrderReq {
 }
 
 message ListOrderReply {
-
-}
-
-message ListCustomerReq {
-
-}
-
-message ListCustomerReply {
-
-}
-
-message GetCustomerReq {
-    int64 id = 1;
-}
-
-message GetCustomerReply {
 
 }
 

@@ -6,14 +6,14 @@ import {
     Route,
     Link,
     useLocation,
+    useRouteMatch, NavLink
 } from "react-router-dom"
-import {matchRoutes, renderRoutes} from "react-router-config";
 
 import {Layout, Menu, Avatar, Dropdown} from "antd";
 import Dashboard from "./pages/Dashboard";
-import Beer from "./pages/Beer";
-import Customer from "./pages/Customer";
-import Order from "./pages/Order";
+import BeerList from "./pages/BeerList";
+import CustomerList from "./pages/CustomerList";
+import OrderList from "./pages/OrderList";
 
 import {
     FileProtectOutlined,
@@ -22,29 +22,72 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import BeerDetail from "./pages/BeerDetail";
+import CustomerDetail from "./pages/CustomerDetail";
+import OrderDetail from "./pages/OrderDetail";
+import {renderRoutes, matchRoutes} from "react-router-config";
 
 const {Header, Sider, Content} = Layout;
 
 function Main(props) {
-    const location = useLocation();
     const routes = [
-        {name: "Dashboard", exact: true, path: "/", component: Dashboard, icon: <DashboardOutlined/>},
-        {name: "Beers", exact: true, path: "/beers", component: Beer, icon: <AppstoreOutlined />},
-        {name: "Customers", path: "/customers", component: Customer, icon: <TeamOutlined />},
-        {name: "Orders", path: "/orders", component: Order, icon: <FileProtectOutlined />},
+        {
+            name: "Dashboard",
+            icon: <DashboardOutlined/>,
+            exact: true,
+            path: "/",
+            component: Dashboard,
+        },
+        {
+            name: "Beers",
+            icon: <AppstoreOutlined/>,
+            exact: true,
+            path: "/beers",
+            component: BeerList,
+        },
+        {
+            path: "/beers/:id",
+            component: BeerDetail
+        },
+        {
+            name: "Customers",
+            icon: <TeamOutlined/>,
+            exact: true,
+            path: "/customers",
+            component: CustomerList,
+        },
+        {
+            path: "/customers/:id",
+            component: CustomerDetail
+        },
+        {
+            name: "Orders",
+            icon: <FileProtectOutlined/>,
+            exact: true,
+            path: "/orders",
+            component: OrderList,
+        },
+        {
+            path: "/orders/:id",
+            component: OrderDetail
+        },
     ];
-    const branch = matchRoutes(routes, location.pathname);
-    const selectedPath = branch[0] ? branch[0].route.path : "/";
+    const location = useLocation()
+    const branch = matchRoutes(routes, location.pathname)
+    const selectedPath = branch[0] ? branch[0].route.path : '/'
+
     return <Layout>
         <Sider theme="light" collapsible>
             <Menu mode="inline" selectedKeys={[selectedPath]}>
-                {routes.map((x) =>
-                    <Menu.Item key={x.path} icon={x.icon}>
-                        <Link to={x.path}>
-                            {x.name}
-                        </Link>
-                    </Menu.Item>
-                )}
+                {routes.map((x) => {
+                    if (x.name) {
+                        return <Menu.Item key={x.path} icon={x.icon}>
+                            <NavLink to={x.path}>
+                                {x.name}
+                            </NavLink>
+                        </Menu.Item>
+                    }
+                })}
             </Menu>
         </Sider>
         <Layout style={{

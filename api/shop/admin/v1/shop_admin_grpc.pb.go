@@ -26,8 +26,8 @@ type ShopAdminClient interface {
 	DeleteBeer(ctx context.Context, in *DeleteBeerReq, opts ...grpc.CallOption) (*DeleteBeerReply, error)
 	ListOrder(ctx context.Context, in *ListOrderReq, opts ...grpc.CallOption) (*ListOrderReply, error)
 	GetOrder(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderReply, error)
-	ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...grpc.CallOption) (*ListCustomerReply, error)
-	GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...grpc.CallOption) (*GetCustomerReply, error)
+	ListUser(ctx context.Context, in *ListUserReq, opts ...grpc.CallOption) (*ListUserReply, error)
+	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error)
 }
 
 type shopAdminClient struct {
@@ -110,18 +110,18 @@ func (c *shopAdminClient) GetOrder(ctx context.Context, in *GetOrderReq, opts ..
 	return out, nil
 }
 
-func (c *shopAdminClient) ListCustomer(ctx context.Context, in *ListCustomerReq, opts ...grpc.CallOption) (*ListCustomerReply, error) {
-	out := new(ListCustomerReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListCustomer", in, out, opts...)
+func (c *shopAdminClient) ListUser(ctx context.Context, in *ListUserReq, opts ...grpc.CallOption) (*ListUserReply, error) {
+	out := new(ListUserReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopAdminClient) GetCustomer(ctx context.Context, in *GetCustomerReq, opts ...grpc.CallOption) (*GetCustomerReply, error) {
-	out := new(GetCustomerReply)
-	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetCustomer", in, out, opts...)
+func (c *shopAdminClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserReply, error) {
+	out := new(GetUserReply)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,8 +140,8 @@ type ShopAdminServer interface {
 	DeleteBeer(context.Context, *DeleteBeerReq) (*DeleteBeerReply, error)
 	ListOrder(context.Context, *ListOrderReq) (*ListOrderReply, error)
 	GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error)
-	ListCustomer(context.Context, *ListCustomerReq) (*ListCustomerReply, error)
-	GetCustomer(context.Context, *GetCustomerReq) (*GetCustomerReply, error)
+	ListUser(context.Context, *ListUserReq) (*ListUserReply, error)
+	GetUser(context.Context, *GetUserReq) (*GetUserReply, error)
 	mustEmbedUnimplementedShopAdminServer()
 }
 
@@ -173,11 +173,11 @@ func (UnimplementedShopAdminServer) ListOrder(context.Context, *ListOrderReq) (*
 func (UnimplementedShopAdminServer) GetOrder(context.Context, *GetOrderReq) (*GetOrderReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
-func (UnimplementedShopAdminServer) ListCustomer(context.Context, *ListCustomerReq) (*ListCustomerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListCustomer not implemented")
+func (UnimplementedShopAdminServer) ListUser(context.Context, *ListUserReq) (*ListUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUser not implemented")
 }
-func (UnimplementedShopAdminServer) GetCustomer(context.Context, *GetCustomerReq) (*GetCustomerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCustomer not implemented")
+func (UnimplementedShopAdminServer) GetUser(context.Context, *GetUserReq) (*GetUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedShopAdminServer) mustEmbedUnimplementedShopAdminServer() {}
 
@@ -336,38 +336,38 @@ func _ShopAdmin_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_ListCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListCustomerReq)
+func _ShopAdmin_ListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).ListCustomer(ctx, in)
+		return srv.(ShopAdminServer).ListUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/ListCustomer",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).ListCustomer(ctx, req.(*ListCustomerReq))
+		return srv.(ShopAdminServer).ListUser(ctx, req.(*ListUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShopAdmin_GetCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCustomerReq)
+func _ShopAdmin_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopAdminServer).GetCustomer(ctx, in)
+		return srv.(ShopAdminServer).GetUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/shop.admin.v1.ShopAdmin/GetCustomer",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopAdminServer).GetCustomer(ctx, req.(*GetCustomerReq))
+		return srv.(ShopAdminServer).GetUser(ctx, req.(*GetUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -412,12 +412,12 @@ var ShopAdmin_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ShopAdmin_GetOrder_Handler,
 		},
 		{
-			MethodName: "ListCustomer",
-			Handler:    _ShopAdmin_ListCustomer_Handler,
+			MethodName: "ListUser",
+			Handler:    _ShopAdmin_ListUser_Handler,
 		},
 		{
-			MethodName: "GetCustomer",
-			Handler:    _ShopAdmin_GetCustomer_Handler,
+			MethodName: "GetUser",
+			Handler:    _ShopAdmin_GetUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1,13 +1,26 @@
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {
+    NavLink, useHistory,
+} from "react-router-dom"
+import {login} from "../../api/user";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
     const handleSubmit = (event) => {
-        console.log("email", email);
         event.preventDefault();
+        login(username, password).then(
+            ()=>{
+                console.log("ok!");
+                history.push('/');
+            }
+        ).catch(
+            ()=>{
+                console.log("err!")
+            },
+        )
     };
 
      return (
@@ -18,9 +31,9 @@ export default function Login() {
                      <p className="text-center text-3xl">Welcome.</p>
                      <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
                          <div className="flex flex-col pt-4">
-                             <label htmlFor="email" className="text-lg">Email</label>
-                             <input type="email" id="email" placeholder="your@email.com"
-                                    onChange={(evt) => setEmail(evt.target.value)} value={email}
+                             <label htmlFor="name" className="text-lg">Username</label>
+                             <input type="text" id="name" placeholder="Tony"
+                                    onChange={(evt) => setUsername(evt.target.value)} value={username}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
                          </div>
 
