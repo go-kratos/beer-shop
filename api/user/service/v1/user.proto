@@ -8,37 +8,43 @@ option go_package = "api/user/service/v1;v1";
 
 
 service User {
-    rpc GetUser (GetUserReq) returns (GetUserReply) {
+    rpc GetUser(GetUserReq) returns (GetUserReply) {
     }
 
-    rpc CreateUser (CreateUserReq) returns (CreateUserReply) {
+    rpc GetUserByUsername(GetUserByUsernameReq) returns (GetUserByUsernameReply) {
     }
 
-    rpc ListUser (ListUserReq) returns (ListUserReply) {
+    rpc Save(SaveUserReq) returns (SaveUserReply) {
     }
 
-    rpc VerifyPassword (VerifyPasswordReq) returns (VerifyPasswordReply) {
+    rpc CreateUser(CreateUserReq) returns (CreateUserReply) {
     }
 
-    rpc ListAddress (ListAddressReq) returns (ListAddressReply) {
+    rpc ListUser(ListUserReq) returns (ListUserReply) {
     }
 
-    rpc CreateAddress (CreateAddressReq) returns (CreateAddressReply) {
+    rpc VerifyPassword(VerifyPasswordReq) returns (VerifyPasswordReply) {
     }
 
-    rpc GetAddress (GetAddressReq) returns (GetAddressReply) {
+    rpc ListAddress(ListAddressReq) returns (ListAddressReply) {
     }
 
-    rpc ListCard (ListCardReq) returns (ListCardReply) {
+    rpc CreateAddress(CreateAddressReq) returns (CreateAddressReply) {
     }
 
-    rpc CreateCard (CreateCardReq) returns (CreateCardReply) {
+    rpc GetAddress(GetAddressReq) returns (GetAddressReply) {
     }
 
-    rpc GetCard (GetCardReq) returns (GetCardReply) {
+    rpc ListCard(ListCardReq) returns (ListCardReply) {
     }
 
-    rpc DeleteCard (DeleteCardReq) returns (DeleteCardReply) {
+    rpc CreateCard(CreateCardReq) returns (CreateCardReply) {
+    }
+
+    rpc GetCard(GetCardReq) returns (GetCardReply) {
+    }
+
+    rpc DeleteCard(DeleteCardReq) returns (DeleteCardReply) {
     }
 
 }
@@ -48,6 +54,15 @@ message GetUserReq {
 }
 
 message GetUserReply {
+    int64 id = 1;
+    string username = 2;
+}
+
+message GetUserByUsernameReq {
+    string username = 1;
+}
+
+message GetUserByUsernameReply {
     int64 id = 1;
     string username = 2;
 }
@@ -171,3 +186,14 @@ message DeleteCardReq {
 message DeleteCardReply {
     bool ok = 1;
 }
+
+message SaveUserReq {
+    int64 id = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message SaveUserReply {
+    int64 id = 1;
+}
+

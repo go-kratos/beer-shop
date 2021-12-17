@@ -71,14 +71,11 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rpcStatus": {
       "type": "object",
@@ -187,6 +184,18 @@
         }
       }
     },
+    "v1GetUserByUsernameReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
     "v1GetUserReply": {
       "type": "object",
       "properties": {
@@ -229,6 +238,15 @@
           "items": {
             "$ref": "#/definitions/ListUserReplyUser"
           }
+        }
+      }
+    },
+    "v1SaveUserReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },

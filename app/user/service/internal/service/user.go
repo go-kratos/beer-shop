@@ -35,3 +35,11 @@ func (s *UserService) VerifyPassword(ctx context.Context, req *v1.VerifyPassword
 		Ok: rv,
 	}, err
 }
+
+func (s *UserService) GetUserByUsername(ctx context.Context, in *v1.GetUserByUsernameReq) (*v1.GetUserByUsernameReply, error) {
+	return s.uc.GetUserByUsername(ctx, in)
+}
+
+func (s *UserService) Save(ctx context.Context, in *v1.SaveUserReq) (*v1.SaveUserReply, error) {
+	return s.uc.Save(ctx, in)
+}

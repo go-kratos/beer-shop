@@ -37,3 +37,12 @@ func IsUsernameConflict(err error) bool {
 func ErrorUsernameConflict(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ShopInterfaceErrorReason_USERNAME_CONFLICT.String(), fmt.Sprintf(format, args...))
 }
+
+func IsRegisterFailed(err error) bool {
+	e := errors.FromError(err)
+	return e.Reason == ShopInterfaceErrorReason_REGISTER_FAILED.String() && e.Code == 541
+}
+
+func ErrorRegisterFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(541, ShopInterfaceErrorReason_REGISTER_FAILED.String(), fmt.Sprintf(format, args...))
+}
