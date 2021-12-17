@@ -16,5 +16,5 @@ data:
     read_timeout: 0.2s
     write_timeout: 0.2s
 auth:
-  service_key: some_jwt_sign_key
-  api_key: some_api_key
+  service_key: some-secret-key
+  api_key: some-secret-key-for-forntend

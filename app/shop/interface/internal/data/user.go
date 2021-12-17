@@ -2,8 +2,6 @@ package data
 
 import (
 	"context"
-	"errors"
-
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 
@@ -24,37 +22,50 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 	}
 }
 
-func (rp *userRepo) Register(ctx context.Context, u *biz.User) (*biz.User, error) {
-	reply, err := rp.data.uc.CreateUser(ctx, &usV1.CreateUserReq{
+func (rp *userRepo) VerifyPassword(ctx context.Context, u *biz.User, password string) error {
+	_, err := rp.data.uc.VerifyPassword(ctx, &usV1.VerifyPasswordReq{
 		Username: u.Username,
-		Password: u.Password,
+		Password: password,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
-
-	return &biz.User{
-		Id:       reply.Id,
-		Username: reply.Username,
-	}, err
-}
-
-func (rp *userRepo) Login(ctx context.Context, u *biz.User) (string, error) {
-	reply, err := rp.data.uc.VerifyPassword(ctx, &usV1.VerifyPasswordReq{
-		Username: u.Username,
-		Password: u.Password,
-	})
-	if err != nil {
-		return "", err
-	}
-	if reply.Ok {
-		return "some_token", nil
-	}
-	return "", errors.New("login failed")
-}
-
-func (rp *userRepo) Logout(ctx context.Context, u *biz.User) error {
 	return nil
+}
+
+func (rp *userRepo) Find(ctx context.Context, id int64) (*biz.User, error) {
+	user, err := rp.data.uc.GetUser(ctx, &usV1.GetUserReq{
+		Id: id,
+	})
+	if err != nil {
+		return nil, biz.ErrUserNotFound
+	}
+	return &biz.User{
+		Id:       user.Id,
+		Username: user.Username,
+	}, nil
+}
+
+func (rp *userRepo) FindByUsername(ctx context.Context, username string) (*biz.User, error) {
+	user, err := rp.data.uc.GetUserByUsername(ctx, &usV1.GetUserByUsernameReq{
+		Username: username,
+	})
+	if err != nil {
+		return nil, biz.ErrUserNotFound
+	}
+	return &biz.User{
+		Id:       user.Id,
+		Username: user.Username,
+	}, nil
+}
+
+func (rp *userRepo) Save(ctx context.Context, u *biz.User) error {
+	_, err := rp.data.uc.Save(ctx, &usV1.SaveUserReq{
+		Id:       u.Id,
+		Username: u.Username,
+		Password: u.Password,
+	})
+	return err
 }
 
 func (rp *userRepo) CreateAddress(ctx context.Context, uid int64, a *biz.Address) (*biz.Address, error) {

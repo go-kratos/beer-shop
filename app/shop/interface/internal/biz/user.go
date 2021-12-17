@@ -2,7 +2,15 @@ package biz
 
 import (
 	"context"
+	"errors"
 	"github.com/go-kratos/kratos/v2/log"
+	"math/rand"
+)
+
+var (
+	ErrPasswordInvalid = errors.New("password invalid")
+	ErrUsernameInvalid = errors.New("username invalid")
+	ErrUserNotFound    = errors.New("user not found")
 )
 
 type User struct {
@@ -26,9 +34,33 @@ type Card struct {
 	Expires string
 }
 
+func NewUser(
+	username string,
+	password string,
+) (User, error) {
+
+	// check username
+	if len(username) <= 0 {
+		return User{}, ErrUsernameInvalid
+	}
+	// check password
+	if len(password) <= 0 {
+		return User{}, ErrPasswordInvalid
+	}
+
+	return User{
+		Id:       rand.Int63(),
+		Username: username,
+		Password: password,
+	}, nil
+}
+
 type UserRepo interface {
-	Register(ctx context.Context, u *User) (*User, error)
-	Login(ctx context.Context, u *User) (string, error)
+	Find(ctx context.Context, id int64) (*User, error)
+	FindByUsername(ctx context.Context, username string) (*User, error)
+	Save(ctx context.Context, u *User) error
+
+	VerifyPassword(ctx context.Context, u *User, password string) error
 
 	CreateAddress(ctx context.Context, uid int64, a *Address) (*Address, error)
 	GetAddress(ctx context.Context, id int64) (*Address, error)
@@ -52,18 +84,6 @@ func NewUserUseCase(repo UserRepo, logger log.Logger, authUc *AuthUseCase) *User
 		log:    log,
 		authUc: authUc,
 	}
-}
-
-func (uc *UserUseCase) Register(ctx context.Context, u *User) (*User, error) {
-	return uc.repo.Register(ctx, u)
-}
-
-func (uc *UserUseCase) Login(ctx context.Context, u *User) (string, error) {
-	token, err := uc.repo.Login(ctx, u)
-	if err != nil {
-		return token, err
-	}
-	return uc.authUc.Auth(u.Id)
 }
 
 func (uc *UserUseCase) Logout(ctx context.Context, u *User) error {

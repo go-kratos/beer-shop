@@ -7,26 +7,11 @@ import (
 )
 
 func (s *ShopInterface) Register(ctx context.Context, req *v1.RegisterReq) (*v1.RegisterReply, error) {
-	rv, err := s.uc.Register(ctx, &biz.User{
-		Username: req.Username,
-		Password: req.Password,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return &v1.RegisterReply{
-		Id: rv.Id,
-	}, err
+	return s.ac.Register(ctx, req)
 }
 
 func (s *ShopInterface) Login(ctx context.Context, req *v1.LoginReq) (*v1.LoginReply, error) {
-	rv, err := s.uc.Login(ctx, &biz.User{
-		Username: req.Username,
-		Password: req.Password,
-	})
-	return &v1.LoginReply{
-		Token: rv,
-	}, err
+	return s.ac.Login(ctx, req)
 }
 
 func (s *ShopInterface) Logout(ctx context.Context, req *v1.LogoutReq) (*v1.LogoutReply, error) {
