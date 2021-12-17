@@ -22,6 +22,22 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 	}
 }
 
+func (r *userRepo) FindByUsername(ctx context.Context, username string) (*biz.User, error) {
+	target, err := r.data.db.User.
+		Query().
+		Where(user.UsernameEQ(username)).
+		Only(ctx)
+
+	if err != nil {
+		return nil, biz.ErrUserNotFound
+	}
+	return &biz.User{
+		Id:       target.ID,
+		Username: target.Username,
+		Password: target.PasswordHash,
+	}, nil
+}
+
 func (r *userRepo) CreateUser(ctx context.Context, u *biz.User) (*biz.User, error) {
 	ph, err := util.HashPassword(u.Password)
 	if err != nil {
