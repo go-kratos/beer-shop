@@ -28,8 +28,8 @@ func NewCardUseCase(repo CardRepo, logger log.Logger) *CardUseCase {
 	return &CardUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/card"))}
 }
 
-func (uc *CardUseCase) Create(ctx context.Context, u *Card) (*Card, error) {
-	return uc.repo.CreateCard(ctx, u)
+func (uc *CardUseCase) Create(ctx context.Context, c *Card) (*Card, error) {
+	return uc.repo.CreateCard(ctx, c)
 }
 
 func (uc *CardUseCase) Get(ctx context.Context, id int64) (*Card, error) {

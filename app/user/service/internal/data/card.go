@@ -2,11 +2,11 @@ package data
 
 import (
 	"context"
+
+	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/user"
 
 	"github.com/go-kratos/kratos/v2/log"
-
-	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 )
 
 var _ biz.CardRepo = (*cardRepo)(nil)
@@ -23,12 +23,12 @@ func NewCardRepo(data *Data, logger log.Logger) biz.CardRepo {
 	}
 }
 
-func (r *cardRepo) CreateCard(ctx context.Context, a *biz.Card) (*biz.Card, error) {
+func (r *cardRepo) CreateCard(ctx context.Context, c *biz.Card) (*biz.Card, error) {
 	po, err := r.data.db.Card.
 		Create().
-		SetCardNo(a.CardNo).
-		SetCcv(a.CCV).
-		SetExpires(a.Expires).
+		SetCardNo(c.CardNo).
+		SetCcv(c.CCV).
+		SetExpires(c.Expires).
 		Save(ctx)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (r *cardRepo) GetCard(ctx context.Context, id int64) (*biz.Card, error) {
 		CardNo:  po.CardNo,
 		CCV:     po.Ccv,
 		Expires: po.Expires,
-	}, err
+	}, nil
 }
 
 func (r *cardRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error) {
@@ -72,5 +72,5 @@ func (r *cardRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error)
 			Expires: po.Expires,
 		})
 	}
-	return rv, err
+	return rv, nil
 }

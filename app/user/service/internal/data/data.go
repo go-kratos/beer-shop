@@ -2,13 +2,13 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/migrate"
-
-	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent"
-	"github.com/go-kratos/kratos/v2/log"
-	"github.com/google/wire"
 
 	"github.com/go-kratos/beer-shop/app/user/service/internal/conf"
+	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent"
+	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/migrate"
+
+	"github.com/go-kratos/kratos/v2/log"
+	"github.com/google/wire"
 
 	// init mysql driver
 	_ "github.com/go-sql-driver/mysql"

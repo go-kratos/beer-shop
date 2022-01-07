@@ -3,9 +3,9 @@ package data
 import (
 	"context"
 
-	"github.com/go-kratos/kratos/v2/log"
-
 	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
+
+	"github.com/go-kratos/kratos/v2/log"
 )
 
 var _ biz.AddressRepo = (*addressRepo)(nil)
@@ -30,13 +30,16 @@ func (r *addressRepo) CreateAddress(ctx context.Context, a *biz.Address) (*biz.A
 		SetMobile(a.Mobile).
 		SetPostCode(a.PostCode).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
 	return &biz.Address{
 		Id:       po.ID,
 		Name:     po.Name,
 		Mobile:   po.Mobile,
 		PostCode: po.PostCode,
 		Address:  po.Address,
-	}, err
+	}, nil
 }
 
 func (r *addressRepo) GetAddress(ctx context.Context, id int64) (*biz.Address, error) {
@@ -50,7 +53,7 @@ func (r *addressRepo) GetAddress(ctx context.Context, id int64) (*biz.Address, e
 		Mobile:   po.Mobile,
 		PostCode: po.PostCode,
 		Address:  po.Address,
-	}, err
+	}, nil
 }
 
 func (r *addressRepo) ListAddress(ctx context.Context, uid int64) ([]*biz.Address, error) {
@@ -68,5 +71,5 @@ func (r *addressRepo) ListAddress(ctx context.Context, uid int64) ([]*biz.Addres
 			Address:  po.Address,
 		})
 	}
-	return rv, err
+	return rv, nil
 }
