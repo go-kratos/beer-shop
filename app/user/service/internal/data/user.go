@@ -2,9 +2,11 @@ package data
 
 import (
 	"context"
+
 	"github.com/go-kratos/beer-shop/app/user/service/internal/biz"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/data/ent/user"
 	"github.com/go-kratos/beer-shop/app/user/service/internal/pkg/util"
+
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -51,7 +53,7 @@ func (r *userRepo) CreateUser(ctx context.Context, u *biz.User) (*biz.User, erro
 	if err != nil {
 		return nil, err
 	}
-	return &biz.User{Id: po.ID, Username: po.Username}, err
+	return &biz.User{Id: po.ID, Username: po.Username}, nil
 }
 
 func (r *userRepo) GetUser(ctx context.Context, id int64) (*biz.User, error) {
@@ -59,7 +61,7 @@ func (r *userRepo) GetUser(ctx context.Context, id int64) (*biz.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &biz.User{Id: po.ID, Username: po.Username}, err
+	return &biz.User{Id: po.ID, Username: po.Username}, nil
 }
 
 func (r *userRepo) VerifyPassword(ctx context.Context, u *biz.User) (bool, error) {
