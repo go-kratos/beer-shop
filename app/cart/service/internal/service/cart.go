@@ -21,13 +21,15 @@ func (s *CartService) GetCart(ctx context.Context, req *v1.GetCartReq) (reply *v
 				Quantity: x.Quantity,
 			})
 	}
-	return reply, err
+	return reply, nil
 }
+
 func (s *CartService) DeleteCart(ctx context.Context, req *v1.DeleteCartReq) (reply *v1.DeleteCartReply, err error) {
 	reply = &v1.DeleteCartReply{}
 	err = s.cc.DeleteCart(ctx, req.UserId)
 	return reply, err
 }
+
 func (s *CartService) AddItem(ctx context.Context, req *v1.AddItemReq) (reply *v1.AddItemReply, err error) {
 	reply = &v1.AddItemReply{}
 	c, err := s.cc.AddItem(ctx, req.UserId, biz.Item{Id: req.ItemId, Quantity: req.Quantity})
@@ -42,9 +44,9 @@ func (s *CartService) AddItem(ctx context.Context, req *v1.AddItemReq) (reply *v
 				Quantity: x.Quantity,
 			})
 	}
-	return reply, err
-	return
+	return reply, nil
 }
+
 func (s *CartService) UpdateItem(ctx context.Context, req *v1.UpdateItemReq) (reply *v1.UpdateItemReply, err error) {
 	reply = &v1.UpdateItemReply{}
 	c, err := s.cc.UpdateItem(ctx, req.UserId, req.ItemId, req.Quantity)
@@ -59,9 +61,9 @@ func (s *CartService) UpdateItem(ctx context.Context, req *v1.UpdateItemReq) (re
 				Quantity: x.Quantity,
 			})
 	}
-	return reply, err
-	return
+	return reply, nil
 }
+
 func (s *CartService) DeleteItem(ctx context.Context, req *v1.DeleteItemReq) (reply *v1.DeleteItemReply, err error) {
 	reply = &v1.DeleteItemReply{}
 	c, err := s.cc.DeleteItem(ctx, req.UserId, req.ItemId)
@@ -69,6 +71,7 @@ func (s *CartService) DeleteItem(ctx context.Context, req *v1.DeleteItemReq) (re
 		//fixme convert to error msg
 		return reply, err
 	}
+
 	for _, x := range c.Items {
 		reply.Items = append(reply.Items,
 			&v1.DeleteItemReply_Item{
@@ -76,5 +79,5 @@ func (s *CartService) DeleteItem(ctx context.Context, req *v1.DeleteItemReq) (re
 				Quantity: x.Quantity,
 			})
 	}
-	return reply, err
+	return reply, nil
 }

@@ -2,10 +2,11 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
-	"github.com/go-kratos/kratos/v2/log"
 
 	usV1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
+
+	"github.com/go-kratos/kratos/v2/log"
 )
 
 var _ biz.UserRepo = (*userRepo)(nil)
@@ -103,7 +104,7 @@ func (rp *userRepo) GetAddress(ctx context.Context, id int64) (*biz.Address, err
 		Mobile:   reply.Mobile,
 		Address:  reply.Address,
 		PostCode: reply.PostCode,
-	}, err
+	}, nil
 }
 
 func (rp *userRepo) ListAddress(ctx context.Context, uid int64) ([]*biz.Address, error) {
@@ -123,7 +124,7 @@ func (rp *userRepo) ListAddress(ctx context.Context, uid int64) ([]*biz.Address,
 			PostCode: x.PostCode,
 		})
 	}
-	return rv, err
+	return rv, nil
 }
 
 func (rp *userRepo) CreateCard(ctx context.Context, uid int64, c *biz.Card) (*biz.Card, error) {
@@ -139,7 +140,7 @@ func (rp *userRepo) CreateCard(ctx context.Context, uid int64, c *biz.Card) (*bi
 
 	return &biz.Card{
 		Id: reply.Id,
-	}, err
+	}, nil
 }
 
 func (rp *userRepo) GetCard(ctx context.Context, id int64) (*biz.Card, error) {
@@ -153,7 +154,7 @@ func (rp *userRepo) GetCard(ctx context.Context, id int64) (*biz.Card, error) {
 	return &biz.Card{
 		Id:     reply.Id,
 		CardNo: reply.CardNo,
-	}, err
+	}, nil
 }
 
 func (rp *userRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error) {
@@ -163,6 +164,7 @@ func (rp *userRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error
 	if err != nil {
 		return nil, err
 	}
+
 	rv := make([]*biz.Card, 0)
 	for _, x := range reply.Results {
 		rv = append(rv, &biz.Card{
@@ -170,5 +172,5 @@ func (rp *userRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error
 			CardNo: x.CardNo,
 		})
 	}
-	return rv, err
+	return rv, nil
 }

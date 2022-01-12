@@ -2,7 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/api/shop/interface/v1"
+
+	v1 "github.com/go-kratos/beer-shop/api/shop/interface/v1"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/biz"
 )
 
@@ -43,24 +44,35 @@ func (s *ShopInterface) CreateAddress(ctx context.Context, req *v1.CreateAddress
 		Address:  req.Address,
 		PostCode: req.PostCode,
 	})
+	if err != nil {
+		return nil, err
+	}
 	return &v1.CreateAddressReply{
 		Id: rv.Id,
-	}, err
+	}, nil
 }
 
 func (s *ShopInterface) GetAddress(ctx context.Context, req *v1.GetAddressReq) (*v1.GetAddressReply, error) {
 	x, err := s.uc.GetAddress(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.GetAddressReply{
 		Id:       x.Id,
 		Name:     x.Name,
 		Mobile:   x.Mobile,
 		Address:  x.Address,
 		PostCode: x.PostCode,
-	}, err
+	}, nil
 }
 
 func (s *ShopInterface) ListCard(ctx context.Context, req *v1.ListCardReq) (*v1.ListCardReply, error) {
 	rv, err := s.uc.ListCard(ctx, req.Uid)
+	if err != nil {
+		return nil, err
+	}
+
 	rs := make([]*v1.ListCardReply_Card, 0)
 	for _, x := range rv {
 		rs = append(rs, &v1.ListCardReply_Card{
@@ -72,7 +84,7 @@ func (s *ShopInterface) ListCard(ctx context.Context, req *v1.ListCardReq) (*v1.
 	}
 	return &v1.ListCardReply{
 		Results: rs,
-	}, err
+	}, nil
 }
 
 func (s *ShopInterface) CreateCard(ctx context.Context, req *v1.CreateCardReq) (*v1.CreateCardReply, error) {
@@ -81,19 +93,27 @@ func (s *ShopInterface) CreateCard(ctx context.Context, req *v1.CreateCardReq) (
 		CCV:     req.Ccv,
 		Expires: req.Expires,
 	})
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.CreateCardReply{
 		Id: rv.Id,
-	}, err
+	}, nil
 }
 
 func (s *ShopInterface) GetCard(ctx context.Context, req *v1.GetCardReq) (*v1.GetCardReply, error) {
 	rv, err := s.uc.GetCard(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.GetCardReply{
 		Id:      rv.Id,
 		CardNo:  rv.CardNo,
 		Ccv:     rv.CCV,
 		Expires: rv.Expires,
-	}, err
+	}, nil
 }
 
 func (s *ShopInterface) DeleteCard(ctx context.Context, req *v1.DeleteCardReq) (*v1.DeleteCardReply, error) {

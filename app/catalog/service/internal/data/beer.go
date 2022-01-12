@@ -3,11 +3,10 @@ package data
 import (
 	"context"
 
+	"github.com/go-kratos/beer-shop/app/catalog/service/internal/biz"
 	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 
 	"github.com/go-kratos/kratos/v2/log"
-
-	"github.com/go-kratos/beer-shop/app/catalog/service/internal/biz"
 )
 
 var _ biz.BeerRepo = (*beerRepo)(nil)
@@ -32,12 +31,16 @@ func (r *beerRepo) CreateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, erro
 		SetCount(b.Count).
 		SetImages(b.Images).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	return &biz.Beer{
 		Id:          po.ID,
 		Description: po.Description,
 		Count:       po.Count,
 		Images:      po.Images,
-	}, err
+	}, nil
 }
 
 func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
@@ -50,7 +53,7 @@ func (r *beerRepo) GetBeer(ctx context.Context, id int64) (*biz.Beer, error) {
 		Description: po.Description,
 		Count:       po.Count,
 		Images:      po.Images,
-	}, err
+	}, nil
 }
 
 func (r *beerRepo) UpdateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, error) {
@@ -61,12 +64,16 @@ func (r *beerRepo) UpdateBeer(ctx context.Context, b *biz.Beer) (*biz.Beer, erro
 		SetCount(b.Count).
 		SetImages(b.Images).
 		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	return &biz.Beer{
 		Id:          po.ID,
 		Description: po.Description,
 		Count:       po.Count,
 		Images:      po.Images,
-	}, err
+	}, nil
 }
 
 func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*biz.Beer, error) {
@@ -86,5 +93,5 @@ func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*bi
 			Images:      po.Images,
 		})
 	}
-	return rv, err
+	return rv, nil
 }
