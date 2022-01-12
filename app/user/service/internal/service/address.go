@@ -14,24 +14,36 @@ func (s *UserService) CreateAddress(ctx context.Context, req *v1.CreateAddressRe
 		Address:  req.Address,
 		PostCode: req.PostCode,
 	})
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.CreateAddressReply{
 		Id: rv.Id,
-	}, err
+	}, nil
 }
 
 func (s *UserService) GetAddress(ctx context.Context, req *v1.GetAddressReq) (*v1.GetAddressReply, error) {
 	x, err := s.ac.Get(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.GetAddressReply{
 		Id:       x.Id,
 		Name:     x.Name,
 		Mobile:   x.Mobile,
 		Address:  x.Address,
 		PostCode: x.PostCode,
-	}, err
+	}, nil
 }
 
 func (s *UserService) ListAddress(ctx context.Context, req *v1.ListAddressReq) (*v1.ListAddressReply, error) {
 	rv, err := s.ac.List(ctx, req.Uid)
+	if err != nil {
+		return nil, err
+	}
+
 	rs := make([]*v1.ListAddressReply_Address, 0)
 	for _, x := range rv {
 		rs = append(rs, &v1.ListAddressReply_Address{
@@ -44,5 +56,5 @@ func (s *UserService) ListAddress(ctx context.Context, req *v1.ListAddressReq) (
 	}
 	return &v1.ListAddressReply{
 		Results: rs,
-	}, err
+	}, nil
 }
