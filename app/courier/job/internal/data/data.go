@@ -2,8 +2,11 @@ package data
 
 import (
 	"context"
-	"github.com/Shopify/sarama"
+
 	orderv1 "github.com/go-kratos/beer-shop/api/order/service/v1"
+	"github.com/go-kratos/beer-shop/app/courier/job/internal/conf"
+
+	"github.com/Shopify/sarama"
 	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -13,8 +16,6 @@ import (
 	"github.com/google/wire"
 	consulAPI "github.com/hashicorp/consul/api"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
-
-	"github.com/go-kratos/beer-shop/app/courier/job/internal/conf"
 
 	// init mysql driver
 	_ "github.com/go-sql-driver/mysql"

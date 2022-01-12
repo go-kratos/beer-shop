@@ -2,22 +2,22 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
-	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
-	"github.com/go-kratos/kratos/v2/middleware/recovery"
-	"github.com/go-kratos/kratos/v2/middleware/tracing"
-	jwt2 "github.com/golang-jwt/jwt/v4"
 
 	cartv1 "github.com/go-kratos/beer-shop/api/cart/service/v1"
 	catalogv1 "github.com/go-kratos/beer-shop/api/catalog/service/v1"
 	orderv1 "github.com/go-kratos/beer-shop/api/order/service/v1"
 	paymentv1 "github.com/go-kratos/beer-shop/api/payment/service/v1"
 	userv1 "github.com/go-kratos/beer-shop/api/user/service/v1"
+	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 
 	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
+	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
+	"github.com/go-kratos/kratos/v2/middleware/recovery"
+	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
+	jwt2 "github.com/golang-jwt/jwt/v4"
 	"github.com/google/wire"
 	consulAPI "github.com/hashicorp/consul/api"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
