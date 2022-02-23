@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"github.com/go-kratos/beer-shop/api/shop/interface/v1"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/conf"
 	"github.com/go-kratos/beer-shop/app/shop/interface/internal/service"
@@ -22,7 +23,7 @@ func NewWhiteListMatcher() selector.MatchFunc {
 	whiteList := make(map[string]struct{})
 	whiteList["/shop.interface.v1.ShopInterface/Login"] = struct{}{}
 	whiteList["/shop.interface.v1.ShopInterface/Register"] = struct{}{}
-	return func(operation string) bool {
+	return func(ctx context.Context, operation string) bool {
 		if _, ok := whiteList[operation]; ok {
 			return false
 		}
@@ -41,7 +42,9 @@ func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, tp *tracesd
 			selector.Server(
 				jwt.Server(func(token *jwt2.Token) (interface{}, error) {
 					return []byte(ac.ApiKey), nil
-				}, jwt.WithSigningMethod(jwt2.SigningMethodHS256)),
+				}, jwt.WithSigningMethod(jwt2.SigningMethodHS256), jwt.WithClaims(func() jwt2.Claims {
+					return &jwt2.MapClaims{}
+				})),
 			).
 				Match(NewWhiteListMatcher()).
 				Build(),
