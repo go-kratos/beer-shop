@@ -28,6 +28,10 @@ type TokenGenerator interface {
 	GetIndex(string) (int, error)
 }
 
+type ProcessPageTokens interface {
+	ProcessPageTokens(numElements int, pageSize int32, pageToken string) (start, end int32, nextToken string, err error)
+}
+
 type token struct {
 	maxIndex       int32         // Maximum index
 	timeLimitation time.Duration // token Time limitation
@@ -85,7 +89,7 @@ func NewTokenGenerate(options ...TokenOption) TokenGenerator {
 	return t
 }
 
-func (t *token) processPageTokens(numElements int, pageSize int32, pageToken string) (start, end int32, nextToken string, err error) {
+func (t *token) ProcessPageTokens(numElements int, pageSize int32, pageToken string) (start, end int32, nextToken string, err error) {
 	if pageSize < 0 {
 		return 0, 0, "", ErrInvalidPageSize
 	}
