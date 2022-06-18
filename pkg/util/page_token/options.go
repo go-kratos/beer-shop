@@ -4,25 +4,35 @@ import "time"
 
 type TokenOption func(*token)
 
-// SetMaxTokenPageSize .
-func SetMaxTokenPageSize(pageSize int32) TokenOption {
+// SetTokenMaxIndex .
+func SetTokenMaxIndex(index int32) TokenOption {
 	return func(t *token) {
-		if pageSize <= 0 {
+		if index <= 0 {
 			return
 		}
-		t.maxIndex = pageSize
+		t.maxIndex = index
 	}
 }
 
-// SetTimeLimitation .
-func SetTimeLimitation(timeLimitation time.Duration) TokenOption {
+// SetTokenMaxElements .
+func SetTokenMaxElements(elements int) TokenOption {
+	return func(t *token) {
+		if elements <= 0 {
+			return
+		}
+		t.maxElements = elements
+	}
+}
+
+// SetTokenTimeLimitation .
+func SetTokenTimeLimitation(timeLimitation time.Duration) TokenOption {
 	return func(t *token) {
 		t.timeLimitation = timeLimitation
 	}
 }
 
-// SetSalt .
-func SetSalt(salt string) TokenOption {
+// SetTokenSalt .
+func SetTokenSalt(salt string) TokenOption {
 	return func(t *token) {
 		t.salt = salt
 	}

@@ -18,9 +18,10 @@ var (
 )
 
 const (
-	defaultIndex = 0
-	defaultSalt  = "beer-shop"
-	layout       = "2006-01-02 15-04-05"
+	defaultMaxIndex    = 0
+	defaultMaxElements = 0
+	defaultSalt        = "beer-shop"
+	layout             = "2006-01-02 15-04-05"
 )
 
 type TokenGenerator interface {
@@ -34,6 +35,7 @@ type ProcessPageTokens interface {
 
 type token struct {
 	maxIndex       int32         // Maximum index
+	maxElements    int           // Maximum number of elements
 	timeLimitation time.Duration // token Time limitation
 	salt           string        // Special identification
 }
@@ -71,7 +73,7 @@ func (t *token) GetIndex(s string) (int, error) {
 	if err != nil {
 		return -1, ErrInvalidToken
 	}
-	if t.maxIndex != defaultIndex && int32(i) > t.maxIndex {
+	if t.maxIndex != defaultMaxIndex && int32(i) > t.maxIndex {
 		return -1, ErrOverMaxPageSizeToken
 	}
 	return i, nil
@@ -79,7 +81,8 @@ func (t *token) GetIndex(s string) (int, error) {
 
 func NewTokenGenerate(options ...TokenOption) TokenGenerator {
 	t := &token{
-		maxIndex:       defaultIndex,
+		maxIndex:       defaultMaxIndex,
+		maxElements:    defaultMaxElements,
 		timeLimitation: 0,
 		salt:           defaultSalt,
 	}
@@ -92,6 +95,10 @@ func NewTokenGenerate(options ...TokenOption) TokenGenerator {
 func (t *token) ProcessPageTokens(numElements int, pageSize int32, pageToken string) (start, end int32, nextToken string, err error) {
 	if pageSize < 0 {
 		return 0, 0, "", ErrInvalidPageSize
+	}
+
+	if t.maxElements != defaultMaxElements && numElements > t.maxElements {
+		numElements = t.maxElements
 	}
 
 	if pageToken != "" {
