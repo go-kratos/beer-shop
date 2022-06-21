@@ -24,6 +24,11 @@ const (
 	layout             = "2006-01-02 15-04-05"
 )
 
+type PageToken interface {
+	TokenGenerator
+	ProcessPageTokens
+}
+
 type TokenGenerator interface {
 	ForIndex(int) string
 	GetIndex(string) (int, error)
@@ -79,7 +84,7 @@ func (t *token) GetIndex(s string) (int, error) {
 	return i, nil
 }
 
-func NewTokenGenerate(options ...TokenOption) TokenGenerator {
+func NewTokenGenerate(options ...TokenOption) PageToken {
 	t := &token{
 		maxIndex:       defaultMaxIndex,
 		maxElements:    defaultMaxElements,
