@@ -99,7 +99,7 @@ func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*bi
 	return rv, nil
 }
 
-func (r *beerRepo) ListBeerNext(ctx context.Context, pageToken string, pageSize int32) ([]*biz.Beer, string, error) {
+func (r *beerRepo) ListBeerNext(ctx context.Context, pageSize int32, pageToken string) ([]*biz.Beer, string, error) {
 	total, err := r.data.db.Beer.Query().Count(ctx)
 	if err != nil {
 		return nil, "", err

@@ -23,6 +23,7 @@ type BeerRepo interface {
 	UpdateBeer(ctx context.Context, c *Beer) (*Beer, error)
 	GetBeer(ctx context.Context, id int64) (*Beer, error)
 	ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error)
+	ListBeerNext(ctx context.Context, pageSize int32, pageToken string) ([]*Beer, string, error)
 }
 
 type BeerUseCase struct {
@@ -48,4 +49,8 @@ func (uc *BeerUseCase) Update(ctx context.Context, u *Beer) (*Beer, error) {
 
 func (uc *BeerUseCase) List(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error) {
 	return uc.repo.ListBeer(ctx, pageNum, pageSize)
+}
+
+func (uc *BeerUseCase) ListNext(ctx context.Context, pageSize int32, pageToken string) ([]*Beer, string, error) {
+	return uc.repo.ListBeerNext(ctx, pageSize, pageToken)
 }
