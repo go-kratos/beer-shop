@@ -2,6 +2,8 @@ package biz
 
 import (
 	"context"
+	"github.com/go-kratos/beer-shop/pkg/page_token"
+	"golang.org/x/sync/singleflight"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -23,16 +25,19 @@ type BeerRepo interface {
 	UpdateBeer(ctx context.Context, c *Beer) (*Beer, error)
 	GetBeer(ctx context.Context, id int64) (*Beer, error)
 	ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*Beer, error)
-	ListBeerNext(ctx context.Context, pageSize int32, pageToken string) ([]*Beer, string, error)
+	ListBeerNext(ctx context.Context, start, end int32) ([]*Beer, error)
+	Count(ctx context.Context) (int, error)
 }
 
 type BeerUseCase struct {
-	repo BeerRepo
-	log  *log.Helper
+	repo         BeerRepo
+	log          *log.Helper
+	pageToken    page_token.ProcessPageTokens
+	singleflight singleflight.Group
 }
 
 func NewBeerUseCase(repo BeerRepo, logger log.Logger) *BeerUseCase {
-	return &BeerUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/beer"))}
+	return &BeerUseCase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/beer")), pageToken: page_token.NewTokenGenerate()}
 }
 
 func (uc *BeerUseCase) Create(ctx context.Context, u *Beer) (*Beer, error) {
@@ -52,5 +57,19 @@ func (uc *BeerUseCase) List(ctx context.Context, pageNum, pageSize int64) ([]*Be
 }
 
 func (uc *BeerUseCase) ListNext(ctx context.Context, pageSize int32, pageToken string) ([]*Beer, string, error) {
-	return uc.repo.ListBeerNext(ctx, pageSize, pageToken)
+	total, err := uc.repo.Count(ctx)
+	if err != nil {
+		return nil, "", err
+	}
+
+	start, end, nextToken, err := uc.pageToken.ProcessPageTokens(total, pageSize, pageToken)
+	if err != nil {
+		return nil, "", err
+	}
+	// singleflight
+	data, err, _ := uc.singleflight.Do("list_next", func() (interface{}, error) {
+		return uc.repo.ListBeerNext(ctx, start, end)
+	})
+
+	return data.([]*Beer), nextToken, err
 }

@@ -2,8 +2,6 @@ package data
 
 import (
 	"context"
-	"github.com/go-kratos/beer-shop/pkg/page_token"
-
 	"github.com/go-kratos/beer-shop/app/catalog/service/internal/biz"
 	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 
@@ -13,16 +11,14 @@ import (
 var _ biz.BeerRepo = (*beerRepo)(nil)
 
 type beerRepo struct {
-	data      *Data
-	log       *log.Helper
-	pageToken page_token.ProcessPageTokens
+	data *Data
+	log  *log.Helper
 }
 
 func NewBeerRepo(data *Data, logger log.Logger) biz.BeerRepo {
 	return &beerRepo{
-		data:      data,
-		log:       log.NewHelper(log.With(logger, "module", "data/beer")),
-		pageToken: page_token.NewTokenGenerate(),
+		data: data,
+		log:  log.NewHelper(log.With(logger, "module", "data/beer")),
 	}
 }
 
@@ -99,21 +95,18 @@ func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*bi
 	return rv, nil
 }
 
-func (r *beerRepo) ListBeerNext(ctx context.Context, pageSize int32, pageToken string) ([]*biz.Beer, string, error) {
-	total, err := r.data.db.Beer.Query().Count(ctx)
-	if err != nil {
-		return nil, "", err
-	}
-	start, end, nextToken, err := r.pageToken.ProcessPageTokens(total, pageSize, pageToken)
-	if err != nil {
-		return nil, "", err
-	}
+func (r *beerRepo) Count(ctx context.Context) (int, error) {
+	return r.data.db.Beer.Query().Count(ctx)
+}
+
+func (r *beerRepo) ListBeerNext(ctx context.Context, start, end int32) ([]*biz.Beer, error) {
+
 	pos, err := r.data.db.Beer.Query().
 		Offset(int(start)).
 		Limit(int(end - start)).
 		All(ctx)
 	if err != nil {
-		return nil, "", err
+		return nil, err
 	}
 	rv := make([]*biz.Beer, 0, len(pos))
 	for _, po := range pos {
@@ -124,5 +117,5 @@ func (r *beerRepo) ListBeerNext(ctx context.Context, pageSize int32, pageToken s
 			Images:      po.Images,
 		})
 	}
-	return rv, nextToken, nil
+	return rv, nil
 }
