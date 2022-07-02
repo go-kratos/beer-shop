@@ -2,6 +2,8 @@ package biz
 
 import (
 	"context"
+	"fmt"
+
 	"github.com/go-kratos/beer-shop/pkg/page_token"
 	"golang.org/x/sync/singleflight"
 
@@ -30,10 +32,10 @@ type BeerRepo interface {
 }
 
 type BeerUseCase struct {
-	repo         BeerRepo
-	log          *log.Helper
-	pageToken    page_token.ProcessPageTokens
-	singleflight singleflight.Group
+	repo      BeerRepo
+	log       *log.Helper
+	pageToken page_token.ProcessPageTokens
+	sg        singleflight.Group
 }
 
 func NewBeerUseCase(repo BeerRepo, logger log.Logger) *BeerUseCase {
@@ -66,8 +68,8 @@ func (uc *BeerUseCase) ListNext(ctx context.Context, pageSize int32, pageToken s
 	if err != nil {
 		return nil, "", err
 	}
-	// singleflight
-	data, err, _ := uc.singleflight.Do("list_next", func() (interface{}, error) {
+	// single flight
+	data, err, _ := uc.sg.Do(fmt.Sprintf("list_next_%d_%d", start, end), func() (interface{}, error) {
 		return uc.repo.ListBeerNext(ctx, start, end)
 	})
 
