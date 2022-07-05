@@ -90,3 +90,24 @@ func (s *CatalogService) ListBeer(ctx context.Context, req *v1.ListBeerReq) (*v1
 		Results: rs,
 	}, err
 }
+
+func (s *CatalogService) ListBeerNextToken(ctx context.Context, req *v1.ListBeerNextTokenReq) (*v1.ListBeerReplyNextToken, error) {
+	rv, token, err := s.bc.ListNext(ctx, req.PageSize, req.PageToken)
+	rs := make([]*v1.ListBeerReplyNextToken_Beer, 0)
+	for _, x := range rv {
+		img := make([]*v1.ListBeerReplyNextToken_Beer_Image, 0)
+		for _, i := range x.Images {
+			img = append(img, &v1.ListBeerReplyNextToken_Beer_Image{Url: i.URL})
+		}
+		rs = append(rs, &v1.ListBeerReplyNextToken_Beer{
+			Id:          x.Id,
+			Name:        x.Name,
+			Description: x.Description,
+			Image:       img,
+		})
+	}
+	return &v1.ListBeerReplyNextToken{
+		Results:       rs,
+		NextPageToken: token,
+	}, err
+}

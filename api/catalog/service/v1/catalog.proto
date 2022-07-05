@@ -11,6 +11,9 @@ service Catalog {
     rpc ListBeer (ListBeerReq) returns (ListBeerReply) {
     }
 
+    rpc ListBeerNextToken (listBeerNextTokenReq) returns (ListBeerReplyNextToken) {
+    }
+
     rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
     }
 
@@ -30,6 +33,21 @@ message ListBeerReq {
     int64 page_size = 2;
 }
 
+message listBeerNextTokenReq {
+    // The maximum number of books to return. The service may return fewer than
+  // this value.
+  // If unspecified, at most 50 books will be returned.
+  // The maximum value is 1000; values above 1000 will be coerced to 1000.
+  int32 page_size = 1;
+
+  // A page token, received from a previous `ListBooks` call.
+  // Provide this to retrieve the subsequent page.
+  //
+  // When paginating, all other parameters provided to `ListBooks` must match
+  // the call that provided the page token.
+  string page_token = 2;
+}
+
 message ListBeerReply {
     message Beer {
         message Image {
@@ -42,6 +60,21 @@ message ListBeerReply {
         repeated Image image = 5;
     }
     repeated Beer results = 1;
+}
+
+message ListBeerReplyNextToken {
+    message Beer {
+        message Image {
+            string url = 1;
+        }
+        int64 id = 1;
+        string name = 2;
+        string description = 3;
+        int64 count = 4;
+        repeated Image image = 5;
+    }
+    repeated Beer results = 1;
+    string next_page_token = 2;
 }
 
 message CreateBeerReq {

@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-
 	"github.com/go-kratos/beer-shop/app/catalog/service/internal/biz"
 	"github.com/go-kratos/beer-shop/pkg/util/pagination"
 
@@ -84,7 +83,32 @@ func (r *beerRepo) ListBeer(ctx context.Context, pageNum, pageSize int64) ([]*bi
 	if err != nil {
 		return nil, err
 	}
-	rv := make([]*biz.Beer, 0)
+	rv := make([]*biz.Beer, 0, len(pos))
+	for _, po := range pos {
+		rv = append(rv, &biz.Beer{
+			Id:          po.ID,
+			Description: po.Description,
+			Count:       po.Count,
+			Images:      po.Images,
+		})
+	}
+	return rv, nil
+}
+
+func (r *beerRepo) Count(ctx context.Context) (int, error) {
+	return r.data.db.Beer.Query().Count(ctx)
+}
+
+func (r *beerRepo) ListBeerNext(ctx context.Context, start, end int32) ([]*biz.Beer, error) {
+
+	pos, err := r.data.db.Beer.Query().
+		Offset(int(start)).
+		Limit(int(end - start)).
+		All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	rv := make([]*biz.Beer, 0, len(pos))
 	for _, po := range pos {
 		rv = append(rv, &biz.Beer{
 			Id:          po.ID,
