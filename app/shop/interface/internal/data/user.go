@@ -163,6 +163,7 @@ func (rp *userRepo) CreateCard(ctx context.Context, uid int64, c *biz.Card) (*bi
 		CardNo:  c.CardNo,
 		Ccv:     c.CCV,
 		Expires: c.Expires,
+		Name:    c.Name,
 	})
 	if err != nil {
 		return nil, err

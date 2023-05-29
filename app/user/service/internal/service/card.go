@@ -12,6 +12,7 @@ func (s *UserService) CreateCard(ctx context.Context, req *v1.CreateCardReq) (*v
 		CardNo:  req.CardNo,
 		CCV:     req.Ccv,
 		Expires: req.Expires,
+		Name:    req.Name,
 	})
 	if err != nil {
 		return nil, err
