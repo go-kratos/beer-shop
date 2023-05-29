@@ -90,6 +90,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -214,6 +215,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListAddressReplyAddress"
           }
         }
@@ -225,6 +227,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListCardReplyCard"
           }
         }
@@ -236,6 +239,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListUserReplyUser"
           }
         }

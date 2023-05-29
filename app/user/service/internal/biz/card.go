@@ -11,6 +11,7 @@ type Card struct {
 	CardNo  string
 	CCV     string
 	Expires string
+	Name    string
 }
 
 type CardRepo interface {

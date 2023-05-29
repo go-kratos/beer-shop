@@ -32,6 +32,7 @@ type Card struct {
 	CardNo  string
 	CCV     string
 	Expires string
+	Name    string
 }
 
 func NewUser(
