@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"github.com/go-redis/redis/extra/redisotel/v8"
 	"github.com/go-redis/redis/v8"
 	"time"
 
@@ -51,6 +52,7 @@ func NewRedisCmd(conf *conf.Data, logger log.Logger) redis.Cmdable {
 		DialTimeout:  time.Second * 2,
 		PoolSize:     10,
 	})
+	client.AddHook(redisotel.NewTracingHook())
 	timeout, cancelFunc := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancelFunc()
 	err := client.Ping(timeout).Err()
