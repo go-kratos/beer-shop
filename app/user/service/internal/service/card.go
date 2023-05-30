@@ -56,3 +56,15 @@ func (s *UserService) ListCard(ctx context.Context, req *v1.ListCardReq) (*v1.Li
 		Results: rs,
 	}, nil
 }
+
+func (s *UserService) DeleteCard(ctx context.Context, req *v1.DeleteCardReq) (*v1.DeleteCardReply, error) {
+	err := s.cc.Delete(ctx, req.Id)
+	if err != nil {
+		return &v1.DeleteCardReply{
+			Ok: false,
+		}, err
+	}
+	return &v1.DeleteCardReply{
+		Ok: true,
+	}, nil
+}

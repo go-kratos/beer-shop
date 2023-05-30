@@ -76,3 +76,7 @@ func (r *cardRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error)
 	}
 	return rv, nil
 }
+
+func (r *cardRepo) DeleteCard(ctx context.Context, id int64) error {
+	return r.data.db.Card.DeleteOneID(id).Exec(ctx)
+}

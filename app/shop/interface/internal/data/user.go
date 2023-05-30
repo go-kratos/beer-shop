@@ -215,3 +215,13 @@ func (rp *userRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error
 	}
 	return result.([]*biz.Card), nil
 }
+
+func (rp *userRepo) DeleteCard(ctx context.Context, id int64) error {
+	_, err := rp.data.uc.DeleteCard(ctx, &usV1.DeleteCardReq{
+		Id: id,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
