@@ -579,6 +579,7 @@
         "image": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListBeerReplyBeerImage"
           }
         }
@@ -632,6 +633,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -721,6 +723,9 @@
         },
         "expires": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -785,6 +790,7 @@
         "image": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1GetBeerReplyImage"
           }
         }
@@ -822,6 +828,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListAddressReplyAddress"
           }
         }
@@ -833,6 +840,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListBeerReplyBeer"
           }
         }
@@ -844,6 +852,7 @@
         "results": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ListCardReplyCard"
           }
         }

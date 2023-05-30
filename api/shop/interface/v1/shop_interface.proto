@@ -238,6 +238,7 @@ message CreateCardReq {
     string card_no = 2;
     string ccv = 3;
     string expires = 4;
+    string name = 5;
 }
 
 message CreateCardReply {

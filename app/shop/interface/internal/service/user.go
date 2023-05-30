@@ -92,6 +92,7 @@ func (s *ShopInterface) CreateCard(ctx context.Context, req *v1.CreateCardReq) (
 		CardNo:  req.CardNo,
 		CCV:     req.Ccv,
 		Expires: req.Expires,
+		Name:    req.Name,
 	})
 	if err != nil {
 		return nil, err
@@ -117,5 +118,13 @@ func (s *ShopInterface) GetCard(ctx context.Context, req *v1.GetCardReq) (*v1.Ge
 }
 
 func (s *ShopInterface) DeleteCard(ctx context.Context, req *v1.DeleteCardReq) (*v1.DeleteCardReply, error) {
-	return nil, nil
+	err := s.uc.DeleteCard(ctx, req.Id)
+	if err != nil {
+		return &v1.DeleteCardReply{
+			Ok: false,
+		}, err
+	}
+	return &v1.DeleteCardReply{
+		Ok: true,
+	}, nil
 }
