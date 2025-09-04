@@ -28,12 +28,15 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 }
 
 func (rp *userRepo) VerifyPassword(ctx context.Context, u *biz.User, password string) error {
-	_, err := rp.data.uc.VerifyPassword(ctx, &usV1.VerifyPasswordReq{
+	reply, err := rp.data.uc.VerifyPassword(ctx, &usV1.VerifyPasswordReq{
 		Username: u.Username,
 		Password: password,
 	})
 	if err != nil {
 		return err
+	}
+	if reply.Ok == false {
+		return biz.ErrPasswordInvalid
 	}
 	return nil
 }
@@ -160,6 +163,7 @@ func (rp *userRepo) CreateCard(ctx context.Context, uid int64, c *biz.Card) (*bi
 		CardNo:  c.CardNo,
 		Ccv:     c.CCV,
 		Expires: c.Expires,
+		Name:    c.Name,
 	})
 	if err != nil {
 		return nil, err
@@ -210,4 +214,14 @@ func (rp *userRepo) ListCard(ctx context.Context, uid int64) ([]*biz.Card, error
 		return nil, err
 	}
 	return result.([]*biz.Card), nil
+}
+
+func (rp *userRepo) DeleteCard(ctx context.Context, id int64) error {
+	_, err := rp.data.uc.DeleteCard(ctx, &usV1.DeleteCardReq{
+		Id: id,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }

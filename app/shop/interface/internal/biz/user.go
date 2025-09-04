@@ -32,6 +32,7 @@ type Card struct {
 	CardNo  string
 	CCV     string
 	Expires string
+	Name    string
 }
 
 func NewUser(
@@ -69,6 +70,7 @@ type UserRepo interface {
 	CreateCard(ctx context.Context, uid int64, c *Card) (*Card, error)
 	GetCard(ctx context.Context, id int64) (*Card, error)
 	ListCard(ctx context.Context, id int64) ([]*Card, error)
+	DeleteCard(ctx context.Context, id int64) error
 }
 
 type UserUseCase struct {
@@ -112,4 +114,8 @@ func (uc *UserUseCase) GetCard(ctx context.Context, id int64) (*Card, error) {
 
 func (uc *UserUseCase) ListCard(ctx context.Context, uid int64) ([]*Card, error) {
 	return uc.repo.ListCard(ctx, uid)
+}
+
+func (uc *UserUseCase) DeleteCard(ctx context.Context, id int64) error {
+	return uc.repo.DeleteCard(ctx, id)
 }

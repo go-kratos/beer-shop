@@ -12,6 +12,7 @@ func (s *UserService) CreateCard(ctx context.Context, req *v1.CreateCardReq) (*v
 		CardNo:  req.CardNo,
 		CCV:     req.Ccv,
 		Expires: req.Expires,
+		Name:    req.Name,
 	})
 	if err != nil {
 		return nil, err
@@ -53,5 +54,17 @@ func (s *UserService) ListCard(ctx context.Context, req *v1.ListCardReq) (*v1.Li
 	}
 	return &v1.ListCardReply{
 		Results: rs,
+	}, nil
+}
+
+func (s *UserService) DeleteCard(ctx context.Context, req *v1.DeleteCardReq) (*v1.DeleteCardReply, error) {
+	err := s.cc.Delete(ctx, req.Id)
+	if err != nil {
+		return &v1.DeleteCardReply{
+			Ok: false,
+		}, err
+	}
+	return &v1.DeleteCardReply{
+		Ok: true,
 	}, nil
 }

@@ -5,12 +5,14 @@ go 1.16
 require (
 	entgo.io/ent v0.7.0
 	github.com/Shopify/sarama v1.29.1
+	github.com/XSAM/otelsql v0.23.0
 	github.com/armon/go-metrics v0.3.10 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20220223091357-d6896127b137
 	github.com/go-kratos/kratos/v2 v2.2.0
 	github.com/go-kratos/swagger-api v0.1.6
-	github.com/go-redis/redis/v8 v8.11.4
+	github.com/go-redis/redis/extra/redisotel/v8 v8.11.5
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang-jwt/jwt/v4 v4.2.0
@@ -25,15 +27,14 @@ require (
 	github.com/hashicorp/serf v0.9.6 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.3
 	go.mongodb.org/mongo-driver v1.5.1
-	go.opentelemetry.io/otel v1.3.0
+	go.opentelemetry.io/otel v1.16.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.0.0
-	go.opentelemetry.io/otel/sdk v1.3.0
+	go.opentelemetry.io/otel/sdk v1.16.0
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
 	google.golang.org/genproto v0.0.0-20220126215142-9970aeb2e350
 	google.golang.org/grpc v1.44.0
 	google.golang.org/protobuf v1.27.1
